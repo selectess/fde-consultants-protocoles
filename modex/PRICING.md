@@ -37,7 +37,7 @@
 
 ### How to buy
 
-1. Open `marketing/landing/modex.html` in your browser (once the project is published)
+1. Open the [Modex page](https://selectess.github.io/fde-consultants-protocoles/modex.html) in your browser
 2. Enter your email + pay $6 via Stripe
 3. Receive `license.json` by email
 4. Save it to `~/.fde-modex/license.json`
@@ -106,9 +106,7 @@ Add your email to the waitlist by opening a GitHub issue with the `collective-wa
 
 ### Status
 
-- **Beta** — see `mcp-server/` directory
-- Stripe integration TODO (line 139 of billing.py)
-- Production hardening pending (Postgres, Redis, secrets management)
+🔮 In development — join the waitlist for early access.
 
 ### Pricing tiers
 

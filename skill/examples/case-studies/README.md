@@ -27,7 +27,7 @@ These case studies are the **public proof** that the FDE Skill produces auditabl
 ## How they were built (and how to verify them)
 
 1. Each case study **starts from a 6-Q JSON** in `skill/examples/` — no reinvention. Claims are lifted and labeled by type.
-2. Each applies the **4-stage DeepSCR loop** (Hypothesis → Contradiction → Verification → Certification), as proven in [`work/deepscr-4-stages-proof.md`](../../../work/deepscr-4-stages-proof.md).
+2. Each applies the **4-stage DeepSCR loop** (Hypothesis → Contradiction → Verification → Certification).
 3. Each FDE Assurance Score is **computed by hand** using the formula in [`skill/references/fde-trust-score.md`](../../references/fde-trust-score.md): `25×Claim + 25×Contradiction + 30×Evidence + 20×Anti-patterns`.
 4. Each SHA-256 is a real `shasum -a 256` output, reproducible:
 

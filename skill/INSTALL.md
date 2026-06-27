@@ -11,7 +11,7 @@ Just copy-paste [ZERO-INSTALL.md](ZERO-INSTALL.md) into your prompt. Works with 
 From this repository root:
 
 ```bash
-bash mcp-server/install.sh
+bash install.sh
 ```
 
 This universal script detects your environment and configures:
@@ -54,7 +54,7 @@ Run the skill tests to confirm the scripts execute correctly:
 
 ```bash
 python3 -m pytest skill/tests -q
-# Expected: 36 passed
+# Expected: 41 passed
 ```
 
 ## Distribution Status

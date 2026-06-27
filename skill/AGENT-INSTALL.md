@@ -15,11 +15,11 @@ This Skill provides you with a set of markdown rules, templates, and Python scri
 
 **STEP 1 — Execute the Local Installer**
 
-The installer is local-only (no fake remote URLs). The human must first clone this repository, then you (or they) run:
+The installer is local-only. The human must first clone this repository, then you (or they) run:
 
 ```bash
 # From the cloned repository root
-bash mcp-server/install.sh
+bash install.sh
 ```
 
 If you have a Bash tool and the user has already cloned the repository to a known path, run that command. Otherwise, instruct the human to run it.

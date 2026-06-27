@@ -72,7 +72,7 @@
     "pre-commit": [
       {
         "name": "verify-tests",
-        "command": "python3 -m pytest skill/tests/ modex/tests/ mcp-server/tests/test_thin_skill.py -q",
+        "command": "python3 -m pytest skill/tests/ modex/tests/ -q",
         "timeout": 60
       }
     ]

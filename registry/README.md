@@ -39,7 +39,7 @@ bash modex/verify.sh
 3. Copy the latest entry as a template, replace fields, set `prev_hash` to the SHA-256 of the previous entry.
 4. Update `registry/index.json` (machine-readable index).
 5. `git add registry/ && git commit -m "cert(<claim>): trust_score=N, sha256=<prefix>..."`.
-6. Push to GitHub — the public `marketing/landing/trust.html` will display the new entry automatically.
+6. Push to GitHub — the public `portal/landing/trust.html` will display the new entry automatically.
 
 ## FDE Assurance Score formula
 

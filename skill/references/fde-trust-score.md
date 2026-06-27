@@ -67,7 +67,7 @@ The Skill itself was tested against this protocol during the Skeptical Deploymen
 |---|---|---|
 | 1. Hypothesis | "Three minimal HTML pages with JSON-LD + internal links can be indexed by Google in <7 days." | — |
 | 2. Contradiction | Documented 5 failure modes in [fde-skeptical-deployment.md](fde-skeptical-deployment.md) §3 | +25 |
-| 3. Verification | Concrete files exist: [entity-splinter-test.html](../marketing/landing/entity-splinter-test.html), test-2, test-3, plus JSON-LD and links | +30 |
+| 3. Verification | Concrete files exist: three test pages with JSON-LD and internal links | +30 |
 | 4. Anti-pattern check | No "use AI" generic, no slides, no quantified trade-off missing | +20 |
 | **Claim present?** | Yes (1-sentence in entity-splinter-test-3.html §"Decision rule") | +25 |
 | **Total** | | **100** |

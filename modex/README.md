@@ -108,7 +108,7 @@ Any agent resuming the work reads `fde-memory/` and has the full state. No serve
 |---|---|---|
 | **Skill** (`skill/`) | Free (Apache-2.0) | The methodology + scripts + templates. The hook. |
 | **Modex** (`modex/`) | $6 lifetime | The deployment config that runs the Skill as a swarm on any runtime. |
-| **MCP** (`mcp-server/`) | Recurring (Beta) | Hosted team memory + FDE Assurance Score registry. Future tier, not required. |
+| **MCP Cloud** (hosted) | Recurring (waitlist) | Hosted team memory + FDE Assurance Score registry. Future tier, not required. |
 | **DeepSCR** | Free (in the Skill) | The protocol — FDE Assurance Score + held-out gate + falsification. The differentiator. |
 
 ---

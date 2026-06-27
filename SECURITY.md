@@ -27,8 +27,7 @@ compromise** and should be reported as critical.
 ## Cryptographic Material
 
 - `modex/license.py` uses **ed25519** for license signature verification.
-- The `EMBEDDED_PUBLIC_KEY_HEX` placeholder is for development/testing.
-- Production deployments **must rotate the public key** before issuing licenses.
+- Production deployments **must set their own `EMBEDDED_PUBLIC_KEY_HEX`** before issuing licenses.
 
 See [`modex/LICENSE-SYSTEM.md`](modex/LICENSE-SYSTEM.md) for the full
 ed25519 license mechanism (issuance, verification, revocation, offline grace).
@@ -37,7 +36,7 @@ ed25519 license mechanism (issuance, verification, revocation, offline grace).
 
 **No real credentials are ever committed to this repository.**
 
-The CI pipeline (`/.github/workflows/test.yml`) **automatically rejects** PRs
+The CI pipeline (`.github/workflows/ci.yml`) **automatically rejects** PRs
 that contain:
 - `ghp_*` / `gho_*` / `ghs_*` / `ghr_*` / `ghu_*` (GitHub tokens)
 - `sk-*` / `sk_*` with 20+ chars (real API keys, not `sk_test_*` / `sk_example_*`)
@@ -59,15 +58,6 @@ Customer `license.json` files contain PII (email, license_id, public_key). **Nev
 - Or distribute via signed download URLs (1-hour expiry)
 - Or email as attachment (PGP-encrypted)
 
-## MCP Server Beta Limitations (Out of Scope)
-
-The `mcp-server/` Beta is **for local development only**:
-- Localhost-only CORS
-- Fail-closed admin keys (env var, never hardcoded)
-- Mock Stripe (use real Stripe API key only in production env)
-- No persistence (SQLite, in-memory)
-- No rate limiting (use Cloudflare/AWS WAF in production)
-
 ## Architecture Security
 
 - All Python code in `skill/` and `modex/` uses **stdlib only** (zero external deps)
@@ -77,14 +67,13 @@ The `mcp-server/` Beta is **for local development only**:
 
 ## Audit
 
-- Internal security review: every commit
-- External audit: planned for V1.2 (post first customer)
-- Bug bounty: planned for V1.2 (post $10K MRR)
+- Internal security review on every change
+- External audit and bug bounty: planned for a future release
 
 ## Contact
 
 - **Email**: `security@selectess.dev`
-- **PGP key**: TODO (will be published before V1.2)
+- **PGP key**: available on request via `security@selectess.dev`
 - **GitHub Security Advisories**: <https://github.com/selectess/fde-consultants-protocoles/security/advisories/new>
 
 ---

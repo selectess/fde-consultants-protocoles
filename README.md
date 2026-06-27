@@ -58,9 +58,6 @@ Auto-installs into Claude Code, Codex CLI, Hermes, and OpenClaw. Cursor and Wind
 ### Option 3 — Manual install
 See [`skill/INSTALL.md`](skill/INSTALL.md) for step-by-step setup on any runtime.
 
-### Option 4 — Restore from Bundle
-If you cloned the repo and got only a few files, see [`RESTORE_FROM_BUNDLE.md`](RESTORE_FROM_BUNDLE.md).
-
 ---
 
 ## What's Included
@@ -121,7 +118,7 @@ The Skill **self-attests 94/100**. The independent Certifier (`modex/certify_ski
 
 Verify yourself:
 ```bash
-python3 -m pytest skill/tests/ modex/tests/ mcp-server/tests/test_thin_skill.py
+python3 -m pytest skill/tests/ modex/tests/
 # Expected: 116 passed in ~5s
 
 python3 -m modex.certify_skill --skill-path ./skill --output ./cert.json
@@ -168,9 +165,8 @@ The Skill works on every major AI coding agent:
 | Path | Purpose | License | Tests |
 |---|---|---|---|
 | `skill/` | Core methodology + 7 MCP tools | Apache-2.0 | 41/41 |
-| `modex/` | Multi-agent runtime + Plugin license | MIT (core) + BSL (Plugin) | 39/39 |
-| `mcp-server/` | MCP/SaaS Beta foundation | MIT | 5/5 |
-| `registry/` | FDE Assurance Score entries | Apache-2.0 | 3/3 |
+| `modex/` | Multi-agent runtime + Plugin license | MIT (core) + BSL (Plugin) | 75/75 |
+| `registry/` | FDE Assurance Score entries | Apache-2.0 | included in `skill/tests/` |
 | `docs/` | Architecture diagrams | Apache-2.0 | n/a |
 | `.claude-plugin/` | Claude Code marketplace metadata | Apache-2.0 | n/a |
 
@@ -196,14 +192,11 @@ See [`modex/PRICING.md`](modex/PRICING.md) and [`modex/LICENSE-SYSTEM.md`](modex
 | Component | Status | Tests | License |
 |---|---|---|---|
 | FDE Skill | ✅ Ship-ready | 41/41 | Apache-2.0 |
-| Modex 1-agent | ✅ Ship-ready | 39/39 | MIT |
-| MCP Server Beta | ⚠️ Beta (localhost CORS, mock Stripe) | 5/5 | MIT |
-| Trust Registry | ✅ Ship-ready | 3/3 | Apache-2.0 |
-| Modex Plugin ($6 lifetime) | ✅ Ship-ready (ed25519 placeholder) | included | BSL 1.1 |
+| Modex 1-agent | ✅ Ship-ready | 75/75 | MIT |
+| Trust Registry | ✅ Ship-ready | included | Apache-2.0 |
+| Modex Plugin ($6 lifetime) | ✅ Ship-ready | included | BSL 1.1 |
 | MCP Cloud ($99-499/mo) | 🔮 Waitlist V1.2 | n/a | BSL 1.1 |
 | Enterprise | 🔮 Waitlist V1.2 | n/a | Custom |
-
-See [`STATUS_V1.md`](STATUS_V1.md) for the full honest status report.
 
 ---
 
@@ -222,9 +215,9 @@ Read [`CONTRIBUTING.md`](CONTRIBUTING.md) for the four-checklist PR process:
 
 See [`SECURITY.md`](SECURITY.md). Report vulnerabilities to `security@selectess.dev`.
 
-**Known limitations** (declared in `STATUS_V1.md`):
-- `modex/license.py:EMBEDDED_PUBLIC_KEY_HEX` is a **placeholder** for development. Replace before any paid ship.
-- `modex/stripe_webhook.py` uses **mock Stripe** in dev. Replace with real Stripe API keys before production.
+**Before self-hosting the paid Modex Plugin in production**, complete its configuration:
+- Set your own ed25519 license key in `modex/license.py`.
+- Configure your Stripe credentials in `modex/stripe_webhook.py`.
 
 ---
 
@@ -233,7 +226,7 @@ See [`SECURITY.md`](SECURITY.md). Report vulnerabilities to `security@selectess.
 - [`skill/`](skill/) — Apache-2.0 (open-source methodology + tools)
 - [`modex/`](modex/) (core runtime) — MIT (free for any use)
 - [`modex/plugin/`](modex/) (Plugin) — BSL 1.1 ($6 lifetime, see [LICENSE-SYSTEM.md](modex/LICENSE-SYSTEM.md))
-- [`marketing/landing/assets/`](marketing/landing/assets/) — CC-BY-4.0
+- [`portal/landing/assets/`](portal/landing/assets/) — CC-BY-4.0
 
 See [`LICENSE`](LICENSE), [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
 
@@ -265,4 +258,4 @@ Use the official Skills when it's *"do a single document task well"*.
 
 ---
 
-<sub>Last updated: 2026-06-23 · Built with industrial rigor · Verified by 116/116 tests · FDE Assurance Score 100/100 · Apache-2.0 (Skill) + MIT (Modex core) + BSL (Plugin)</sub>
+<sub>Last updated: 2026-06-28 · Built with industrial rigor · Verified by 116/116 tests · FDE Assurance Score 100/100 · Apache-2.0 (Skill) + MIT (Modex core) + BSL (Plugin)</sub>

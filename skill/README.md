@@ -19,7 +19,7 @@ Just copy-paste the text from [ZERO-INSTALL.md](ZERO-INSTALL.md) into your promp
 ### Option 2: Extra High Level Installer (CLI Agents: Claude Code, Cursor)
 Run this in your terminal to auto-configure your agents:
 ```bash
-bash mcp-server/install.sh
+bash install.sh
 ```
 
 ### Option 3: Manual Install
@@ -49,9 +49,9 @@ Activate when work needs a shippable artifact:
 
 Reject outputs that are generic, unquantified, missing evals, missing owners, or missing production path. Every serious output should score against the 6-trait FDE rubric: customer curiosity, ownership, decomposition, empathy, product sense, and communication.
 
-## MCP Beta
+## MCP Cloud (waitlist)
 
-The hosted MCP layer in `../mcp-server/` is separate from the open-source skill and should be presented as Beta/coming soon until persistence, billing, monitoring, and production hardening are complete.
+A hosted MCP layer (team registry + FDE Assurance Score API) is on the roadmap, separate from this open-source skill. See the [pricing page](https://selectess.github.io/fde-consultants-protocoles/pricing.html).
 
 ## License
 
