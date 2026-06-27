@@ -1,0 +1,16 @@
+{
+  "schema": "fde-registry-entry-v1",
+  "cert_id": "2026-06-21-saas-churn-93",
+  "case_study_path": "skill/examples/case-studies/case-study-saas-churn.md",
+  "trust_score": 93,
+  "certified_at": "2026-06-21T22:43:57Z",
+  "certifier_id": "fde-consultants-protocoles",
+  "claim": "Reduce SaaS churn by 18% via retention model with Trust Score 93/100",
+  "evidence_trail": [
+    "skill/examples/case-studies/case-study-saas-churn.md:claim",
+    "skill/examples/case-studies/case-study-saas-churn.md:shap-pdp-attribution",
+    "skill/scripts/scientific_search.py:153 (held-out gate)"
+  ],
+  "falsification_modes_documented": 3,
+  "prev_hash": "a67f32d952a9040ebc43ac4c691fc4c85b55b45bd77fa3325731b9258d99a331"
+}

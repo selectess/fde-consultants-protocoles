@@ -1,0 +1,6 @@
+# Runtime dependency for the local MCP server: python3 -m skill.mcp_server
+# (the FDE Skill itself — SKILL.md + references — needs no packages)
+mcp>=1.0
+
+# Dev / test only:
+#   pip install pytest pytest-asyncio

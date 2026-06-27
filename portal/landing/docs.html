@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDE Consultants Protocoles Docs - Install and use the open-source skill</title>
+<meta name="keywords" content="forward deployed engineer, FDE, DeepSCR, DeepSCR protocol, AI agent certification, verifiable AI, agent skills, MCP, model context protocol, Claude Code, Cursor, Codex, AI evals, FDE Assurance Score, trust score, autonomous AI agents, AI governance, LLM agents, Palantir FDE, certified AI deliverables, AI trust registry, Anthropic">
+<meta name="author" content="Selectess">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FDE Consultants Protocoles">
+<meta property="og:title" content="FDE Consultants Protocoles Docs - Install and use the open-source skill">
+<meta property="og:description" content="Documentation for FDE Consultants Protocoles, the open-source Forward Deployed Engineering skill for AI coding agents. Install locally, use the 6-Q framework, and produce FDE artifacts.">
+<meta property="og:url" content="https://selectess.github.io/fde-consultants-protocoles/docs.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FDE Consultants Protocoles Docs - Install and use the open-source skill">
+<meta name="twitter:description" content="Documentation for FDE Consultants Protocoles, the open-source Forward Deployed Engineering skill for AI coding agents. Install locally, use the 6-Q framework, and produce FDE artifacts.">
+<link rel="canonical" href="https://selectess.github.io/fde-consultants-protocoles/docs.html">
+
+  <meta name="description" content="Documentation for FDE Consultants Protocoles, the open-source Forward Deployed Engineering skill for AI coding agents. Install locally, use the 6-Q framework, and produce FDE artifacts.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","headline":"FDE Consultants Protocoles Docs","description":"Install and usage documentation for the open-source FDE Consultants Protocoles Skill.","about":["Forward Deployed Engineering","AI coding agents","agent skills"]}
+  </script>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><span class="brand-wordmark">FDE Consultants Protocoles</span><span class="beta">Bêta</span></a>
+      <div class="nav-links"><a href="protocols.html">Protocols</a><a href="docs.html">Docs</a><a href="pricing.html">Pricing</a><a href="trust.html">Registry</a><a href="blog.html">Intelligence</a><a href="https://github.com/selectess/fde-consultants-protocoles" target="_blank" rel="noopener">GitHub</a><a class="nav-cta" href="docs.html#install">Install the Skill</a></div>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow" style="color:var(--cyan)">Open-source documentation</span>
+      <h1>Install the skill. Give your agent FDE judgment.</h1>
+      <p class="lead">This page documents the public `skill/` product only: installation, usage, output contracts, scripts, templates, examples, and contribution workflow. MCP stays marked as Beta.</p>
+    </div>
+  </header>
+
+  <main class="wrap page-grid">
+    <aside class="side-nav">
+      <a href="#install">Install</a>
+      <a href="#runtime">Runtimes</a>
+      <a href="#usage">Usage</a>
+      <a href="#structure">Structure</a>
+      <a href="#outputs">Outputs</a>
+      <a href="#scripts">Scripts</a>
+      <a href="#quality">Quality</a>
+      <a href="#contribute">Contribute</a>
+    </aside>
+    <div class="content-stack">
+      <section class="doc-section answer-first" id="install">
+        <h2>Install</h2>
+        <p><strong>Field thesis:</strong> install once as a Claude Code plugin, or symlink <code>skill/</code> manually. No hosted account is required for the open-source skill.</p>
+        <div class="code-card"><div class="code-top"><span>Claude Code â one command</span><span>recommended</span></div><pre><span class="comment"># Add the marketplace, then install the plugin (skill + Modex MCP)</span>
+/plugin marketplace add selectess/fde-consultants-protocoles
+/plugin install fde-consultant@fde-consultant
+
+<span class="comment"># Then ask your agent</span>
+/fde-consultant scope this new AI project idea</pre></div>
+        <div class="code-card"><div class="code-top"><span>Claude Code â manual</span><span>local</span></div><pre><span class="comment"># Or symlink from the repository root</span>
+mkdir -p ~/.claude/skills
+ln -s "$(pwd)/skill" ~/.claude/skills/fde-consultant</pre></div>
+        <p>Every FDE deliverable ends with an <strong>FDE Assurance Score</strong> (0â100, DeepSCR-verified). Browse the public, hash-chained <a href="trust.html">FDE Assurance Registry</a>.</p>
+        <p style="margin-top:14px"><strong>Local MCP server (free)</strong> — the Skill ships a 7-tool MCP server (run <code>python3 -m mcp_server</code> from <code>skill/</code>): <code>fde_recon</code> · <code>fde_decompose</code> · <code>fde_roi</code> · <code>fde_scientific_search</code> · <code>fde_evals</code> · <code>fde_ontology</code> · <code>fde_trust_score</code>.</p>
+      </section>
+
+      <section class="doc-section" id="runtime">
+        <h2>Agent runtime compatibility</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Runtime</th><th>Recommended use today</th><th>Future path</th></tr></thead>
+            <tbody>
+              <tr><td>Claude Code</td><td>Install `skill/` into `~/.claude/skills/fde-consultant`.</td><td>Native skill workflow plus community examples.</td></tr>
+              <tr><td>Codex</td><td>Load `skill/SKILL.md` as project guidance and keep references available.</td><td>Packaged skill distribution once public repo URL is finalized.</td></tr>
+              <tr><td>Cursor / Windsurf</td><td>Add `skill/` as project context and invoke the role explicitly.</td><td>MCP wrapper when the hosted Beta matures.</td></tr>
+              <tr><td>Hermes / open agents</td><td>Use the Markdown entrypoint plus scripts/templates as callable local assets.</td><td>Adapters for agent skill loaders and local tool execution.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="doc-section" id="usage">
+        <h2>Usage pattern</h2>
+        <p>Trigger the skill when the work needs a real delivery artifact: scoping report, prototype spec, architecture, eval framework, production handoff, productization memo, or roadmap.</p>
+        <div class="code-card"><div class="code-top"><span>Example requests</span><span>operator prompts</span></div><pre>/fde-consultant scope a customer-support AI triage project
+/fde-consultant architect a production RAG system for legal docs
+/fde-consultant evaluate this prototype handoff
+/fde-consultant productize the reusable parts of this engagement</pre></div>
+      </section>
+
+      <section class="doc-section" id="structure">
+        <h2>Repository structure</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Path</th><th>Purpose</th><th>Why it matters</th></tr></thead>
+            <tbody>
+              <tr><td>`skill/SKILL.md`</td><td>Activation rules, loop, anti-patterns, distribution, scoring.</td><td>The agent entrypoint.</td></tr>
+              <tr><td>`skill/references/`</td><td>FDE, AI agents, SaaS, business AI, evals, benchmarks.</td><td>Deep context without bloating every prompt.</td></tr>
+              <tr><td>`skill/prompts/`</td><td>Domain research, discovery interview, strategic questions.</td><td>Reliable scoping behavior.</td></tr>
+              <tr><td>`skill/scripts/`</td><td>6-Q validator, ROI calculator, ontology extractor, eval runner, scientific hypothesis refinement.</td><td>Executable rigor, not pure text.</td></tr>
+              <tr><td>`skill/templates/`</td><td>Scoping, prototype, production handoff, productization memo.</td><td>Consistent output contracts.</td></tr>
+              <tr><td>`skill/examples/`</td><td>Multi-industry examples.</td><td>Fast onboarding and proof.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="doc-section" id="outputs">
+        <h2>Output contracts</h2>
+        <div class="grid-2">
+          <div class="panel"><h3>Scoping report</h3><p>Executive summary, stakeholder map, 6-Q answers, pain matrix, ROI, constraints, recommendation.</p></div>
+          <div class="panel"><h3>Prototype spec</h3><p>Candidate architecture, selected stack, eval baseline, integration plan, failure modes.</p></div>
+          <div class="panel"><h3>Production handoff</h3><p>Runbook, security, observability, deployment, cost, ownership, incident paths.</p></div>
+          <div class="panel"><h3>Productization memo</h3><p>Reusable IP candidates, extraction effort, ROI, strategic fit, field insights.</p></div>
+        </div>
+      </section>
+
+      <section class="doc-section" id="scripts">
+        <h2>Scripts and verification</h2>
+        <ul class="list">
+          <li>`scripts/decompose_problem.py`: validates whether the problem is concrete enough to build.</li>
+          <li>`scripts/roi_calculator.py`: calculates annual impact, payback, NPV, and sensitivity.</li>
+          <li>`scripts/ontology_extractor.py`: extracts actors, systems, processes, objects, and metrics.</li>
+          <li>`scripts/evals_runner.py`: scores deliverables against the 6-trait FDE rubric.</li>
+          <li>`scripts/scientific_search.py`: runs candidate architecture refinement before promotion.</li>
+        </ul>
+        <div class="code-card"><div class="code-top"><span>Tests</span><span>local</span></div><pre>python3 -m pytest skill/tests -q</pre></div>
+      </section>
+
+      <section class="doc-section" id="quality">
+        <h2>Quality gates</h2>
+        <p>Every FDE output should pass six traits: customer curiosity, ownership, decomposition, empathy, product sense, and communication. Auto-reject generic AI advice, slide-only deliverables, no numbers, no evals, no owner, or no production path.</p>
+      </section>
+
+      <section class="doc-section" id="contribute">
+        <h2>Contribute</h2>
+        <p>Best contributions add proof: better examples, sharper templates, new benchmark references, platform adapters, tests, bug fixes, and real field lessons. The method should compound with every serious use.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer><div class="wrap foot"><div>Docs for the open-source FDE Consultants Protocoles Skill.</div><div><a href="index.html">Launch</a><a href="academy.html">Academy</a><a href="blog.html">Blog</a></div></div></footer>
+  <script src="site.js"></script>
+</body>
+</html>

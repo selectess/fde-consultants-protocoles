@@ -1,0 +1,22 @@
+
+{
+  "q1_process": "AI-powered demand forecasting for a mid-sized retail chain (50 stores)",
+  "q1_volume": "10k SKUs, daily forecast updates",
+  "q1_owner": "VP of Supply Chain",
+  "q2_decision_type": "regression (forecasted units sold per SKU per store per week)",
+  "q2_latency": "<15 minutes for full forecast run",
+  "q2_accuracy_target": ">85% weighted MAPE across top 20% SKUs",
+  "q3_volume": "5 years of POS data, inventory logs, weather, local events data",
+  "q3_quality": "clean, POS data from 100% of stores, no PII",
+  "q3_compliance": "PCI DSS if using payment data (we don't, so low risk)",
+  "q3_refresh": "daily at 2 AM",
+  "q4_direct_cost": "$50k per month in overstock/stockout losses",
+  "q4_regulatory": "None specific beyond standard data privacy",
+  "q4_distribution": "70% of losses are from top 100 SKUs",
+  "q5_current_type": "Excel-based moving average",
+  "q5_current_performance": "75% weighted MAPE, 4 hours of manual work weekly",
+  "q5_frustrations": "inaccurate for new products, slow to react to trends, tedious manual updates",
+  "q6_primary_metric": "Reduce overstock/stockout losses by 40%, reduce manual work to <30 mins/week",
+  "q6_threshold": ">85% weighted MAPE top 20% SKUs, <15 min forecast runtime",
+  "q6_measurement": "Monthly inventory shrink/stockout reports, POS vs forecast accuracy dashboard"
+}

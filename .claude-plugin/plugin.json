@@ -1,0 +1,90 @@
+{
+  "name": "fde-consultant",
+  "version": "1.0.0",
+  "description": "Forward Deployed Engineering (FDE) methodology + 7 MCP tools + DeepSCR Trust Score. Production-grade Skill that turns Claude Code, Cursor, Windsurf, Codex CLI, and OpenClaw into a forward-deployed engineer.",
+  "author": {
+    "name": "Mehdi Wehbi",
+    "email": "team@selectess.dev",
+    "url": "https://github.com/selectess/fde-consultants-protocoles"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/selectess/fde-consultants-protocoles#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/selectess/fde-consultants-protocoles.git"
+  },
+  "keywords": [
+    "fde",
+    "forward-deployed-engineering",
+    "mcp",
+    "agent-skill",
+    "ai-methodology",
+    "trust-score",
+    "deepscr",
+    "palantir-fde",
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "codex",
+    "anthropic",
+    "openai",
+    "production-ready"
+  ],
+  "skills": [
+    {
+      "name": "fde-consultant",
+      "path": "skill/",
+      "description": "Core FDE methodology with 14 Operating Principles, 10 Anti-Patterns, 6-Q decomposition, and 5-stage loop (Stage 0 Reconnaissance -> Scoping -> Prototyping -> Production -> Feedback)"
+    },
+    {
+      "name": "modex-runtime",
+      "path": "modex/",
+      "description": "Multi-agent runtime with 4 roles (Lead, Researcher, Builder, Certifier) and Trust Score gate"
+    }
+  ],
+  "mcpServers": [
+    {
+      "name": "fde-consultant",
+      "command": "python3",
+      "args": ["-m", "skill.mcp_server"],
+      "transport": "stdio",
+      "description": "FDE Consultant MCP server exposing 7 tools: fde_recon, fde_decompose, fde_roi, fde_scientific_search, fde_evals, fde_ontology, fde_trust_score"
+    }
+  ],
+  "commands": [
+    {
+      "name": "fde-scope",
+      "description": "Start a 6-Q decomposition interview",
+      "prompt": "Read skill/SKILL.md and act as an FDE Consultant. Apply the 6-Q decomposition (process/decision/data/cost/current-state/success-metric) to the user's problem. Output a falsifiable claim + 6 answered questions."
+    },
+    {
+      "name": "fde-evals",
+      "description": "Generate eval rubric + golden set",
+      "prompt": "Read skill/references/eval-rubric.md. Generate a 6-trait eval rubric for the user's deliverable, plus a golden set of 5 test cases."
+    },
+    {
+      "name": "fde-certify",
+      "description": "Run the independent Certifier on the Skill",
+      "prompt": "Run `python3 -m modex.certify_skill --skill-path ./skill --output ./cert.json` and explain the result."
+    }
+  ],
+  "hooks": {
+    "pre-commit": [
+      {
+        "name": "verify-tests",
+        "command": "python3 -m pytest skill/tests/ modex/tests/ mcp-server/tests/test_thin_skill.py -q",
+        "timeout": 60
+      }
+    ]
+  },
+  "compatibility": {
+    "claude-code": ">=1.0.0",
+    "claude-ai": ">=2025-06",
+    "mcp": ">=1.0"
+  },
+  "license-info": {
+    "code": "Apache-2.0",
+    "plugin-commercial": "BSL-1.1 (Modex Plugin, $6 lifetime)",
+    "core-runtime": "MIT (Modex 1-agent)"
+  }
+}

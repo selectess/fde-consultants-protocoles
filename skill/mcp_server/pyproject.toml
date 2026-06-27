@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fde-consultant-mcp-server"
+version = "1.0.0"
+description = "MCP server exposing the FDE Consultant Skill methodology as 7 tools for AI coding agents."
+license = {text = "Apache-2.0"}
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.0.0",
+]
+
+[project.scripts]
+fde-consultant-mcp = "skill.mcp_server:main"

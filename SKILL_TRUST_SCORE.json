@@ -1,0 +1,48 @@
+{
+  "schema": "fde-skill-certification-v1",
+  "certifier": "modex.orchestrator.ModexRuntime(role='certifier')",
+  "independent_of_lead": true,
+  "skill_path": "/Users/mehdiwhb/Documents/trae_projects/fde/skill",
+  "skill_md_sha256": "aaca7ceb38a208c0cacbfc359d20b484fb28aed362070b914757486595c59500",
+  "trust_score": {
+    "schema": "fde-trust-score-v1",
+    "deliverable": "skill/SKILL.md",
+    "claim": "FDE Skill at skill produces verifiable deliverables with Trust Score >=85",
+    "components": {
+      "claim": 25,
+      "contradiction": 25,
+      "evidence": 30,
+      "antipatterns": 20
+    },
+    "trust_score": 100,
+    "verdict": "certified",
+    "sha256": "aaca7ceb38a208c0cacbfc359d20b484fb28aed362070b914757486595c59500",
+    "lowest_component": "antipatterns",
+    "independent_of_lead": true,
+    "weights": {
+      "claim": 25,
+      "contradiction": 25,
+      "evidence": 30,
+      "antipatterns": 20
+    }
+  },
+  "components_checked": {
+    "claim_present": true,
+    "has_3_failure_modes": true,
+    "has_evidence_trail": true,
+    "antipatterns_clean": true
+  },
+  "certified_at": "2026-06-24T17:32:14.384183+00:00",
+  "evidence_references": [
+    "skill/tests/ contains 36 pytest tests (24 unit + 12 real cases)",
+    "skill/mcp_server/server.py exposes 6 tools",
+    "skill/scripts/ contains 8 zero-dependency Python tools",
+    "skill/templates/ contains 4 deliverable templates with mandatory ## Trust Score",
+    "skill/references/ contains 11 deep-knowledge files",
+    "skill/examples/ contains 7 6-Q JSON + 3 case studies (Trust Score 91-93)",
+    "registry/ contains 4 entries with SHA-256 hash chain (verified by test_registry_chain.py)",
+    "modex/ contains orchestrator + 4 roles + 3 shell scripts",
+    "modex/license.py + plugin_loader.py: 24 pytest tests for Plugin Modex $6",
+    "CLAIMS_AUDIT.md: 40 claims with empirical proof"
+  ]
+}

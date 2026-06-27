@@ -1,0 +1,165 @@
+# FDE Skill Modex — $6 lifetime
+#
+# The declarative configuration that turns any agent runtime into an
+# autonomous FDE + DeepSCR swarm. One source, all runtimes.
+#
+# This file IS the product. Everything else (runtime rule files, system
+# prompts, paste blocks) is GENERATED from it by generate.sh.
+
+version: 1.0
+name: fde-modex
+price_usd: 6
+license: "Modex Config — paid ($6 lifetime). Bundles the open-source FDE Skill (Apache-2.0) with the swarm configuration, memory schema, and runtime fan-out."
+
+# The open-source skill remains the methodological base.
+skill_ref: ../skill/SKILL.md
+protocol_ref: ../skill/references/fde-trust-score.md
+
+# ---------------------------------------------------------------------------
+# WORKFLOW — Stage 0 Reconnaissance (precursor) then the 4 FDE stages mapped 1:1 onto the 4 DeepSCR steps.
+# Each stage is a node in the graph; the owner is the agent role responsible.
+# The certifier is INDEPENDENT and can veto the lead (separation of powers).
+# ---------------------------------------------------------------------------
+workflow:
+  loop: "Reconnaissance -> Scoping -> Prototyping -> Production -> Feedback"
+  deepscr_mapping: "Hypothese -> Contradiction -> Verification -> Certification"
+
+  stages:
+    - id: reconnaissance
+      order: 0
+      deepscr_step: reconnaissance        # precursor to the DeepSCR loop
+      owner: lead
+      goal: "Scrutinize the user's REAL codebase/business BEFORE scoping; surface ground truth, not assumptions."
+      script: ../skill/scripts/fde_recon.py
+      artifact: fde-memory/recon-report.md
+      gate: "findings drawn from the actual codebase/business (file:line, real stack, real constraints)"
+
+    - id: scoping
+      order: 1
+      deepscr_step: hypothese
+      owner: lead
+      goal: "Decompose the vague problem into a falsifiable 6-Q claim."
+      script: ../skill/scripts/decompose_problem.py
+      artifact: fde-memory/scoping-report.md
+      gate: "claim is 1 sentence, anchored on Q6, with an explicit falsifier"
+
+    - id: prototyping
+      order: 2
+      deepscr_step: contradiction
+      owner: researcher        # PARALLEL — N workers, one per Hypothesis
+      parallel: true
+      goal: "Generate N competing architecture hypotheses; each worker falsifies one against the held-out gate."
+      script: ../skill/scripts/scientific_search.py
+      artifact: fde-memory/prototype-spec.md
+      gate: held_out           # only hypotheses passing the held-out gate are promoted
+      reuse_seam: "scientific_search.py:327 — the sequential for-loop that Modex parallelizes"
+
+    - id: production
+      order: 3
+      deepscr_step: verification
+      owner: builder
+      goal: "Produce the deliverable with a concrete evidence trail (file:line, command, test)."
+      artifact: fde-memory/production-handoff.md
+      gate: "every quantitative claim cites >=1 evidence pointer"
+
+    - id: feedback
+      order: 4
+      deepscr_step: certification
+      owner: certifier         # INDEPENDENT — may REJECT the lead
+      independent: true
+      goal: "Compute the Trust Score and decide: Certified, Needs revision, or Rejected."
+      artifact: fde-memory/trust-score.json
+      formula: "25*claim + 25*contradiction + 30*evidence + 20*antipatterns"
+      thresholds:
+        certified: 85          # >= 85 -> ship with badge
+        needs_revision: 60     # 60-84 -> address lowest component, re-score
+        rejected: 0            # < 60 -> return to stage 1
+
+# ---------------------------------------------------------------------------
+# ROLES — 4 agents, each with a dedicated prompt. The certifier is separate
+# from the lead so that the agent producing the work cannot self-certify it.
+# ---------------------------------------------------------------------------
+roles:
+  lead:
+    prompt: roles/lead.md
+    responsibility: "Coordinator. Assigns hypotheses to researchers, collects results, obeys the certifier's verdict. Does NOT certify its own work."
+
+  researcher:
+    prompt: roles/researcher.md
+    parallel: true
+    responsibility: "Worker. Receives ONE Hypothesis, runs the held-out gate against it, returns PROMOTED or PRUNED + a lesson. Stateless across hypotheses — runs in parallel."
+
+  builder:
+    prompt: roles/builder.md
+    responsibility: "Produces the concrete artifacts (scoping report, prototype spec, production handoff). Every quantitative claim must carry an evidence pointer."
+
+  certifier:
+    prompt: roles/certifier.md
+    independent: true
+    responsibility: "Computes the Trust Score by hand per the formula. Independent of the lead: may REJECT. Writes trust-score.json with the verdict, SHA-256, and the falsification trail."
+
+# ---------------------------------------------------------------------------
+# MEMORY — local-first, files in the project. Zero server required.
+# The MCP server becomes an OPTIONAL cloud-sync tier later (paid, recurring).
+# ---------------------------------------------------------------------------
+memory:
+  type: local
+  path: fde-memory/
+  zero_dependency: true
+  components:
+    context:
+      file: context.json
+      holds: "6-Q decomposition, stakeholder RACI, current stage, open questions"
+    episodes:
+      dir: episodes/
+      pattern: "*.md"
+      holds: "one markdown file per major action/decision: what, why, evidence, outcome"
+    lessons:
+      file: lessons.json
+      schema: "fde-scientific-search-lessons-v1 (extended)"
+      holds: "accumulated rejected-hypothesis lessons; compounds across engagements"
+
+# ---------------------------------------------------------------------------
+# MCP — OPTIONAL local tool server (stdio). Canonical entrypoint below.
+# Exposes 7 tools; fde_recon backs Stage 0 Reconnaissance.
+# ---------------------------------------------------------------------------
+mcp:
+  entrypoint: "python3 -m skill.mcp_server"
+  tools: [fde_recon, fde_decompose, fde_roi, fde_scientific_search, fde_evals, fde_ontology, fde_trust_score]
+
+# ---------------------------------------------------------------------------
+# RUNTIME_BINDINGS — generated by generate.sh from this manifest.
+# One source (this file) fans out to every runtime so any agent can deploy.
+# ---------------------------------------------------------------------------
+runtime_bindings:
+  claude_code:
+    type: symlink
+    target: ~/.claude/skills/fde-modex
+    notes: "Symlink the modex/ dir; Claude Code auto-discovers skills."
+
+  cursor:
+    type: rule
+    target: .cursor/rules/fde-modex.mdc
+    notes: "Generated pointer rule loading the workflow + role prompts."
+
+  windsurf:
+    type: rule
+    target: .windsurf/rules/fde-modex.mdc
+    notes: "Byte-copy of the Cursor rule."
+
+  codex:
+    type: project_guidance
+    target: AGENTS.md
+    notes: "Project-level guidance consumed by Codex."
+
+  autonomous:
+    type: system_prompt
+    target: system-prompt-autonomous.md
+    runtimes: [autoClaw, openClaw, Hermes, "any autonomous agent"]
+    notes: "Full system prompt with the 4-stage loop + DeepSCR + role dispatch."
+
+  web_llm:
+    type: paste
+    target: zero-install-paste.md
+    runtimes: [ChatGPT, Claude.ai, Gemini, "any web LLM"]
+    notes: "Paste block — now INCLUDES DeepSCR/Trust Score (fixes the gap where ZERO-INSTALL dropped principle #14)."

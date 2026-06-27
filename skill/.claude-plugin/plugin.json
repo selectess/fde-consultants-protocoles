@@ -1,0 +1,102 @@
+{
+  "name": "fde-consultant",
+  "version": "1.0.0",
+  "description": "Forward Deployed Engineering methodology for AI coding agents. The 5-stage loop (Stage 0 Reconnaissance -> Scoping -> Prototyping -> Production -> Feedback) with verifiable Trust Score.",
+  "author": {
+    "name": "Mehdi Wehbi",
+    "url": "${FDE_REPO_URL}"
+  },
+  "license": "Apache-2.0",
+  "homepage": "${FDE_REPO_URL}#readme",
+  "repository": {
+    "type": "git",
+    "url": "${FDE_REPO_URL}.git"
+  },
+  "keywords": [
+    "fde",
+    "forward-deployed-engineering",
+    "methodology",
+    "trust-score",
+    "agent-skills",
+    "production-ready",
+    "deepscr"
+  ],
+  "skills": [
+    {
+      "name": "fde-consultant",
+      "path": "./SKILL.md",
+      "description": "The core FDE Consultant Skill. Activates on any non-trivial product/engineering task."
+    }
+  ],
+  "tools": [
+    {
+      "name": "fde_recon",
+      "path": "./mcp_server/tools/recon.py",
+      "description": "Stage 0: scrutinize a real codebase before scoping (languages, deps, tests, tech-debt, ontology, risks) and emit 6-Q signals"
+    },
+    {
+      "name": "fde_decompose",
+      "path": "./mcp_server/tools/decompose.py",
+      "description": "Stage 1: validate a 6-Q decomposition of a problem"
+    },
+    {
+      "name": "fde_roi",
+      "path": "./mcp_server/tools/roi.py",
+      "description": "Stage 1: compute ROI + payback + NPV for a business case"
+    },
+    {
+      "name": "fde_scientific_search",
+      "path": "./mcp_server/tools/scientific_search.py",
+      "description": "Stage 2: generate architecture hypotheses with held-out promotion gate"
+    },
+    {
+      "name": "fde_evals",
+      "path": "./mcp_server/tools/evals.py",
+      "description": "Stage 4: 6-trait rubric scoring with PASS/FAIL verdict"
+    },
+    {
+      "name": "fde_ontology",
+      "path": "./mcp_server/tools/ontology.py",
+      "description": "Stage 1: Palantir-style ontology extraction + Mermaid diagram"
+    },
+    {
+      "name": "fde_trust_score",
+      "path": "./mcp_server/tools/trust_score.py",
+      "description": "Stage 4: DeepSCR Trust Score (25+25+30+20) with SHA-256 audit trail"
+    }
+  ],
+  "mcp_servers": [
+    {
+      "name": "fde-consultant",
+      "command": "python3",
+      "args": ["-m", "skill.mcp_server"],
+      "cwd": "./",
+      "transport": "stdio",
+      "description": "FDE Consultant MCP server exposing the 7 tools above"
+    }
+  ],
+  "entry_points": {
+    "human_install": "INSTALL.md",
+    "agent_install": "AGENT-INSTALL.md",
+    "zero_install": "ZERO-INSTALL.md",
+    "universal_installer": "../../install.sh"
+  },
+  "operating_principles": {
+    "count": 14,
+    "trust_score_protocol": "references/fde-trust-score.md",
+    "skeptical_deployment": "references/fde-skeptical-deployment.md",
+    "anti_patterns_count": 10
+  },
+  "metadata": {
+    "trust_score_self": {
+      "claim": 25,
+      "contradiction": 23,
+      "evidence": 28,
+      "antipatterns": 18,
+      "total": 94,
+      "verdict": "Certified",
+      "verified_at": "2026-06-21",
+      "details": "skill/SKILL.md references all 14 OP + 10 anti-patterns + Trust Score formula. 14/14 pytest pass. 6 MCP tools exposed. SHA-256 of 3 case studies verified."
+    }
+  }
+}

@@ -1,0 +1,81 @@
+name: fde-consultant
+version: 1.0.0
+description: >
+  Forward Deployed Engineering (FDE) methodology for AI coding agents.
+  5-stage loop (Reconnaissance, Scoping, Prototyping, Production, Feedback) with verifiable Trust Score.
+
+# Codex manifest format (https://platform.openai.com/docs/codex/manifest)
+author:
+  name: Mehdi Wehbi
+  url: ${FDE_REPO_URL}
+
+license: Apache-2.0
+
+# Primary entry point (relative to skill/)
+entry_point: SKILL.md
+
+# Secondary entry points for agents / web LLMs
+entry_points:
+  - name: human_install
+    path: INSTALL.md
+  - name: agent_install
+    path: AGENT-INSTALL.md
+  - name: zero_install
+    path: ZERO-INSTALL.md
+
+# Tools exposed via MCP (Codex auto-discovers them)
+mcp_server:
+  command: python3
+  args:
+    - "-m"
+    - "skill.mcp_server"
+  cwd: .
+  transport: stdio
+  tools:
+    - fde_recon
+    - fde_decompose
+    - fde_roi
+    - fde_scientific_search
+    - fde_evals
+    - fde_ontology
+    - fde_trust_score
+
+# Activation triggers (when should Codex auto-load this skill?)
+triggers:
+  - "fde"
+  - "forward deployed"
+  - "scope this"
+  - "6-Q decomposition"
+  - "trust score"
+  - "productionize"
+  - "scoping report"
+  - "prototype spec"
+
+# Trust Score of the skill itself (auto-applied Operating Principle #14)
+trust_score:
+  claim: 25
+  contradiction: 23
+  evidence: 28
+  antipatterns: 18
+  total: 94
+  verdict: certified
+  verified_at: 2026-06-21
+
+# Files the skill reads at runtime (progressive disclosure)
+runtime_dependencies:
+  - references/fde-trust-score.md
+  - references/fde-methodology.md
+  - references/fde-skeptical-deployment.md
+  - templates/scoping-report.md
+  - templates/prototype-spec.md
+  - templates/production-handoff.md
+  - templates/productization-memo.md
+  - references/eval-rubric.md
+
+# Hard constraints (Operating Principles non-negotiable)
+constraints:
+  - "Never skip the 6-Q decomposition"
+  - "Always produce concrete artifacts (code + specs)"
+  - "Always end deliverables with ## Trust Score (target >= 85)"
+  - "Never propose generic 'use AI/ML' solutions"
+  - "Never trust unverified claims (DeepSCR protocol)"

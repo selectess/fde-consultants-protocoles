@@ -1,0 +1,22 @@
+
+{
+  "q1_process": "Customer churn prediction and intervention for a B2B SaaS product",
+  "q1_volume": "5,000 monthly active users, 12% monthly churn rate",
+  "q1_owner": "VP of Product",
+  "q2_decision_type": "classification + prescriptive",
+  "q2_latency": "< 5 seconds per user",
+  "q2_accuracy_target": "> 85% precision@10%",
+  "q3_volume": "2 years of historical user behavior data, 150 features",
+  "q3_quality": "clean, no PII",
+  "q3_compliance": "GDPR/CCPA applicable",
+  "q3_refresh": "daily via Segment",
+  "q4_direct_cost": "$200 per retained customer",
+  "q4_regulatory": "GDPR compliance required",
+  "q4_distribution": "80% churn from mid-market accounts",
+  "q5_current_type": "manual",
+  "q5_current_performance": "Customer Success team reacts after churn, 5% recovery rate",
+  "q5_frustrations": "too slow, no early warning system",
+  "q6_primary_metric": "$1.2M annual revenue retained",
+  "q6_threshold": "> 30% reduction in churn rate",
+  "q6_measurement": "weekly cohort analysis, ARR retention, CSAT"
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "fde-scientific-search-lessons-v1",
+  "generated_at": "2026-06-21T17:16:00.528281+00:00",
+  "problem": "AI-powered demand forecasting for a mid-sized retail chain (50 stores)",
+  "promoted_hypothesis_id": "H2",
+  "lessons": [
+    {
+      "hypothesis_id": "H4",
+      "description": "LLM-assisted forecasting commentary layer",
+      "prune_reason": "held-out gate failed: heldout-forecast-target",
+      "lesson": "Rejected by held-out validation: update the playbook with the constraint that failed outside the dev evidence.",
+      "failed_cases": [
+        "heldout-forecast-target"
+      ],
+      "playbook_update": "For similar engagements, reject this pattern unless it resolves missing traits: forecasting."
+    }
+  ]
+}

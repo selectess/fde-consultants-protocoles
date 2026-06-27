@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: pip install pytest pytest-asyncio mcp
+      - name: Run Skill + Modex tests
+        run: python -m pytest skill/tests/ modex/tests/ -q
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No committed secrets or .env files
+        run: |
+          echo "Scanning for secret-shaped tokens..."
+          if grep -rEn "ghp_[A-Za-z0-9]{30,}|sk-(live|proj)-[A-Za-z0-9]{20,}|polar_oat_[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----" \
+               --include="*.py" --include="*.md" --include="*.json" --include="*.sh" --include="*.txt" \
+               --exclude-dir=.github . ; then
+            echo "FAIL: a secret-shaped string was found in tracked files"; exit 1
+          fi
+          if find . -path ./.git -prune -o -name ".env" -not -name "*.example" -print | grep -q .; then
+            echo "FAIL: a .env file is present"; exit 1
+          fi
+          echo "OK: no secrets, no .env"

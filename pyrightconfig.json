@@ -1,0 +1,22 @@
+{
+  "pythonVersion": "3.13",
+  "pythonPlatform": "Darwin",
+  "extraPaths": [
+    "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages",
+    "./skill/scripts",
+    "./skill/mcp_server"
+  ],
+  "include": [
+    "skill/mcp_server",
+    "skill/scripts",
+    "skill/tests/test_mcp_server.py"
+  ],
+  "exclude": [
+    "**/__pycache__",
+    ".fde-modex-out",
+    "fde-memory",
+    "archive",
+    "work",
+    "mcp-server"
+  ]
+}

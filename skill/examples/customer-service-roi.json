@@ -1,0 +1,24 @@
+{
+  "baseline_volume_per_period": 1000,
+  "baseline_period": "day",
+  "baseline_cost_per_unit": 15.0,
+  "baseline_cost_currency": "EUR",
+
+  "ai_auto_resolution_rate": 0.6,
+  "ai_time_reduction_remaining": 0.5,
+  "ai_cost_per_task": 0.02,
+  "ai_latency_improvement": "10min -> 30s",
+
+  "build_cost": 80000,
+  "design_cost": 10000,
+  "infra_setup_cost": 5000,
+
+  "llm_api_cost_per_year": 18000,
+  "infra_cost_per_year": 6000,
+  "maintenance_cost_per_year": 15000,
+
+  "confidence": 0.75,
+
+  "revenue_enabled_per_year": 0,
+  "risk_reduced_per_year": 50000
+}

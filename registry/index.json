@@ -1,0 +1,37 @@
+{
+  "schema": "fde-registry-index-v1",
+  "registry_version": "1.0.0",
+  "updated_at": "2026-06-21T22:43:57Z",
+  "total_entries": 4,
+  "genesis_entry": "registry/genesis.json",
+  "entries": [
+    {
+      "cert_id": "genesis",
+      "path": "registry/genesis.json",
+      "trust_score": null,
+      "sha256": "a67f32d952a9040ebc43ac4c691fc4c85b55b45bd77fa3325731b9258d99a331",
+      "certified_at": "2026-06-21T22:43:57Z"
+    },
+    {
+      "cert_id": "2026-06-21-saas-churn-93",
+      "path": "registry/2026-06-21-saas-churn-93.json",
+      "trust_score": 93,
+      "sha256": "9ebd16a6f2b5270435d6c0bccbf6edfd060f4a23b2371f408a9b9ede8c45256b",
+      "certified_at": "2026-06-21T22:43:57Z"
+    },
+    {
+      "cert_id": "2026-06-21-retail-forecasting-91",
+      "path": "registry/2026-06-21-retail-forecasting-91.json",
+      "trust_score": 91,
+      "sha256": "f7cbe0bf32f550c7d58ae68880eba295e8860d57e81131eaf0acee29f3b77815",
+      "certified_at": "2026-06-21T22:43:57Z"
+    },
+    {
+      "cert_id": "2026-06-21-fintech-fraud-93",
+      "path": "registry/2026-06-21-fintech-fraud-93.json",
+      "trust_score": 93,
+      "sha256": "e6da8077af00a11a7d1f6e6b7bbcb38e1bb41a3b034981bceb626f0f65e07b72",
+      "certified_at": "2026-06-21T22:43:57Z"
+    }
+  ]
+}

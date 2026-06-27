@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Secrets & environment
+.env
+.env.*
+*.key
+.keys/
+*.db
+
+# OS / editor
+.DS_Store
+*.swp
+
+# Build artifacts & deps
+dist/
+build/
+*.zip
+node_modules/
+
+# Runtime state
+fde-memory/
+*.log

@@ -1,0 +1,38 @@
+{
+  "name": "fde-consultant",
+  "version": "1.0.0",
+  "manifest_version": "1.0",
+  "description": "Forward Deployed Engineering methodology for AI coding agents",
+  "license": "Apache-2.0",
+  "homepage": "${FDE_REPO_URL}",
+  "mcp_servers": [
+    {
+      "name": "fde-consultant",
+      "transport": "stdio",
+      "command": "python3",
+      "args": ["-m", "skill.mcp_server"],
+      "tools": [
+        {"name": "fde_recon", "stage": 0},
+        {"name": "fde_decompose", "stage": 1},
+        {"name": "fde_roi", "stage": 1},
+        {"name": "fde_scientific_search", "stage": 2},
+        {"name": "fde_evals", "stage": 4},
+        {"name": "fde_ontology", "stage": 1},
+        {"name": "fde_trust_score", "stage": 4}
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "fde-consultant",
+      "entry": "./SKILL.md",
+      "auto_activate": true,
+      "triggers": ["fde", "scope", "6-Q", "trust score", "productionize"]
+    }
+  ],
+  "trust_score_self": {
+    "total": 94,
+    "verdict": "certified",
+    "verified_at": "2026-06-21"
+  }
+}

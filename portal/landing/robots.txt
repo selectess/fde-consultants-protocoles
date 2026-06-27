@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://selectess.github.io/fde-consultants-protocoles/sitemap.xml

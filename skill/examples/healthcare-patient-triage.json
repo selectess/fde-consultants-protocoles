@@ -1,0 +1,22 @@
+
+{
+  "q1_process": "AI-assisted patient triage for urgent care clinics",
+  "q1_volume": "500 patients/day across 10 clinics",
+  "q1_owner": "Chief Medical Officer (CMO)",
+  "q2_decision_type": "classification (urgency level: 1-5)",
+  "q2_latency": "<30 seconds per patient",
+  "q2_accuracy_target": ">95% precision for level 1/2 (critical/urgent)",
+  "q3_volume": "3 years of EHR data, 500k+ labeled patient encounters",
+  "q3_quality": "highly curated, HIPAA-compliant, PII de-identified",
+  "q3_compliance": "HIPAA, GDPR (if EU patients), FDA (if medical device)",
+  "q3_refresh": "hourly via HL7/FHIR API",
+  "q4_direct_cost": "$200 per mis-triage (medical error cost), $10M+ regulatory fine for HIPAA breach",
+  "q4_regulatory": "HIPAA mandatory, FDA pre-market notification likely",
+  "q4_distribution": "80% of mis-triages are level 3 being sent home instead of held",
+  "q5_current_type": "manual (nurse triage)",
+  "q5_current_performance": "90% accuracy, 2-5 minutes per patient",
+  "q5_frustrations": "slow during peak hours, inconsistent between nurses, high burnout",
+  "q6_primary_metric": "Reduce critical mis-triages by 50%, reduce triage time by 40%",
+  "q6_threshold": ">95% precision for level 1/2, <18 seconds average triage time",
+  "q6_measurement": "EHR audit logs, patient satisfaction surveys, weekly clinical quality reviews"
+}

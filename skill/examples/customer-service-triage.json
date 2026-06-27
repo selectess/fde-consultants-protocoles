@@ -1,0 +1,26 @@
+{
+  "q1_process": "Tier-1 support ticket triage and first response for the main SaaS product",
+  "q1_volume": "1000/day",
+  "q1_owner": "Head of Customer Success",
+
+  "q2_decision_type": "classification",
+  "q2_latency": "<30 seconds",
+  "q2_accuracy_target": ">90%",
+
+  "q3_volume": "2.4M historical tickets, 200 words each",
+  "q3_quality": "clean (PII redacted), labeled (65% confidence)",
+  "q3_compliance": "GDPR-applicable, PII redacted",
+  "q3_refresh": "real-time via Zendesk API",
+
+  "q4_direct_cost": "$15 per mis-routed ticket",
+  "q4_regulatory": "GDPR fines ~€500k per PII incident",
+  "q4_distribution": "70% low, 25% medium, 5% catastrophic",
+
+  "q5_current_type": "manual",
+  "q5_current_performance": "8 agents, 10min first response, 88% accuracy",
+  "q5_frustrations": "repetitive work, slow response, inconsistent routing",
+
+  "q6_primary_metric": "$1.2M/year savings",
+  "q6_threshold": ">60% auto-resolution + >92% accuracy",
+  "q6_measurement": "weekly Zendesk dashboard, monthly CFO review"
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "fde-registry-entry-v1",
+  "cert_id": "genesis",
+  "case_study_path": "",
+  "trust_score": null,
+  "prev_hash": null,
+  "certified_at": "2026-06-21T22:43:57Z",
+  "certifier_id": "fde-consultants-protocoles",
+  "claim": "Registry genesis block — defines the canonical Trust Score formula and the chain hash algorithm. This entry has no predecessor.",
+  "evidence_trail": [],
+  "falsification_modes_documented": 0
+}

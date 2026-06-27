@@ -1,0 +1,23 @@
+{
+  "name": "fde-consultant",
+  "owner": {
+    "name": "Mehdi Wehbi",
+    "email": "team@selectess.dev",
+    "url": "https://github.com/selectess/fde-consultants-protocoles"
+  },
+  "metadata": {
+    "description": "FDE Consultants Protocoles — Forward Deployed Engineering methodology + DeepSCR assurance protocol, packaged as a portable Agent Skill with the Modex MCP runtime.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "fde-consultant",
+      "description": "The FDE + DeepSCR Agent Skill: Stage 0 Reconnaissance -> Scoping -> Prototyping -> Production -> Feedback, 6-Q decomposition, FDE Assurance Score (0-100, DeepSCR: Hypothesis -> Contradiction -> Verification -> Certification), 7 local MCP tools, and deliverable templates renderable to docx/pptx/pdf via Anthropic document skills.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skill"
+      ]
+    }
+  ]
+}

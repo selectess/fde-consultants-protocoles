@@ -1,0 +1,28 @@
+{
+  "description": "Held-out validation cases for real-time fintech fraud detection. These cases are separate from development scoring and model-selection intuition.",
+  "cases": [
+    {
+      "id": "fraud-low-latency-serving",
+      "description": "The promoted prototype must plausibly serve decisions under the <200ms production constraint.",
+      "required_traits": ["low_latency"],
+      "avoid_traits": ["slower", "high_cost"],
+      "minimum_score": 60,
+      "weight": 1.2
+    },
+    {
+      "id": "fraud-regulatory-auditability",
+      "description": "The promoted prototype must support audit review for PCI-DSS/GDPR/FinCEN context.",
+      "required_traits": ["auditable", "production_ready"],
+      "avoid_traits": ["less_auditable"],
+      "minimum_score": 60,
+      "weight": 1.0
+    },
+    {
+      "id": "fraud-precision-on-structured-features",
+      "description": "The promoted prototype must exploit structured transaction features while targeting high precision.",
+      "required_traits": ["structured_features", "high_precision"],
+      "minimum_score": 70,
+      "weight": 1.4
+    }
+  ]
+}

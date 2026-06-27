@@ -1,0 +1,65 @@
+name: Release FDE Consultant
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build Git Bundle
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pytest pytest-asyncio
+
+      - name: Run tests
+        run: pytest skill/tests/ modex/tests/
+
+      - name: Run Certifier
+        run: python -m modex.certify_skill --skill-path ./skill --output ./cert.json
+
+      - name: Create git bundle
+        run: |
+          git bundle create fde-consultants-protocoles.bundle --all
+          shasum -a 256 fde-consultants-protocoles.bundle > BUNDLE_SHA256.txt
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "FDE Consultant Skills ${{ github.ref_name }}"
+          body: |
+            ## What's new in ${{ github.ref_name }}
+
+            See [CHANGELOG](../blob/main/CHANGELOG.md) for details.
+
+            ## Trust Score
+
+            Re-derived by the independent Certifier. The full score artifact is attached.
+
+            ## Verification
+
+            ```bash
+            git clone https://github.com/${{ github.repository }}.git
+            cd $(basename ${{ github.repository }})
+            git bundle verify fde-consultants-protocoles.bundle
+            python3 -m pytest skill/tests/ modex/tests/
+            ```
+          files: |
+            fde-consultants-protocoles.bundle
+            BUNDLE_SHA256.txt
+            cert.json
+          draft: false
+          prerelease: false

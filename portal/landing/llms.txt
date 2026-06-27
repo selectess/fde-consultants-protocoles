@@ -1,0 +1,20 @@
+# FDE Consultants Protocoles
+
+> Open-source Forward Deployed Engineer (FDE) + the DeepSCR protocol: turn any coding agent (Claude Code, Codex, Cursor) into a certifying engineer that produces verifiable, evidence-grounded, certified deliverables — scored 0–100 by an independent FDE Assurance Score and logged to a public, hash-chained trust registry.
+
+## What it is
+- **FDE method**: Stage-0 reconnaissance → 6-Q scoping → prototyping → production → feedback.
+- **DeepSCR protocol**: separation of powers — Hypothesis → Contradiction → Verification → Certification. The proposer never certifies; evidence must resolve on disk.
+- **8-agent Collective**: 4 DeepSCR powers governing 4 FDE specialists (Scoping, Architecture, Agent-engineering, Production), with a self-prompting loop.
+- **Local MCP server**: 7 tools (fde_recon, fde_decompose, fde_roi, fde_scientific_search, fde_evals, fde_ontology, fde_trust_score).
+- **Public trust registry**: append-only, SHA-256 hash-chained, verifiable with shasum.
+
+## Key pages
+- Protocols (scientific): /protocols.html
+- Pricing: /pricing.html
+- Registry: /trust.html
+- Docs: /docs.html
+- GitHub: https://github.com/selectess/fde-consultants-protocoles
+
+## License
+Apache-2.0 (Skill) + MIT (Modex core) + BSL 1.1 (Plugin). 116 open-source tests.

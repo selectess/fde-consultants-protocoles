@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The DeepSCR protocol: separation of powers for verifiable AI engineering - FDE Consultants Protocoles Intelligence</title>
+<meta name="keywords" content="forward deployed engineer, FDE, DeepSCR, DeepSCR protocol, AI agent certification, verifiable AI, agent skills, MCP, model context protocol, Claude Code, Cursor, Codex, AI evals, FDE Assurance Score, trust score, autonomous AI agents, AI governance, LLM agents, Palantir FDE, certified AI deliverables, AI trust registry, Anthropic">
+<meta name="author" content="Selectess">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FDE Consultants Protocoles">
+<meta property="og:title" content="The DeepSCR protocol: separation of powers for verifiable AI engineering - FDE Consultants Protocoles Intelligence">
+<meta property="og:description" content="A scientific look at DeepSCR — a governance protocol that applies separation of powers to AI work — and how the FDE method runs inside it to produce falsifiable, evidence-grounded, certified deliverables.">
+<meta property="og:url" content="https://selectess.github.io/fde-consultants-protocoles/blog/deepscr-protocol-verifiable-ai.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The DeepSCR protocol: separation of powers for verifiable AI engineering - FDE Consultants Protocoles Intelligence">
+<meta name="twitter:description" content="A scientific look at DeepSCR — a governance protocol that applies separation of powers to AI work — and how the FDE method runs inside it to produce falsifiable, evidence-grounded, certified deliverables.">
+
+<meta name="description" content="A scientific look at DeepSCR — a governance protocol that applies separation of powers to AI work — and how the FDE method runs inside it to produce falsifiable, evidence-grounded, certified deliverables.">
+<link rel="canonical" href="deepscr-protocol-verifiable-ai.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"The DeepSCR protocol: separation of powers for verifiable AI engineering","description":"A governance protocol that applies separation of powers to AI work, with the FDE method running inside it.","about":["DeepSCR","Forward Deployed Engineering","AI evals","verifiable AI"],"author":{"@type":"Organization","name":"FDE Consultants Protocoles"}}</script>
+</head>
+<body class="editorial-body">
+<nav class="site-nav"><div class="wrap nav-inner">
+  <a class="brand" href="../index.html"><span class="brand-mark">FDE</span><span class="brand-wordmark">FDE Consultants Protocoles</span></a>
+  <div class="nav-links"><a href="../protocols.html">Protocols</a><a href="../docs.html">Docs</a><a href="../pricing.html">Pricing</a><a href="../trust.html">Registry</a><a href="../blog.html">Intelligence</a><a href="https://github.com/selectess/fde-consultants-protocoles" target="_blank" rel="noopener">GitHub</a><a class="nav-cta" href="../docs.html#install">Install the Skill</a></div>
+</div></nav>
+
+<header class="intel-article-hero"><div class="wrap">
+  <span class="eyebrow">Protocol · scientific</span>
+  <h1>The DeepSCR protocol: separation of powers for verifiable AI engineering</h1>
+  <p class="lead">Most AI output cannot be defended after the demo. DeepSCR fixes that at the protocol level — by refusing to let any single agent both propose and certify its own work.</p>
+</div></header>
+
+<main class="wrap editorial-article">
+  <section class="article-prose">
+    <p>The reliability problem in applied AI is not mainly a model problem. A capable model can still produce a deliverable nobody can verify: a recommendation with no falsifiable claim, an architecture with no failure analysis, a result whose "evidence" is the model's own fluency. The gap is governance — who proposes, who attacks, who verifies, who certifies — and whether those powers are <em>separated</em>.</p>
+    <p><strong>DeepSCR</strong> is a governance protocol built on that separation. It decomposes any engagement into four adversarial steps. <strong>S — Hypothesis</strong>: state a claim that a test could falsify. <strong>C — Contradiction</strong>: attack it; surface at least three failure modes before shipping. <strong>V — Verification</strong>: tie every claim to ground truth — a real file, line, or test that resolves on disk. <strong>R — Certification</strong>: compute an independent score, with the power to veto. The proposer never certifies. That single rule is what makes the output auditable rather than merely persuasive.</p>
+    <p>DeepSCR is deliberately domain-agnostic — it could govern any kind of work. The engineering depth comes from the method it governs: <strong>Forward Deployed Engineering (FDE)</strong>, the field discipline for taking a business problem to owned, production software. FDE supplies the domain steps — reconnaissance of the real codebase, a six-question decomposition, candidate architectures behind a held-out gate, a production handoff — while DeepSCR supplies the checks. The composition is hierarchical, and the order matters: it is <em>DeepSCR governing FDE specialists</em>, not FDE applying DeepSCR.</p>
+    <p>Concretely, an engagement runs as eight agents. Four are the DeepSCR powers — a Lead that decomposes and claims, Researchers that falsify hypotheses in parallel against a held-out gate, a Builder that assembles the deliverable, and a Certifier that scores it independently and can veto the Lead's optimism. Four are FDE specialists the Builder consults — Scoping, Architecture, Agent-engineering, and Production — each grounded in a documented body of practice. The specialists do the domain work; the powers govern it.</p>
+    <p>The output is a single number with teeth: the <strong>FDE Assurance Score</strong> (0–100), weighted across four components — a present, falsifiable claim (25), genuine contradiction with three or more failure modes (25), an evidence trail that resolves on disk (30), and clean anti-patterns (20). Evidence is the heaviest weight, and it is the one that cannot be faked: synthetic structure earns nothing if the cited artifacts do not exist. Below 85, the Certifier vetoes and the loop re-routes the work to whichever agent owns the weakest component.</p>
+    <p>What removes the human from the step-by-step loop without removing accountability is a <strong>self-prompting</strong> layer. After every result, five judgments are applied — evidence, telos, risk, coherence, value — and the verdicts deterministically generate the next prompt and route it to the agent best able to act on it. The operator stays informed throughout and is gated only on genuinely irreversible actions, such as a production-handoff decision.</p>
+    <p>The reason this holds up as <em>science</em>, not marketing, is four properties it enforces: claims are falsifiable; no agent self-certifies; evidence must resolve on ground truth; and every certification is written to a public, hash-chained registry that anyone can re-verify. Falsifiability, separation, ground truth, reproducibility — the same properties that distinguish a result from an assertion anywhere else.</p>
+  </section>
+
+  <section class="editorial-grid-two">
+    <article class="editorial-panel"><span class="label">The four properties</span><h2>Why it is verifiable</h2><ul class="list"><li>Falsifiable claims — a test could refute them</li><li>Separation of powers — the proposer never certifies</li><li>Ground truth — evidence resolves on disk</li><li>Reproducible — public, hash-chained registry</li></ul></article>
+    <article class="editorial-panel"><span class="label">Next step</span><h2>See the protocol in motion</h2><p>The full flow, worked on a real problem with an animated data-flow, lives on the Protocols page.</p><div class="actions"><a class="btn primary" href="../protocols.html">Open Protocols</a><a class="btn secondary" href="../docs.html#install">Install the Skill</a></div></article>
+  </section>
+</main>
+
+<footer><div class="wrap foot"><span>FDE Consultants Protocoles — open-source FDE + DeepSCR · Apache-2.0</span><span><a href="../index.html">Home</a><a href="../protocols.html">Protocols</a><a href="../trust.html">Registry</a><a href="../blog.html">Intelligence</a></span></div></footer>
+</body>
+</html>

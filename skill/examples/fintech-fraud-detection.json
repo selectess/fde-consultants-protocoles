@@ -1,0 +1,22 @@
+
+{
+  "q1_process": "Real-time fraud detection for a neobank's card transactions",
+  "q1_volume": "100,000 transactions/day",
+  "q1_owner": "Head of Risk",
+  "q2_decision_type": "binary classification (fraud/legit)",
+  "q2_latency": "< 200ms",
+  "q2_accuracy_target": "> 99.5% precision, > 90% recall",
+  "q3_volume": "3 years of labeled transaction data, 200+ features",
+  "q3_quality": "highly curated, PII redacted",
+  "q3_compliance": "PCI-DSS, GDPR, FinCEN",
+  "q3_refresh": "real-time via Kafka",
+  "q4_direct_cost": "$50 per fraud incident, $100k regulatory fine per breach",
+  "q4_regulatory": "PCI-DSS mandatory, ongoing audit required",
+  "q4_distribution": "60% fraud from new accounts",
+  "q5_current_type": "rules-based",
+  "q5_current_performance": "85% precision, 70% recall, high false positive rate",
+  "q5_frustrations": "too many false positives, slow to adapt to new fraud patterns",
+  "q6_primary_metric": "$2.5M annual fraud loss reduction",
+  "q6_threshold": "> 95% precision, > 85% recall, < 5% false positive rate",
+  "q6_measurement": "daily confusion matrix, fraud loss tracking, customer complaint rate"
+}

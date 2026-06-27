@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protocols — FDE × DeepSCR, the science of verifiable AI engineering</title>
+<meta name="keywords" content="forward deployed engineer, FDE, DeepSCR, DeepSCR protocol, AI agent certification, verifiable AI, agent skills, MCP, model context protocol, Claude Code, Cursor, Codex, AI evals, FDE Assurance Score, trust score, autonomous AI agents, AI governance, LLM agents, Palantir FDE, certified AI deliverables, AI trust registry, Anthropic">
+<meta name="author" content="Selectess">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FDE Consultants Protocoles">
+<meta property="og:title" content="Protocols — FDE × DeepSCR, the science of verifiable AI engineering">
+<meta property="og:description" content="The FDE method and the DeepSCR assurance protocol, presented scientifically and technically: separation of powers, the 8-agent flow, and a worked engagement with verifiable, certified output.">
+<meta property="og:url" content="https://selectess.github.io/fde-consultants-protocoles/protocols.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Protocols — FDE × DeepSCR, the science of verifiable AI engineering">
+<meta name="twitter:description" content="The FDE method and the DeepSCR assurance protocol, presented scientifically and technically: separation of powers, the 8-agent flow, and a worked engagement with verifiable, certified output.">
+<link rel="canonical" href="https://selectess.github.io/fde-consultants-protocoles/protocols.html">
+
+<meta name="description" content="The FDE method and the DeepSCR assurance protocol, presented scientifically and technically: separation of powers, the 8-agent flow, and a worked engagement with verifiable, certified output.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,500;6..72,1,400;6..72,1,500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system.css">
+<style>
+  /* progress bar */
+  .progress{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:0 50%;background:var(--clay);z-index:80}
+  /* two-protocol definition */
+  .defs{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:42px}
+  .def{border:1px solid var(--line);border-radius:14px;padding:24px;background:#fffdf8}
+  .def .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--clay-d)}
+  .def h3{font-family:var(--serif);font-size:23px;font-weight:500;margin:8px 0 6px}
+  .def p{color:var(--muted);font-size:14.5px}
+  .def ol{margin:14px 0 0;padding-left:18px;color:var(--ink);font-size:14px}
+  .def ol li{margin:6px 0}
+  .def ol li b{color:var(--clay-d);font-family:var(--mono);font-size:12px}
+  @media(max-width:780px){.defs{grid-template-columns:1fr}}
+  /* animated data-flow pipeline */
+  .pipe{margin-top:40px;border:1px solid rgba(250,247,240,.12);border-radius:16px;padding:22px 10px 10px;background:
+    radial-gradient(440px 240px at 50% -10%,rgba(22,39,63,.5),transparent 60%),linear-gradient(158deg,var(--red),var(--red-deep))}
+  .pipe svg{display:block;width:100%;height:auto}
+  .pstage{font-family:var(--mono);font-size:9.5px;fill:rgba(250,247,240,.85);text-anchor:middle;letter-spacing:.02em}
+  .pstage.k{fill:rgba(217,119,87,.85);font-size:7px}
+  .pbox{fill:var(--red-deep);stroke:rgba(250,247,240,.28);stroke-width:1.3;rx:9}
+  .pbox.cert{stroke:rgba(217,119,87,.8)}
+  .pflow{stroke:rgba(250,247,240,.3);stroke-width:1.4;fill:none;stroke-dasharray:600;stroke-dashoffset:600}
+  .js .pflow{animation:draw 1.4s ease forwards}
+  .ptok{fill:var(--clay);filter:drop-shadow(0 0 6px rgba(217,119,87,.9))}
+  .pcap{font-family:var(--mono);font-size:11px;color:rgba(250,247,240,.55);padding:6px 14px 4px}
+  /* worked stages */
+  .stages{display:grid;gap:14px;margin-top:14px}
+  .stg{display:grid;grid-template-columns:46px 1fr;gap:18px;border:1px solid var(--line);border-radius:14px;padding:22px;background:#fffdf8}
+  .stg .idx{width:40px;height:40px;border-radius:10px;background:var(--red);color:var(--clay);display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:15px}
+  .stg h4{font-size:17px;margin-bottom:4px}.stg .who{font-family:var(--mono);font-size:11px;color:var(--night-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+  .io{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  .io div{font-size:13.5px;color:var(--muted)}.io b{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:4px}
+  .io code{font-family:var(--mono);font-size:12px;color:var(--clay-d)}
+  @media(max-width:640px){.io{grid-template-columns:1fr}.stg{grid-template-columns:1fr}}
+  /* score formula */
+  .formula{display:grid;grid-template-columns:1fr 320px;gap:26px;margin-top:40px;align-items:center}
+  .bars{display:grid;gap:12px}
+  .bar .top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+  .bar .top b{font-family:var(--mono);font-size:12px;color:var(--clay-d)}
+  .bar .track{height:10px;border-radius:99px;background:var(--paper);overflow:hidden}
+  .bar .fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--clay),var(--clay-d));width:0;transition:width 1s cubic-bezier(.22,1,.36,1)}
+  .totalcard{border:1px solid var(--line);border-radius:16px;padding:26px;text-align:center;background:linear-gradient(158deg,var(--red),var(--red-deep));color:var(--ivory)}
+  .totalcard .big{font-family:var(--serif);font-size:64px;line-height:1;color:#fff}
+  .totalcard .v{font-family:var(--mono);font-size:12px;color:#7fe0b2;border:1px solid rgba(127,224,178,.4);border-radius:99px;padding:4px 12px;display:inline-block;margin-top:12px}
+  .totalcard small{display:block;color:rgba(250,247,240,.6);font-family:var(--mono);font-size:11px;margin-top:12px}
+  @media(max-width:780px){.formula{grid-template-columns:1fr}}
+  /* roster table */
+  .roster{width:100%;border-collapse:collapse;margin-top:24px;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}
+  .roster th{background:var(--red);color:#fff;text-align:left;padding:12px 14px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+  .roster td{padding:11px 14px;border-top:1px solid var(--line);color:var(--muted)}
+  .roster td b{color:var(--ink)}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<nav class="top"><div class="wrap navin">
+  <a class="brand" href="index.html"><span class="mark">FDE</span> FDE&nbsp;Consultants Protocoles</a>
+  <div class="nlinks">
+    <a href="protocols.html" class="active">Protocols</a><a href="docs.html">Docs</a><a href="pricing.html">Pricing</a>
+    <a href="trust.html">Registry</a><a href="blog.html">Intelligence</a>
+    <a href="https://github.com/selectess/fde-consultants-protocoles" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <a class="btn cta" href="docs.html#install">Install the Skill</a>
+</div></nav>
+
+<header class="hero"><div class="wrap" style="max-width:880px">
+  <span class="eyebrow">The protocols · scientific &amp; technical</span>
+  <h1 style="margin-top:16px">FDE × DeepSCR — a protocol for <em>verifiable</em> AI engineering.</h1>
+  <p class="lead" style="max-width:64ch">Two protocols compose into one discipline: <b style="color:var(--ink)">DeepSCR</b> is a governance protocol — separation of powers over any work — and <b style="color:var(--ink)">FDE</b> is the domain method it governs. Together they turn a vague AI ask into a <b style="color:var(--ink)">falsifiable, evidence-grounded, certified</b> deliverable. This page shows the principle, the flow, and a worked engagement.</p>
+  <div class="hcta"><a class="btn cta" href="#flow">Follow the flow ↓</a><a class="btn ghost" href="trust.html">See certified output</a></div>
+</div></header>
+
+<section id="principle"><div class="wrap">
+  <span class="eyebrow" data-reveal>1 · The principle</span>
+  <h2 data-reveal style="margin-top:12px">Governance over a domain — <em>not</em> a template.</h2>
+  <p class="ssub" data-reveal>DeepSCR is domain-agnostic: it could certify any work. FDE gives it engineering depth. The composition is hierarchical — DeepSCR governs FDE specialists — which is what makes the output auditable.</p>
+  <div class="defs">
+    <div class="def" data-reveal><span class="tag">Governance protocol</span><h3>DeepSCR</h3><p>Separation of powers: no single agent both proposes and certifies. Each step is adversarial to the previous one.</p>
+      <ol><li><b>S</b> — Hypothesis: state a falsifiable claim.</li><li><b>C</b> — Contradiction: attack it; ≥3 failure modes before shipping.</li><li><b>V</b> — Verification: every claim ties to ground truth (file·line·test).</li><li><b>R</b> — Certification: an independent 0–100 Assurance Score, with veto.</li></ol></div>
+    <div class="def" data-reveal><span class="tag">Domain method</span><h3>FDE — Forward Deployed Engineering</h3><p>The field method (Palantir lineage) for taking a business problem to owned, production software.</p>
+      <ol><li><b>0</b> — Reconnaissance: scan the real codebase/business.</li><li><b>1</b> — Scoping: the 6-Q decomposition.</li><li><b>2</b> — Prototyping: candidate architectures, held-out gate.</li><li><b>3</b> — Production: runbook, evals, handoff.</li><li><b>4</b> — Feedback: reusable field intelligence.</li></ol></div>
+  </div>
+</div></section>
+
+<section id="flow"><div class="wrap">
+  <span class="eyebrow" data-reveal>2 · The flow on a problem</span>
+  <h2 data-reveal style="margin-top:12px">A worked engagement: <em>reduce B2B SaaS churn.</em></h2>
+  <p class="ssub" data-reveal>Watch the data flow through the four powers — each stage's output is the next stage's adversary. Nothing advances until it survives.</p>
+
+  <div class="pipe" data-reveal>
+    <div class="pcap">data-flow · problem → certified deliverable → public registry</div>
+    <svg viewBox="0 0 980 150" role="img" aria-label="DeepSCR data-flow pipeline">
+      <!-- flow line -->
+      <path class="pflow" d="M70,75 H910"/>
+      <!-- token -->
+      <circle class="ptok" r="5"><animateMotion dur="7s" repeatCount="indefinite" path="M70,75 H910"/></circle>
+      <!-- stages -->
+      <g><rect class="pbox" x="20" y="50" width="110" height="50" rx="9"/><text class="pstage" x="75" y="72">Problem</text><text class="pstage k" x="75" y="86">6-Q intake</text></g>
+      <g><rect class="pbox" x="180" y="50" width="120" height="50" rx="9"/><text class="pstage" x="240" y="72">Hypothesis</text><text class="pstage k" x="240" y="86">Lead</text></g>
+      <g><rect class="pbox" x="350" y="50" width="130" height="50" rx="9"/><text class="pstage" x="415" y="72">Contradiction</text><text class="pstage k" x="415" y="86">Researcher</text></g>
+      <g><rect class="pbox" x="530" y="50" width="130" height="50" rx="9"/><text class="pstage" x="595" y="72">Verification</text><text class="pstage k" x="595" y="86">Builder + 4 FDE</text></g>
+      <g><rect class="pbox cert" x="710" y="50" width="120" height="50" rx="9"/><text class="pstage" x="770" y="72">Certification</text><text class="pstage k" x="770" y="86">Certifier</text></g>
+      <g><rect class="pbox" x="868" y="50" width="92" height="50" rx="9"/><text class="pstage" x="914" y="72">Registry</text><text class="pstage k" x="914" y="86">hash chain</text></g>
+    </svg>
+  </div>
+
+  <div class="stages">
+    <div class="stg" data-reveal><div class="idx">S</div><div>
+      <h4>Hypothesis — the Lead decomposes the problem</h4><div class="who">DeepSCR · 6-Q decomposition</div>
+      <div class="io">
+        <div><b>In</b> "Reduce churn with AI" — vague.</div>
+        <div><b>Out</b> 6-Q: Q1 process · Q2 classification, &lt;1s, ≥0.80 AUC · Q3 24-mo events, GDPR · Q4 €12k/churn · Q5 manual 55% recall · Q6 −18% churn, 200% ROI. <code>+ falsifiable claim + hypothesis tree</code></div>
+      </div></div></div>
+    <div class="stg" data-reveal><div class="idx">C</div><div>
+      <h4>Contradiction — Researchers falsify in parallel</h4><div class="who">DeepSCR · held-out gate</div>
+      <div class="io">
+        <div><b>In</b> The hypothesis tree.</div>
+        <div><b>Out</b> Each hypothesis attacked on a held-out set; only survivors promoted; ≥3 failure modes kept with lessons. <code>promote ⇔ beats the gate</code></div>
+      </div></div></div>
+    <div class="stg" data-reveal><div class="idx">V</div><div>
+      <h4>Verification — Builder consults 4 FDE specialists</h4><div class="who">DeepSCR governs FDE · ground truth</div>
+      <div class="io">
+        <div><b>In</b> The promoted architecture.</div>
+        <div><b>Out</b> Scoping · Architecture · Agent · Production specialists assemble the deliverable; every claim cites a real <code>file·line·test</code> the Certifier resolves on disk.</div>
+      </div></div></div>
+    <div class="stg" data-reveal><div class="idx">R</div><div>
+      <h4>Certification — independent score + veto</h4><div class="who">DeepSCR · separation of powers</div>
+      <div class="io">
+        <div><b>In</b> The deliverable + its evidence trail.</div>
+        <div><b>Out</b> FDE Assurance Score 0–100; ship only if ≥85; <code>written to the public hash-chained registry</code>. Otherwise: veto → re-routed to the weakest owner.</div>
+      </div></div></div>
+  </div>
+</div></section>
+
+<section id="score"><div class="wrap">
+  <span class="eyebrow" data-reveal>3 · The measure</span>
+  <h2 data-reveal style="margin-top:12px">The FDE Assurance Score — <em>falsifiable by construction.</em></h2>
+  <p class="ssub" data-reveal>Four weighted components. Evidence is the largest — and it only counts if the cited artifacts resolve on disk (ground truth, not structure).</p>
+  <div class="formula">
+    <div class="bars" data-bars>
+      <div class="bar"><div class="top"><span>Claim present &amp; falsifiable</span><b>25</b></div><div class="track"><div class="fill" data-w="100"></div></div></div>
+      <div class="bar"><div class="top"><span>Contradiction (≥3 failure modes)</span><b>25</b></div><div class="track"><div class="fill" data-w="100"></div></div></div>
+      <div class="bar"><div class="top"><span>Evidence trail (file·line·test, verified)</span><b>30</b></div><div class="track"><div class="fill" data-w="100"></div></div></div>
+      <div class="bar"><div class="top"><span>Anti-patterns clean</span><b>12 / 20</b></div><div class="track"><div class="fill" data-w="60"></div></div></div>
+    </div>
+    <div class="totalcard" data-reveal>
+      <div class="rlabel" style="color:rgba(250,247,240,.55)">Assurance Score</div>
+      <div class="big"><span data-score2>0</span><span style="font-size:30px;color:rgba(250,247,240,.4)">/100</span></div>
+      <div class="v" data-verdict style="opacity:0;transition:opacity .5s ease">✓ CERTIFIED ≥ 85</div>
+      <small>this engagement: 92 ≥ 85 → ship · a score &lt; 85 → veto, no ship</small>
+    </div>
+  </div>
+</div></section>
+
+<section id="agents"><div class="wrap">
+  <span class="eyebrow" data-reveal>4 · The team</span>
+  <h2 data-reveal style="margin-top:12px">8 agents — 4 govern, 4 do the domain.</h2>
+  <p class="ssub" data-reveal>The Builder consults the four FDE specialists in parallel; the Certifier verifies their claims. "DeepSCR governs FDE specialists."</p>
+  <table class="roster" data-reveal>
+    <thead><tr><th>Agent</th><th>Layer</th><th>Role in the protocol</th></tr></thead>
+    <tbody>
+      <tr><td><b>Lead</b></td><td>DeepSCR</td><td>6-Q decomposition + falsifiable claim + hypothesis tree</td></tr>
+      <tr><td><b>Researcher</b> ×N</td><td>DeepSCR</td><td>Falsify hypotheses in parallel against the held-out gate</td></tr>
+      <tr><td><b>Builder</b></td><td>DeepSCR</td><td>Assemble the deliverable from the specialists; score the rubric</td></tr>
+      <tr><td><b>Certifier</b></td><td>DeepSCR</td><td>Independent Assurance Score; veto if evidence is weak</td></tr>
+      <tr><td><b>Scoping</b></td><td>FDE specialist</td><td>Sharpen the 6-Q; lock metric &amp; cost-of-error</td></tr>
+      <tr><td><b>Architecture</b></td><td>FDE specialist</td><td>Stack / SaaS architecture from Q2–Q3, kept reversible</td></tr>
+      <tr><td><b>Agent</b></td><td>FDE specialist</td><td>Eval gate, reason codes, guardrails, red-team cases</td></tr>
+      <tr><td><b>Production</b></td><td>FDE specialist</td><td>Runbook, observability, cost ceiling, compliance</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<section id="stance"><div class="wrap">
+  <span class="eyebrow" data-reveal>Why it holds up</span>
+  <h2 data-reveal style="margin-top:12px">Four properties that make the output <em>scientific.</em></h2>
+  <div class="cards4" style="margin-top:32px">
+    <div class="card" data-reveal><div class="ic">FALSIFIABILITY</div><h4>Claims can be wrong</h4><p>Every engagement states a claim a held-out test could refute — not a vibe.</p></div>
+    <div class="card" data-reveal><div class="ic">SEPARATION</div><h4>No self-certification</h4><p>The proposer never certifies. The Certifier can veto the Lead's optimism.</p></div>
+    <div class="card" data-reveal><div class="ic">GROUND TRUTH</div><h4>Evidence resolves on disk</h4><p>Synthetic structure earns nothing; cited file·line·test must exist.</p></div>
+    <div class="card" data-reveal><div class="ic">REPRODUCIBLE</div><h4>Public &amp; auditable</h4><p>Every certification lands in a hash-chained registry anyone can re-verify.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap"><div class="final" data-reveal>
+  <span class="eyebrow" style="color:var(--clay)">From principle to practice</span>
+  <h2 style="margin:12px auto 0">Run the protocol on <em>your</em> repo.</h2>
+  <p class="ssub" style="margin:14px auto 0">Install the Skill, point it at real code, and read the certified result.</p>
+  <div class="hcta" style="justify-content:center;margin-top:24px"><a class="btn cta" href="docs.html#install">Install the Skill →</a><a class="btn ghost" href="trust.html" style="background:transparent;color:var(--ivory);border-color:rgba(250,247,240,.25)">Browse the Registry</a></div>
+</div></div></section>
+
+<footer><div class="wrap foot">
+  <span>FDE Consultants Protocoles — open-source FDE + DeepSCR · Apache-2.0</span>
+  <span style="display:flex;gap:18px;flex-wrap:wrap"><a href="index.html">Home</a><a href="docs.html">Docs</a><a href="pricing.html">Pricing</a><a href="trust.html">Registry</a><a href="blog.html">Intelligence</a></span>
+</div></footer>
+
+<script type="module">
+  try{
+    const { animate, inView, scroll } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    const ease=[.22,1,.36,1];
+    scroll((p)=>{document.getElementById('prog').style.transform=`scaleX(${p})`;});
+    inView("[data-reveal]",(el)=>animate(el,{opacity:[0,1],transform:["translateY(26px)","translateY(0)"]},{duration:.7,easing:ease}),{margin:"-12% 0px"});
+    inView("[data-bars]",()=>{document.querySelectorAll('.fill').forEach((f,i)=>setTimeout(()=>f.style.width=f.getAttribute('data-w')+'%',120*i));});
+    inView(document.querySelector("[data-score2]"),(el)=>{if(el.dataset.done)return;el.dataset.done=1;const t0=performance.now(),d=1700,V=document.querySelector('[data-verdict]');(function k(n){const p=Math.min(1,(n-t0)/d);el.textContent=Math.round(92*(1-Math.pow(1-p,4)));if(p<1)requestAnimationFrame(k);else if(V)V.style.opacity=1;})(t0);});
+  }catch(e){
+    document.querySelectorAll('[data-reveal]').forEach(el=>{el.style.opacity='1';el.style.transform='none';});
+    document.querySelectorAll('.fill').forEach(f=>f.style.width=f.getAttribute('data-w')+'%');
+    const s=document.querySelector('[data-score2]'); if(s) s.textContent='92';
+    const v=document.querySelector('[data-verdict]'); if(v) v.style.opacity=1;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+┌──────────────────────────────────────────────────────────────────────┐
+│                                                                      │
+│              F D E   C O N S U L T A N T                             │
+│                                                                      │
+│   Forward Deployed Engineering methodology for AI coding agents.    │
+│                                                                      │
+│   Scope → Prototype → Production → Feedback                          │
+│   with a verifiable Trust Score on every deliverable.                │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+
+                          ┌─────────────────────┐
+                          │   YOUR PROBLEM      │
+                          │  (vague / scoped)   │
+                          └──────────┬──────────┘
+                                     │
+                                     ▼
+        ┌────────────────────────────────────────────────┐
+        │              L A Y E R   1                     │
+        │           Skill Methodology                    │
+        │  14 Operating Principles + 10 Anti-Patterns    │
+        │  6-Q decomposition (process/decision/data/...)  │
+        │  4-stage loop: Scope → Proto → Prod → Feedback │
+        └────────────────────────┬───────────────────────┘
+                                 │ reads as Markdown
+                                 ▼
+        ┌────────────────────────────────────────────────┐
+        │              L A Y E R   2                     │
+        │           MCP Server (6 tools)                 │
+        │  fde_decompose · fde_roi · fde_scientific_search│
+        │  fde_evals    · fde_ontology · fde_trust_score │
+        │  stdio transport · zero dependencies           │
+        └────────────────────────┬───────────────────────┘
+                                 │ calls as tools
+                                 ▼
+        ┌────────────────────────────────────────────────┐
+        │              L A Y E R   3                     │
+        │           Trust Score Registry                 │
+        │   ┌──────────┐    SHA-256 chain (append-only)  │
+        │   │genesis  ─┼─→  ──→  ──→  ──→  ──→  latest  │
+        │   └──────────┘    Every deliverable has a SHA  │
+        │                   90/91/93 = certified          │
+        └────────────────────────────────────────────────┘
+                                 │
+                                 ▼
+                          ┌─────────────────────┐
+                          │  CERTIFIED          │
+                          │  DELIVERABLE        │
+                          │  + Trust Score ≥ 85 │
+                          └─────────────────────┘
