@@ -17,4 +17,4 @@
 - GitHub: https://github.com/selectess/fde-consultants-protocoles
 
 ## License
-Apache-2.0 (Skill) + MIT (Modex core) + BSL 1.1 (Plugin). 116 open-source tests.
+Apache-2.0 (Skill) + MIT (Modex core) + BSL 1.1 (Plugin). 126 open-source tests.

@@ -11,7 +11,7 @@ AEO/SEO metadata for AI indexing + search engines
 > **Forward Deployed Engineering (FDE) methodology for AI coding agents.**
 > Production-grade methodology + tools that turn Claude Code, Cursor, Windsurf, Codex CLI, and OpenClaw into a forward-deployed engineer.
 
-[![CI](https://github.com/selectess/fde-consultants-protocoles/actions/workflows/ci.yml/badge.svg)](https://github.com/selectess/fde-consultants-protocoles/actions/workflows/ci.yml) [![Tests](https://img.shields.io/badge/tests-116%2F116%20passing-brightgreen)](skill/tests/) [![Live site](https://img.shields.io/badge/site-live-D97757)](https://selectess.github.io/fde-consultants-protocoles/)
+[![CI](https://github.com/selectess/fde-consultants-protocoles/actions/workflows/ci.yml/badge.svg)](https://github.com/selectess/fde-consultants-protocoles/actions/workflows/ci.yml) [![Tests](https://img.shields.io/badge/tests-126%2F126%20passing-brightgreen)](skill/tests/) [![Live site](https://img.shields.io/badge/site-live-D97757)](https://selectess.github.io/fde-consultants-protocoles/)
 [![FDE Assurance Score](https://img.shields.io/badge/FDE%20Assurance%20Score-94%2F100%20self--assessed-blue)](SKILL_TRUST_SCORE.json)
 [![License: Apache-2.0](https://img.shields.io/badge/skill-Apache--2.0-orange)](LICENSE)
 [![MCP Compatible](https://img.shields.io/badge/MCP-stdio-purple)](https://modelcontextprotocol.io)
@@ -119,7 +119,7 @@ The Skill **self-attests 94/100** — that is the honest headline number. The **
 Verify yourself:
 ```bash
 python3 -m pytest skill/tests/ modex/tests/
-# Expected: 116 passed in ~5s
+# Expected: 126 passed in ~5s
 
 python3 -m modex.certify_skill --skill-path ./skill --output ./cert.json
 # Expected: FDE Assurance Score 100/100, verdict certified
@@ -258,4 +258,4 @@ Use the official Skills when it's *"do a single document task well"*.
 
 ---
 
-<sub>Last updated: 2026-06-28 · Built with industrial rigor · Verified by 116/116 tests · FDE Assurance Score 94/100 (self-assessed) · Apache-2.0 (Skill) + MIT (Modex core) + BSL (Plugin)</sub>
+<sub>Last updated: 2026-06-29 · Built with industrial rigor · Verified by 126/126 tests · FDE Assurance Score 94/100 (self-assessed) · Apache-2.0 (Skill) + MIT (Modex core) + BSL (Plugin)</sub>

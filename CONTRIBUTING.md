@@ -40,7 +40,7 @@ cd fde-consultants-protocoles
 # Install dev dependencies (Python 3.10+)
 python3 -m pip install pytest pytest-asyncio
 
-# Run all tests (must pass 116/116 (skill + modex; the hosted MCP Cloud suite is private))
+# Run all tests (must pass 126/126 (skill + modex; the hosted MCP Cloud suite is private))
 python3 -m pytest skill/tests/ modex/tests/
 
 # Re-certify the Skill (must return 100/100 certified)
@@ -59,7 +59,7 @@ python3 -m modex.certify_skill --skill-path ./skill --output ./cert.json
 1. Fork the repo
 2. Create a feature branch: `git checkout -b feat/your-change`
 3. Add tests for any new behavior (`test_your_change.py` in the relevant `tests/` dir)
-4. Run the full test suite (must be 109+ passing)
+4. Run the full test suite (must be 126+ passing)
 5. Open a PR with the **four-checklist** as the PR body
 
 ## What we will reject
@@ -75,7 +75,7 @@ python3 -m modex.certify_skill --skill-path ./skill --output ./cert.json
 - A test that fails before the fix and passes after
 - A SHA-256 hash that proves a deliverable wasn't tampered with
 - A case study with a real customer problem (anonymized)
-- A reduction in test runtime (we benchmark 116 tests in ~10s)
+- A reduction in test runtime (we benchmark 126 tests in ~10s)
 
 ## Code of conduct
 
