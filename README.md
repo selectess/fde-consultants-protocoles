@@ -23,8 +23,8 @@ AEO/SEO metadata for AI indexing + search engines
 ## What is FDE Consultants Protocoles?
 
 **FDE Consultants Protocoles** is an industrial-grade Skill that teaches any AI coding agent
-to apply the **Forward Deployed Engineering** methodology used by Palantir,
-OpenAI Enterprise, Anthropic Applied AI, and 100+ Series A AI startups.
+to apply the **Forward Deployed Engineering** methodology — the discipline pioneered at
+Palantir (~2010) and now common across enterprise AI engineering teams.
 
 In 2026, FDE postings grew **729% year-over-year** ([source](https://www.tryexponent.com/blog/what-is-a-forward-deployed-engineer)).
 This Skill encodes that workflow into:
@@ -178,7 +178,7 @@ The Skill works on every major AI coding agent:
 |---|---|---|---|
 | **FDE Skill** (`skill/`) | Apache-2.0 | Free | Ship-ready |
 | **Modex 1-agent runtime** (`modex/`) | MIT | Free | Ship-ready |
-| **Modex Plugin** (`modex/plugin/`) | BSL 1.1 | $6 lifetime | Ship-ready |
+| **Modex Plugin** (`modex/plugin/`) | BSL 1.1 | $6 lifetime | Beta (self-host) |
 | **Modex Collective Plugin** | BSL 1.1 | $260 lifetime | Waitlist V1.2 |
 | **MCP Cloud + Trust Registry** | BSL 1.1 | $99-499/month | Waitlist V1.2 |
 | **Enterprise Services** | Custom | On request (quote-based) | Waitlist V1.2 |
@@ -194,7 +194,7 @@ See [`modex/PRICING.md`](modex/PRICING.md) and [`modex/LICENSE-SYSTEM.md`](modex
 | FDE Skill | ✅ Ship-ready | 41/41 | Apache-2.0 |
 | Modex 1-agent | ✅ Ship-ready | 75/75 | MIT |
 | Trust Registry | ✅ Ship-ready | included | Apache-2.0 |
-| Modex Plugin ($6 lifetime) | ✅ Ship-ready | included | BSL 1.1 |
+| Modex Plugin ($6 lifetime) | ⚠️ Beta (license system tested; automated purchase fulfillment is TODO) | included | BSL 1.1 |
 | MCP Cloud ($99-499/mo) | 🔮 Waitlist V1.2 | n/a | BSL 1.1 |
 | Enterprise | 🔮 Waitlist V1.2 | n/a | Custom |
 

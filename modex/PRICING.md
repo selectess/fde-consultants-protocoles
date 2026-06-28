@@ -7,7 +7,7 @@
 | Tier | Price | Audience | Status |
 |---|---|---|---|
 | **FDE Skill** (open-source) | **Free** | Hobbyists, devs solo, teams adopting FDE methodology | ✅ Ship-ready (Apache-2.0) |
-| **Modex Plugin** | **$6 lifetime** | Power users who want a license-keyed plugin | ✅ Ship-ready (BSL) |
+| **Modex Plugin** | **$6 lifetime** | Power users who want a license-keyed plugin | ⚠️ Beta — license system tested; automated purchase fulfillment is TODO (BSL) |
 | **Modex Collective** | **$260 lifetime** | Teams that need 4 coordinated sub-agents | 🔮 Waitlist V1.2 |
 | **MCP Cloud + Registry** | **$99-499/month** | Enterprises that need hosted Trust Scores | 🔮 Waitlist V1.2 |
 | **Enterprise Services** | **$10K-100K/contract** | Enterprises that need hands-on FDE consulting | 🔮 Waitlist V1.2 |
