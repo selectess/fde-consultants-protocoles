@@ -2,7 +2,8 @@
   "schema": "fde-skill-certification-v1",
   "certifier": "modex.orchestrator.ModexRuntime(role='certifier')",
   "independent_of_lead": true,
-  "skill_path": "/Users/mehdiwhb/Documents/trae_projects/fde/skill",
+  "disclaimer": "'independent_of_lead' means the Certifier role is decoupled from the Lead role within the same bundled Modex runtime. This is a self-produced reproducibility check, NOT third-party certification. The honest self-assessed score is 94/100; this file is the bundled certifier's re-derivation. For an independent score, run the certifier yourself or commission an external audit.",
+  "skill_path": "skill",
   "skill_md_sha256": "aaca7ceb38a208c0cacbfc359d20b484fb28aed362070b914757486595c59500",
   "trust_score": {
     "schema": "fde-trust-score-v1",

@@ -12,7 +12,7 @@ AEO/SEO metadata for AI indexing + search engines
 > Production-grade methodology + tools that turn Claude Code, Cursor, Windsurf, Codex CLI, and OpenClaw into a forward-deployed engineer.
 
 [![CI](https://github.com/selectess/fde-consultants-protocoles/actions/workflows/ci.yml/badge.svg)](https://github.com/selectess/fde-consultants-protocoles/actions/workflows/ci.yml) [![Tests](https://img.shields.io/badge/tests-116%2F116%20passing-brightgreen)](skill/tests/) [![Live site](https://img.shields.io/badge/site-live-D97757)](https://selectess.github.io/fde-consultants-protocoles/)
-[![FDE Assurance Score](https://img.shields.io/badge/Trust%20Score-100%2F100%20Certified-blue)](SKILL_TRUST_SCORE.json)
+[![FDE Assurance Score](https://img.shields.io/badge/FDE%20Assurance%20Score-94%2F100%20self--assessed-blue)](SKILL_TRUST_SCORE.json)
 [![License: Apache-2.0](https://img.shields.io/badge/skill-Apache--2.0-orange)](LICENSE)
 [![MCP Compatible](https://img.shields.io/badge/MCP-stdio-purple)](https://modelcontextprotocol.io)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://python.org)
@@ -114,7 +114,7 @@ Re-derives the Skill's FDE Assurance Score from raw evidence. Required to break 
 | Anti-patterns (no buzzwords, no fake URLs) | 20 | **18** |
 | **TOTAL** | **100** | **94/100 → Certified** ✅ |
 
-The Skill **self-attests 94/100**. The independent Certifier (`modex/certify_skill.py`) **re-derives 100/100**.
+The Skill **self-attests 94/100** — that is the honest headline number. The **bundled** Certifier (`modex/certify_skill.py`) re-derives 100/100 from raw evidence; since it ships in this repo, treat that as a *reproducibility check*, **not** third-party certification. For an independent score, run the certifier yourself or commission an external audit.
 
 Verify yourself:
 ```bash
@@ -258,4 +258,4 @@ Use the official Skills when it's *"do a single document task well"*.
 
 ---
 
-<sub>Last updated: 2026-06-28 · Built with industrial rigor · Verified by 116/116 tests · FDE Assurance Score 100/100 · Apache-2.0 (Skill) + MIT (Modex core) + BSL (Plugin)</sub>
+<sub>Last updated: 2026-06-28 · Built with industrial rigor · Verified by 116/116 tests · FDE Assurance Score 94/100 (self-assessed) · Apache-2.0 (Skill) + MIT (Modex core) + BSL (Plugin)</sub>
