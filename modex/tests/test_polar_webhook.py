@@ -2,6 +2,7 @@
 import base64
 import hashlib
 import hmac
+import json
 import time
 
 from modex.polar_webhook import verify_signature, handle_order_paid
@@ -43,22 +44,41 @@ def test_stale_timestamp_rejected():
     assert verify_signature(SECRET, _headers(SECRET, body, ts=time.time() - 3600), body) is False
 
 
-def test_founding_order_mints_plugin_license():
+def test_founding_order_mints_plugin_license(tmp_path):
+    store = tmp_path / "licenses.jsonl"
     ev = {"type": "order.paid", "data": {"id": "ord_1",
           "product": {"name": "Modex — Founding License"}, "customer": {"email": "a@b.com"}}}
-    lic = handle_order_paid(ev)
+    lic = handle_order_paid(ev, store_path=store)
     assert lic and lic["tier"] == "plugin" and lic["email"] == "a@b.com"
     assert lic["signature"].startswith("ed25519:") and lic["stripe_payment_id"] == "ord_1"
+    # fulfillment ran: license persisted + audited, delivery deferred (no SMTP)
+    rec = json.loads(store.read_text().splitlines()[0])
+    assert rec["event"] == "fulfilled" and rec["order_id"] == "ord_1"
+    assert rec["license_id"] == lic["license_id"]
+    assert rec["delivery"]["status"] == "deferred"
 
 
-def test_collective_order_mints_collective_license():
+def test_collective_order_mints_collective_license(tmp_path):
     ev = {"type": "order.paid", "data": {"id": "ord_2",
           "product": {"name": "Modex Collective"}, "customer": {"email": "c@d.com"}}}
-    lic = handle_order_paid(ev)
+    lic = handle_order_paid(ev, store_path=tmp_path / "licenses.jsonl")
     assert lic and lic["tier"] == "collective"
 
 
-def test_subscription_product_mints_no_license():
+def test_retried_webhook_returns_same_license(tmp_path):
+    store = tmp_path / "licenses.jsonl"
+    ev = {"type": "order.paid", "data": {"id": "ord_dup",
+          "product": {"name": "Modex — Founding License"}, "customer": {"email": "a@b.com"}}}
+    first = handle_order_paid(ev, store_path=store)
+    second = handle_order_paid(ev, store_path=store)  # Polar retry
+    assert first and second
+    assert second["license_id"] == first["license_id"]  # same license, not re-minted
+    issuances = [l for l in store.read_text().splitlines()
+                 if json.loads(l)["event"] == "fulfilled"]
+    assert len(issuances) == 1  # no double issue
+
+
+def test_subscription_product_mints_no_license(tmp_path):
     ev = {"type": "order.paid", "data": {"id": "ord_3",
           "product": {"name": "MCP Cloud — Starter"}, "customer": {"email": "e@f.com"}}}
-    assert handle_order_paid(ev) is None
+    assert handle_order_paid(ev, store_path=tmp_path / "licenses.jsonl") is None

@@ -11,7 +11,9 @@ Deployment (chef, after Polar KYC):
   1. Polar -> Settings -> Webhooks -> add endpoint, copy the signing secret.
   2. Run with POLAR_WEBHOOK_SECRET=<secret> MODEX_PRIVATE_KEY_PATH=<key> on a host.
   3. A paid $6 (Founding -> plugin) or $260 (Collective -> collective) order then
-     auto-mints the license. Storing + emailing it is marked TODO below.
+     auto-mints, persists, emails and audits the license (see modex.fulfillment).
+     Email stays DEFERRED until MODEX_SMTP_HOST is set — the license is always
+     persisted first, never lost.
 """
 import base64
 import hashlib
@@ -27,6 +29,7 @@ from typing import Optional
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 from modex.license import generate_license  # noqa: E402
+from modex.fulfillment import fulfill as fulfill_license, find_by_order  # noqa: E402
 
 POLAR_WEBHOOK_SECRET = os.environ.get("POLAR_WEBHOOK_SECRET", "")
 PRIVATE_KEY_PATH = Path(os.environ.get(
@@ -74,8 +77,14 @@ def verify_signature(secret: str, headers, body: bytes) -> bool:
     return False
 
 
-def handle_order_paid(event: dict) -> Optional[dict]:
-    """On a paid order for a license product, mint and return the license."""
+def handle_order_paid(event: dict, store_path=None) -> Optional[dict]:
+    """On a paid order for a license product, mint, fulfill, and return the license.
+
+    Fulfillment (persist + email + audit) runs as a side effect via
+    modex.fulfillment.fulfill — idempotent on the Polar order id, so a retried
+    webhook never double-issues. The pristine signed license dict is returned
+    unchanged (so its ed25519 signature still verifies).
+    """
     data = event.get("data", {})
     product = data.get("product") or {}
     product_name = product.get("name") or data.get("product_name", "")
@@ -87,13 +96,19 @@ def handle_order_paid(event: dict) -> Optional[dict]:
         return None  # subscription / cloud / unknown -> no offline license
     if not email:
         raise ValueError("paid order has no customer email")
+    # Idempotency: a retried webhook returns the SAME already-issued license,
+    # never a freshly minted throwaway (minting generates a new id each call).
+    prior = find_by_order(order_id, store_path)
+    if prior and prior.get("license"):
+        return prior["license"]
     license_obj = generate_license(
         email=email,
         tier=tier,
         stripe_payment_id=order_id,
         private_key_path=PRIVATE_KEY_PATH if PRIVATE_KEY_PATH.exists() else None,
     )
-    # TODO (production): persist license, email it to `email`, write an audit log.
+    # Last mile: persist the license, email it to `email`, write an audit record.
+    fulfill_license(license_obj, order_id=order_id, email=email, tier=tier, store_path=store_path)
     return license_obj
 
 
