@@ -8,11 +8,14 @@ Usage:
     python -m modex.stripe_webhook
     # or import and call: handle_payment_intent_succeeded(event)
 
+Our live checkout runs on Polar (see polar_webhook.py); this is the parallel
+reference handler for anyone deploying on Stripe instead.
+
 This handler:
 1. Receives a Stripe webhook (payment_intent.succeeded)
 2. Generates a license.json with ed25519 signature
-3. Stores the license in a database (TODO: production)
-4. Emails the license to the customer (TODO: production)
+3. Persists + emails + audits it via modex.fulfillment (idempotent on payment id;
+   email is deferred until MODEX_SMTP_* is set, the license is never lost)
 
 For local development:
     python -m modex.stripe_webhook --simulate stripe
@@ -37,11 +40,13 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from modex.license import generate_license
+from modex.fulfillment import fulfill as fulfill_license, find_by_order
 
 
-# Configuration (set via environment in production)
-STRIPE_API_KEY = os.environ.get("STRIPE_API_KEY", "sk_test_PLACEHOLDER")
-STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "whsec_PLACEHOLDER")
+# Configuration (set via environment). Empty default = "not configured" rather
+# than a fake-looking secret; the handler stays honest about its inactive state.
+STRIPE_API_KEY = os.environ.get("STRIPE_API_KEY", "")
+STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 PRIVATE_KEY_PATH = Path(os.environ.get(
     "MODEX_PRIVATE_KEY_PATH",
     str(REPO_ROOT / "modex" / ".keys" / "modex_private.key")
@@ -49,14 +54,12 @@ PRIVATE_KEY_PATH = Path(os.environ.get(
 PORT = int(os.environ.get("PORT", "8080"))
 
 
-def handle_payment_intent_succeeded(event_data: dict) -> dict:
-    """Handle a Stripe payment_intent.succeeded event.
+def handle_payment_intent_succeeded(event_data: dict, store_path=None) -> dict:
+    """Handle a Stripe payment_intent.succeeded event: mint + fulfill the license.
 
-    Args:
-        event_data: Stripe event dict with payment_intent, customer, etc.
-
-    Returns:
-        dict with the generated license.
+    Persist + email + audit run via modex.fulfillment, idempotent on the Stripe
+    payment id, so a retried webhook returns the same license instead of minting
+    a throwaway. The pristine signed license dict is returned unchanged.
     """
     payment_intent = event_data.get("data", {}).get("object", {})
     payment_id = payment_intent.get("id")
@@ -66,16 +69,19 @@ def handle_payment_intent_succeeded(event_data: dict) -> dict:
     if not customer_email:
         raise ValueError("No customer email in payment_intent")
     tier = payment_intent.get("metadata", {}).get("tier", "plugin")
+    # Idempotency: a retried webhook returns the already-issued license.
+    prior = find_by_order(payment_id, store_path)
+    if prior and prior.get("license"):
+        return prior["license"]
     license_obj = generate_license(
         email=customer_email,
         tier=tier,
         stripe_payment_id=payment_id,
         private_key_path=PRIVATE_KEY_PATH if PRIVATE_KEY_PATH.exists() else None,
     )
-    # TODO (production):
-    # 1. Store license in database (PostgreSQL)
-    # 2. Email license to customer via SendGrid/Postmark
-    # 3. Log to audit trail (CloudWatch, Stackdriver)
+    # Last mile: persist the license, email it, write an audit record.
+    fulfill_license(license_obj, order_id=payment_id, email=customer_email,
+                    tier=tier, store_path=store_path)
     return license_obj
 
 

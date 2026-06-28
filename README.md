@@ -179,9 +179,9 @@ The Skill works on every major AI coding agent:
 | **FDE Skill** (`skill/`) | Apache-2.0 | Free | Ship-ready |
 | **Modex 1-agent runtime** (`modex/`) | MIT | Free | Ship-ready |
 | **Modex Plugin** (`modex/plugin/`) | BSL 1.1 | $6 lifetime | Beta (self-host) |
-| **Modex Collective Plugin** | BSL 1.1 | $260 lifetime | Waitlist V1.2 |
-| **MCP Cloud + Trust Registry** | BSL 1.1 | $99-499/month | Waitlist V1.2 |
-| **Enterprise Services** | Custom | On request (quote-based) | Waitlist V1.2 |
+| **Modex Collective Plugin** | BSL 1.1 | $260 lifetime | Waitlist |
+| **MCP Cloud + Trust Registry** | BSL 1.1 | $99-499/month | Waitlist |
+| **Enterprise Services** | Custom | On request (quote-based) | Waitlist |
 
 See [`modex/PRICING.md`](modex/PRICING.md) and [`modex/LICENSE-SYSTEM.md`](modex/LICENSE-SYSTEM.md) for the ed25519 license mechanism.
 
@@ -192,11 +192,11 @@ See [`modex/PRICING.md`](modex/PRICING.md) and [`modex/LICENSE-SYSTEM.md`](modex
 | Component | Status | Tests | License |
 |---|---|---|---|
 | FDE Skill | ✅ Ship-ready | 41/41 | Apache-2.0 |
-| Modex 1-agent | ✅ Ship-ready | 75/75 | MIT |
+| Modex 1-agent | ✅ Ship-ready | 85/85 | MIT |
 | Trust Registry | ✅ Ship-ready | included | Apache-2.0 |
-| Modex Plugin ($6 lifetime) | ⚠️ Beta (license system tested; automated purchase fulfillment is TODO) | included | BSL 1.1 |
-| MCP Cloud ($99-499/mo) | 🔮 Waitlist V1.2 | n/a | BSL 1.1 |
-| Enterprise | 🔮 Waitlist V1.2 | n/a | Custom |
+| Modex Plugin ($6 lifetime) | ⚠️ Beta (self-host) | included | BSL 1.1 |
+| MCP Cloud ($99-499/mo) | 🔮 Waitlist | n/a | BSL 1.1 |
+| Enterprise | 🔮 Waitlist | n/a | Custom |
 
 ---
 

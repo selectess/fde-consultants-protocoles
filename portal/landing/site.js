@@ -45,13 +45,4 @@
   window.addEventListener("scroll", updateScrollStory, { passive: true });
   window.addEventListener("resize", updateScrollStory);
   updateScrollStory();
-
-  document.querySelectorAll(".waitlist").forEach((form) => {
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const button = form.querySelector("button");
-      if (button) button.textContent = "Beta request captured";
-      form.classList.add("submitted");
-    });
-  });
 })();

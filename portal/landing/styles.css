@@ -929,32 +929,6 @@ td { color: #4d596b; }
   border-radius: 8px;
   background: linear-gradient(135deg, rgba(35,84,214,0.10), rgba(7,139,143,0.08));
 }
-.waitlist {
-  display: flex;
-  gap: 10px;
-  margin-top: 18px;
-}
-.waitlist input {
-  min-width: 0;
-  flex: 1;
-  height: 46px;
-  padding: 0 13px;
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 8px;
-  color: #fff;
-  background: rgba(255,255,255,0.08);
-}
-.waitlist button {
-  height: 46px;
-  padding: 0 14px;
-  border: 0;
-  border-radius: 8px;
-  color: var(--field);
-  background: #e9b8a4;
-  font-weight: 900;
-  cursor: pointer;
-}
-
 /* Editorial rebuild: dark developer-grade market intelligence surfaces. */
 .topbar {
   position: fixed;
@@ -1314,7 +1288,6 @@ footer {
   section { padding: 64px 0; }
   .article-card { grid-template-columns: 1fr; }
   .article-card img { height: 180px; }
-  .waitlist { flex-direction: column; }
   .foot { align-items: flex-start; flex-direction: column; }
   .foot a { margin-left: 0; margin-right: 14px; }
   .artifact { position: relative; left: auto !important; right: auto !important; top: auto !important; bottom: auto !important; width: auto; margin: 10px; }
