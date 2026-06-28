@@ -1,68 +1,122 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FDE Consultants Protocoles MCP Bêta - Governance and Readiness</title>
-<meta name="keywords" content="forward deployed engineer, FDE, DeepSCR, DeepSCR protocol, AI agent certification, verifiable AI, agent skills, MCP, model context protocol, Claude Code, Cursor, Codex, AI evals, FDE Assurance Score, trust score, autonomous AI agents, AI governance, LLM agents, Palantir FDE, certified AI deliverables, AI trust registry, Anthropic">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP Cloud — Bêta &amp; governance · FDE Consultants Protocoles</title>
+<meta name="keywords" content="forward deployed engineer, FDE, DeepSCR, MCP, model context protocol, hosted MCP, AI governance, tenant RAG, agent skills, Claude Code, AI trust registry, Selectess">
 <meta name="author" content="Selectess">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FDE Consultants Protocoles">
-<meta property="og:title" content="FDE Consultants Protocoles MCP Bêta - Governance and Readiness">
-<meta property="og:description" content="The hosted MCP layer for FDE operators is in Bêta. Learn what it will add, what is not production-ready yet, and how governance will work.">
+<meta property="og:title" content="MCP Cloud — Bêta &amp; governance · FDE Consultants Protocoles">
+<meta property="og:description" content="The hosted MCP layer for FDE operators is in Bêta. What it will add, what is not production-ready yet, and how governance works.">
 <meta property="og:url" content="https://selectess.github.io/fde-consultants-protocoles/mcp-beta.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FDE Consultants Protocoles MCP Bêta - Governance and Readiness">
-<meta name="twitter:description" content="The hosted MCP layer for FDE operators is in Bêta. Learn what it will add, what is not production-ready yet, and how governance will work.">
+<meta name="twitter:title" content="MCP Cloud — Bêta &amp; governance">
+<meta name="twitter:description" content="The hosted MCP layer for FDE operators is in Bêta. What it adds, what is not production-ready, and how governance works.">
+<meta name="description" content="The hosted MCP layer for FDE operators is in Bêta. What it will add, what is not production-ready yet, and how governance will work.">
 <link rel="canonical" href="https://selectess.github.io/fde-consultants-protocoles/mcp-beta.html">
-
-  <meta name="description" content="The hosted MCP layer for FDE operators is in Bêta. Learn what it will add, what is not production-ready yet, and how governance will work.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "FDE Consultants Protocoles MCP B\u00eata", "description": "Hosted MCP layer for FDE operators, coming after open-source trust and production hardening."}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,500;6..72,1,400;6..72,1,500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system.css">
+<script>document.documentElement.classList.add('js')</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"MCP Cloud — Bêta & governance","description":"Hosted MCP layer for FDE operators, after open-source trust and production hardening.","url":"https://selectess.github.io/fde-consultants-protocoles/mcp-beta.html"}</script>
 </head>
-<body class="editorial-body">
-  <nav class="site-nav" aria-label="Primary navigation">
-    <div class="wrap nav-inner">
-      <a class="brand" href="index.html"><span class="brand-wordmark">FDE Consultants Protocoles</span><span class="beta">Bêta</span></a>
-      <div class="nav-links"><a href="protocols.html">Protocols</a><a href="docs.html">Docs</a><a href="pricing.html">Pricing</a><a href="trust.html">Registry</a><a href="blog.html">Intelligence</a><a href="https://github.com/selectess/fde-consultants-protocoles" target="_blank" rel="noopener">GitHub</a><a class="nav-cta" href="docs.html#install">Install the Skill</a></div>
+<body>
+<nav class="top"><div class="wrap navin">
+  <a class="brand" href="index.html"><span class="mark">FDE</span> FDE&nbsp;Consultants Protocoles</a>
+  <div class="nlinks">
+    <a href="protocols.html">Protocols</a><a href="docs.html">Docs</a><a href="pricing.html">Pricing</a>
+    <a href="trust.html">Registry</a><a href="blog.html">Intelligence</a>
+    <a href="https://github.com/selectess/fde-consultants-protocoles" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <a class="btn cta" href="docs.html#install">Install the Skill</a>
+</div></nav>
+
+<header class="hero"><div class="wrap heroin">
+  <div>
+    <span class="eyebrow">MCP Cloud · Bêta &amp; governance</span>
+    <h1 style="margin-top:16px">Hosted MCP comes <em>after</em> open-source trust.</h1>
+    <p class="lead">The Skill is usable today. MCP Cloud is the planned hosted layer for team context, governed tool calls, usage controls and Executive FDE workflows. We intentionally do <b style="color:var(--ink)">not</b> present it as production-ready.</p>
+    <div class="hcta">
+      <a class="btn cta" href="docs.html#install">Install the Skill →</a>
+      <a class="btn ghost" href="https://github.com/selectess/fde-consultants-protocoles/issues/new?title=MCP+Cloud+beta+access" target="_blank" rel="noopener">Request beta access</a>
     </div>
-  </nav>
-  <header class="mcp-hero">
-    <div class="wrap intel-hero-grid">
-      <div>
-        <span class="eyebrow">MCP Bêta / Governance</span>
-        <h1>Hosted MCP comes after open-source trust.</h1>
-        <p class="lead">The Skill is usable today. MCP Bêta is the planned hosted layer for team context, governed tool calls, usage controls, dashboards, and Executive FDE workflows. It is intentionally not presented as production-ready.</p>
-        <div class="actions"><a class="btn primary" href="docs.html#install">Install Skill</a><a class="btn secondary" href="blog/mcp-api-layer-agentic-businesses.html">Read readiness article</a></div>
-      </div>
-      <div class="intel-terminal">
-        <div class="window-top"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span>mcp-beta.yaml</span></div>
-<pre><span class="yaml">status:</span> beta / not production-ready
-<span class="yaml">method:</span> open-source Skill first
-<span class="yaml">planned:</span>
+    <div class="runbar"><b>Honest by default</b> · the local Skill earns trust before the hosted layer ships</div>
+  </div>
+  <div class="panelfx" data-reveal>
+    <div class="pbar"><i></i><i></i><i></i><span>mcp-beta.yaml · planned, not production</span></div>
+    <pre style="margin:0;background:transparent;color:rgba(250,247,240,.9);padding:18px 20px;font-family:var(--mono);font-size:12.5px;line-height:1.85;overflow-x:auto"><span class="cm">status:</span> beta / not production-ready
+<span class="cm">method:</span> open-source Skill first
+<span class="cm">planned:</span>
   - tenant-aware RAG
   - governed tool calls
   - usage dashboards
   - Executive FDE workflows
-<span class="yaml">hardening_required:</span>
+<span class="cm">hardening_required:</span>
   - Postgres persistence
   - Redis rate limits
-  - idempotent Stripe webhooks
+  - signed billing webhooks
   - strict auth + CORS
   - monitoring + load tests</pre>
-      </div>
-    </div>
-  </header>
-  <main class="wrap" style="padding:44px 0 86px">
-    <section class="editorial-panel founder-box"><span class="label">Positioning</span><h2>MCP is the execution layer, not the launch product.</h2><p>FDE Consultants Protocoles earns trust through the local Skill, Docs, Academy, and market intelligence. The hosted MCP layer should only add value where teams need shared context, governed tools, auditability, and collaboration.</p></section>
-    <section><div class="section-head"><div><span class="eyebrow" style="color:var(--cyan)">What MCP adds</span><h2>Planned hosted capabilities.</h2></div><p class="section-copy">These are directionally planned capabilities, not a production guarantee.</p></div><div class="market-cluster-grid"><article class="market-cluster"><span class="label">Context</span><h3>Team RAG</h3><p>Tenant-aware retrieval for docs, artifacts, examples, and field memory.</p></article><article class="market-cluster"><span class="label">Tools</span><h3>Governed calls</h3><p>Scoped tool access for ROI, evals, ontology extraction, handoff checks, and reporting.</p></article><article class="market-cluster"><span class="label">Ops</span><h3>Usage controls</h3><p>Rate limits, audit logs, dashboards, billing events, and anomaly visibility.</p></article><article class="market-cluster"><span class="label">Executive</span><h3>FDE workflows</h3><p>Board-ready summaries, scoping review, portfolio status, and productization signals.</p></article></div></section>
-    <section class="editorial-panel"><span class="label">Readiness checklist</span><h2>What must be true before production claims.</h2><div class="readiness-grid"><div><b>Persistence</b><span>Postgres-backed durable tenant state.</span></div><div><b>Rate limits</b><span>Redis-backed controls, not process memory.</span></div><div><b>Billing</b><span>Stripe webhooks idempotent and tested.</span></div><div><b>Auth</b><span>Tenant-aware authorization and strict CORS.</span></div><div><b>Monitoring</b><span>Structured logs, metrics, alerts, and error tracking.</span></div><div><b>Load tests</b><span>Non-fake pass/fail under realistic concurrency.</span></div></div></section>
-    <section class="editorial-grid-two"><article class="editorial-panel"><span class="label">Governance model</span><h2>Least privilege by default.</h2><p>MCP tools should expose narrow business actions, not universal shell power. Resources should be scoped to tenant and workflow. Human review should remain required for high-impact or irreversible actions.</p></article><article class="editorial-panel"><span class="label">Waitlist</span><h2>Join when the hosted layer is ready for serious beta use.</h2><p>Install the Skill first. If your team needs shared context, governance, and hosted workflows, use the Bêta request path.</p><a class="btn primary" href="https://github.com/selectess/fde-consultants-protocoles/issues/new?title=MCP+Cloud+beta+access" target="_blank" rel="noopener">Request beta access on GitHub →</a></article></section>
-  </main>
-  <footer><div class="wrap foot"><div>FDE Consultants Protocoles MCP Bêta. Hosted layer after open-source trust.</div><div><a href="index.html">Launch</a><a href="docs.html">Docs</a><a href="blog.html">Blog</a></div></div></footer><script src="site.js"></script>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <span class="eyebrow" data-reveal>Positioning</span>
+  <h2 data-reveal style="margin-top:12px">MCP is the execution layer — <em>not the launch product.</em></h2>
+  <p class="ssub" data-reveal>The project earns trust through the local Skill, Docs, Academy and the public Registry. The hosted layer only adds value where teams need shared context, governed tools, auditability and collaboration.</p>
+</div></section>
+
+<section><div class="wrap">
+  <span class="eyebrow" data-reveal>What MCP Cloud adds</span>
+  <h2 data-reveal style="margin-top:12px">Planned hosted capabilities.</h2>
+  <p class="ssub" data-reveal>Directionally planned — not a production guarantee.</p>
+  <div class="cards4">
+    <div class="card" data-reveal><div class="ic">CONTEXT</div><h4>Team RAG</h4><p>Tenant-aware retrieval over docs, artifacts, examples and field memory.</p></div>
+    <div class="card" data-reveal><div class="ic">TOOLS</div><h4>Governed calls</h4><p>Scoped tool access for ROI, evals, ontology extraction, handoff checks and reporting.</p></div>
+    <div class="card" data-reveal><div class="ic">OPS</div><h4>Usage controls</h4><p>Rate limits, audit logs, dashboards, billing events and anomaly visibility.</p></div>
+    <div class="card" data-reveal><div class="ic">EXECUTIVE</div><h4>FDE workflows</h4><p>Board-ready summaries, scoping review, portfolio status and productization signals.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="eyebrow" data-reveal>Readiness checklist</span>
+  <h2 data-reveal style="margin-top:12px">What must be true before any <em>production</em> claim.</h2>
+  <table class="tbl" data-reveal>
+    <thead><tr><th>Requirement</th><th>Bar to clear</th></tr></thead>
+    <tbody>
+      <tr><td><b>Persistence</b></td><td>Postgres-backed durable tenant state</td></tr>
+      <tr><td><b>Rate limits</b></td><td>Redis-backed controls, not process memory</td></tr>
+      <tr><td><b>Billing</b></td><td>Signed, idempotent webhooks, tested end-to-end</td></tr>
+      <tr><td><b>Auth</b></td><td>Tenant-aware authorization and strict CORS</td></tr>
+      <tr><td><b>Monitoring</b></td><td>Structured logs, metrics, alerts, error tracking</td></tr>
+      <tr><td><b>Load tests</b></td><td>Real pass/fail under realistic concurrency</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<section><div class="wrap">
+  <span class="eyebrow" data-reveal>Governance &amp; access</span>
+  <h2 data-reveal style="margin-top:12px">Least privilege by default.</h2>
+  <div class="ladder" style="grid-template-columns:1fr 1fr;margin-top:30px">
+    <div class="tier" data-reveal><span class="badge b-live">Governance model</span><div class="tname">Narrow business actions</div><div class="tdesc">MCP tools expose scoped business actions, not universal shell power. Resources are scoped to tenant and workflow; human review stays required for high-impact or irreversible actions.</div></div>
+    <div class="tier feat" data-reveal><span class="badge b-hot">Waitlist</span><div class="tname">Join when it's ready for serious beta use</div><div class="tdesc">Install the Skill first. If your team needs shared context, governance and hosted workflows, request access.</div><a class="btn ghost" href="https://github.com/selectess/fde-consultants-protocoles/issues/new?title=MCP+Cloud+beta+access" target="_blank" rel="noopener" style="background:transparent;color:var(--ivory);border-color:rgba(250,247,240,.3)">Request on GitHub →</a></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap foot">
+  <span>FDE Consultants Protocoles — hosted MCP layer after open-source trust · Apache-2.0</span>
+  <span style="display:flex;gap:18px;flex-wrap:wrap"><a href="protocols.html">Protocols</a><a href="docs.html">Docs</a><a href="pricing.html">Pricing</a><a href="trust.html">Registry</a><a href="blog.html">Intelligence</a><a href="https://github.com/selectess/fde-consultants-protocoles" target="_blank" rel="noopener">GitHub</a></span>
+</div></footer>
+
+<script type="module">
+  try{
+    const { inView, animate } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    inView("[data-reveal]",(el)=>animate(el,{opacity:[0,1],transform:["translateY(26px)","translateY(0)"]},{duration:.7,easing:[.22,1,.36,1]}),{margin:"-12% 0px"});
+  }catch(e){document.querySelectorAll('[data-reveal]').forEach(el=>{el.style.opacity='1';el.style.transform='none';});}
+</script>
 </body>
 </html>
