@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activate your Founding License · FDE Consultants Protocoles</title>
+<meta name="keywords" content="FDE Modex license, activate license, founding license, license.json, ed25519 license, Modex plugin, Selectess">
+<meta name="author" content="Selectess">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FDE Consultants Protocoles">
+<meta property="og:title" content="Activate your Founding License">
+<meta property="og:description" content="Thank you for backing the project. Here is exactly how to activate your Modex Founding License in under a minute.">
+<meta property="og:url" content="https://selectess.github.io/fde-consultants-protocoles/activate.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Activate your Founding License">
+<meta name="twitter:description" content="Place license.json, verify, done. Activate your Modex Founding License in under a minute.">
+<meta name="description" content="Thank you for backing the project. Here is exactly how to activate your Modex Founding License in under a minute.">
+<link rel="canonical" href="https://selectess.github.io/fde-consultants-protocoles/activate.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,500;6..72,1,400;6..72,1,500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system.css">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+  .steps{display:grid;gap:14px;margin-top:30px}
+  .step{display:grid;grid-template-columns:42px 1fr;gap:18px;border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:#fffdf8}
+  .step .n{width:38px;height:38px;border-radius:10px;background:var(--clay);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:15px}
+  .step h3{font-family:var(--serif);font-weight:500;font-size:19px;margin-bottom:4px}
+  .step p{color:var(--muted);font-size:14.5px;margin:0}
+  .step code{font-family:var(--mono);font-size:.86em;background:var(--paper);padding:2px 6px;border-radius:5px;color:var(--clay-d)}
+  pre.code{background:var(--red-deep);color:rgba(250,247,240,.9);border-radius:11px;padding:16px 18px;font-family:var(--mono);font-size:12.5px;line-height:1.8;overflow-x:auto;margin-top:10px}
+  pre.code .cm{color:rgba(250,247,240,.45)} pre.code .cg{color:#7fe0b2}
+  .unlocks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+  .unlock{border:1px solid var(--line);border-radius:11px;padding:14px 16px;background:var(--paper)}
+  .unlock b{font-family:var(--mono);font-size:11px;color:var(--clay-d);text-transform:uppercase;letter-spacing:.06em}
+  .unlock span{display:block;color:var(--muted);font-size:13.5px;margin-top:3px}
+  .note{border-left:3px solid var(--clay);padding:6px 0 6px 18px;margin-top:26px;color:var(--ink2);font-size:15px;max-width:70ch}
+  @media(max-width:620px){.unlocks{grid-template-columns:1fr}.step{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap navin">
+  <a class="brand" href="index.html"><span class="mark">FDE</span> FDE&nbsp;Consultants Protocoles</a>
+  <div class="nlinks">
+    <a href="protocols.html">Protocols</a><a href="docs.html">Docs</a><a href="pricing.html">Pricing</a>
+    <a href="trust.html">Registry</a><a href="blog.html">Intelligence</a>
+    <a href="https://github.com/selectess/fde-consultants-protocoles" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <a class="btn cta" href="docs.html#install">Install the Skill</a>
+</div></nav>
+
+<header class="hero"><div class="wrap" style="max-width:760px">
+  <span class="eyebrow">Founding License · thank you</span>
+  <h1 style="margin-top:14px">Activate your license in <em>under a minute.</em></h1>
+  <p class="lead" style="max-width:62ch">Thank you for backing the project. Your purchase comes with a signed credential — a small <code class="mono" style="background:var(--paper);padding:2px 6px;border-radius:5px;color:var(--clay-d)">license.json</code> file. Here is exactly what to do with it.</p>
+</div></header>
+
+<section><div class="wrap" style="max-width:760px">
+  <span class="eyebrow">Three steps</span>
+  <h2 style="margin-top:12px">Place it, verify it, done.</h2>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div>
+      <h3>Get your <code>license.json</code></h3>
+      <p>It is delivered to the email you used at checkout. Save the attached <code>license.json</code> file somewhere you can find it.</p>
+    </div></div>
+    <div class="step"><div class="n">2</div><div>
+      <h3>Put it where the plugin looks</h3>
+      <p>The Modex plugin reads your license from <code>~/.fde-modex/license.json</code>. Create that folder and drop the file in:</p>
+      <pre class="code"><span class="cm"># macOS / Linux</span>
+mkdir -p ~/.fde-modex
+mv ~/Downloads/license.json ~/.fde-modex/license.json</pre>
+    </div></div>
+    <div class="step"><div class="n">3</div><div>
+      <h3>Verify it activates</h3>
+      <p>From the repository root, load the plugin — it checks the ed25519 signature against the key embedded in the plugin and unlocks your tier.</p>
+      <pre class="code"><span class="cm"># expect: ✓ Licensed (plugin) + your unlocked features</span>
+python3 -m modex.plugin_loader</pre>
+    </div></div>
+  </div>
+
+  <h2 style="margin-top:48px">What the Founding License unlocks</h2>
+  <div class="unlocks">
+    <div class="unlock"><b>Assurance audit</b><span>Run the FDE Assurance Score audit on your own deliverables.</span></div>
+    <div class="unlock"><b>Registry submission</b><span>Publish your certifications to the public trust registry.</span></div>
+    <div class="unlock"><b>Priority support</b><span>Founder-cohort support channel.</span></div>
+    <div class="unlock"><b>Lifetime + grandfathered</b><span>Every future feature, at the founder's price, for life.</span></div>
+  </div>
+
+  <p class="note"><b style="color:var(--ink)">Haven't received your <code style="background:var(--paper);padding:2px 6px;border-radius:5px;color:var(--clay-d)">license.json</code> yet?</b> During the founding phase, delivery can be manual — if it hasn't arrived within a few minutes, open an issue on <a href="https://github.com/selectess/fde-consultants-protocoles/issues/new?title=Founding+License+delivery" target="_blank" rel="noopener" style="color:var(--clay-d);font-weight:600">GitHub</a> with your checkout email and we'll mint and send it. Your purchase is recorded either way.</p>
+
+  <div class="hcta" style="margin-top:30px"><a class="btn cta" href="docs.html#install">Read the docs</a><a class="btn ghost" href="trust.html">Browse the Registry</a></div>
+</div></section>
+
+<footer><div class="wrap foot">
+  <span>FDE Consultants Protocoles — open-source FDE + DeepSCR · Apache-2.0</span>
+  <span style="display:flex;gap:18px;flex-wrap:wrap"><a href="index.html">Home</a><a href="docs.html">Docs</a><a href="pricing.html">Pricing</a><a href="trust.html">Registry</a><a href="blog.html">Intelligence</a></span>
+</div></footer>
+</body>
+</html>
