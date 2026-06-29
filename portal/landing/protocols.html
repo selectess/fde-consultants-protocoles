@@ -80,6 +80,27 @@
   .roster th{background:var(--red);color:#fff;text-align:left;padding:12px 14px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
   .roster td{padding:11px 14px;border-top:1px solid var(--line);color:var(--muted)}
   .roster td b{color:var(--ink)}
+  /* white-paper layout */
+  .masthead{padding:60px 0 6px}
+  .doctype{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--clay-d)}
+  .masthead h1{margin-top:14px;max-width:19ch}
+  .byline{margin-top:20px;font-family:var(--mono);font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+  .byline b{color:var(--ink)}
+  .abstract{margin-top:30px;border-left:3px solid var(--clay);padding:2px 0 2px 22px;max-width:80ch}
+  .abstract .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .abstract p{margin-top:8px;font-size:16.5px;color:var(--ink2);line-height:1.6}
+  .wp p{max-width:80ch;color:var(--ink2);font-size:16px;line-height:1.66;margin-top:16px}
+  .wp p.lead-p{margin-top:0}
+  .wp h3{font-family:var(--serif);font-weight:500;font-size:21px;margin:30px 0 2px}
+  figure.fig{margin:32px 0 8px;border:1px solid var(--line);border-radius:16px;background:var(--paper);padding:9px}
+  figure.fig iframe{display:block;width:100%;border:0;background:transparent;min-height:560px}
+  figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);padding:10px 8px 4px;line-height:1.55;max-width:80ch}
+  figcaption b{color:var(--clay-d)}
+  .secnum{font-family:var(--mono);font-size:12px;color:var(--clay-d);letter-spacing:.06em}
+  .math{font-family:var(--mono);font-size:15px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:18px;color:var(--ink);overflow-x:auto}
+  .math b{color:var(--clay-d)}
+  .refs{margin-top:14px;font-size:13.5px;color:var(--muted);max-width:80ch;padding-left:20px}
+  .refs li{margin:5px 0}
 </style>
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -95,15 +116,30 @@
   <a class="btn cta" href="docs.html#install">Install the Skill</a>
 </div></nav>
 
-<header class="hero"><div class="wrap" style="max-width:880px">
-  <span class="eyebrow">The protocols · scientific &amp; technical</span>
-  <h1 style="margin-top:16px">FDE × DeepSCR — a protocol for <em>verifiable</em> AI engineering.</h1>
-  <p class="lead" style="max-width:64ch">Two protocols compose into one discipline: <b style="color:var(--ink)">DeepSCR</b> is a governance protocol — separation of powers over any work — and <b style="color:var(--ink)">FDE</b> is the domain method it governs. Together they turn a vague AI ask into a <b style="color:var(--ink)">falsifiable, evidence-grounded, certified</b> deliverable. This page shows the principle, the flow, and a worked engagement.</p>
-  <div class="hcta"><a class="btn cta" href="#flow">Follow the flow ↓</a><a class="btn ghost" href="trust.html">See certified output</a></div>
+<header class="masthead"><div class="wrap" style="max-width:900px">
+  <div class="doctype">White paper · v1.0 · 2026</div>
+  <h1 style="margin-top:14px">FDE × DeepSCR: a protocol for <em>verifiable</em> AI engineering.</h1>
+  <div class="byline"><span><b>Author</b> Mehdi Wehbi (Selectess)</span><span><b>Protocol</b> DeepSCR — Deep Sceptical Contextual Research</span><span><b>Licence</b> Apache-2.0</span></div>
+  <div class="abstract">
+    <div class="lbl">Abstract</div>
+    <p>The reliability gap in applied AI is not principally a model-capability gap; it is a <b>governance</b> gap. A capable model still produces deliverables no one can verify after the demo — claims without falsifiability, architectures without failure analysis, "evidence" that is only the model's own fluency. This paper presents <b>DeepSCR</b> (Deep Sceptical Contextual Research), a domain-agnostic governance protocol that imposes a separation of powers over AI work and a four-step scientific loop — Hypothesis, Contradiction, Verification, Certification — in which the proposer never certifies and every claim must resolve on ground truth. We describe its engineering specialisation, <b>Forward Deployed Engineering (FDE)</b>, the composite eight-agent system in which DeepSCR governs FDE specialists, the assurance score with its weighting and veto threshold, and the four properties — falsifiability, separation, ground truth, reproducibility — that make the output scientific rather than persuasive.</p>
+  </div>
+  <div class="hcta" style="margin-top:24px"><a class="btn cta" href="#intro">Read the protocol ↓</a><a class="btn ghost" href="trust.html">See certified output</a></div>
 </div></header>
 
+<section id="intro"><div class="wrap" style="max-width:900px"><div class="wp">
+  <span class="secnum" data-reveal>§ 1 · Introduction</span>
+  <h2 data-reveal style="margin-top:10px">The epistemic problem with <em>helpful</em> AI.</h2>
+  <p class="lead-p" data-reveal>General-purpose assistants are optimised for helpfulness through reinforcement learning from human feedback (RLHF). That objective, valuable as it is, induces three failure modes that are fatal to engineering work. <b>Circular validation</b>: the model affirms the user's premise to remain agreeable, certifying errors instead of catching them. <b>Hallucinated evidence</b>: when a conclusion is desired, plausible-but-fictional support is produced to justify it. <b>Contextual blindness</b>: code is judged on surface structure, divorced from the business constraints, regulations, and prior art that decide whether it is actually correct.</p>
+  <p data-reveal>DeepSCR begins from an inversion of posture: <em>it is not an assistant but an examiner.</em> Where an assistant seeks to satisfy, an examiner seeks to <b>refute</b>, and accepts a claim only once it has survived a deliberate attempt to break it on real evidence. The protocol names this passage <b>Vibe-to-Science</b> — the disciplined move from intuition to a deterministic, evidence-grounded result another party could independently reproduce. Figure 1 shows the loop running.</p>
+  <figure class="fig" data-reveal>
+    <iframe id="deepscr-frame" src="deepscr-figure.html" title="Interactive figure: the DeepSCR scientific loop" loading="lazy" scrolling="no"></iframe>
+    <figcaption><b>Figure 1.</b> The DeepSCR scientific loop, self-running. Each phase is dual-labelled with its FDE power and its underlying reasoning agent; the FDE Assurance Score accrues component by component, and a case in which the cited evidence does not resolve on disk drives the evidence term to zero and vetoes the engagement. The figure cycles between one certified case and two veto cases.</figcaption>
+  </figure>
+</div></div></section>
+
 <section id="principle"><div class="wrap">
-  <span class="eyebrow" data-reveal>1 · The principle</span>
+  <span class="secnum" data-reveal>§ 2 · The principle</span>
   <h2 data-reveal style="margin-top:12px">Governance over a domain — <em>not</em> a template.</h2>
   <p class="ssub" data-reveal>DeepSCR is domain-agnostic: it could certify any work. FDE gives it engineering depth. The composition is hierarchical — DeepSCR governs FDE specialists — which is what makes the output auditable.</p>
   <div class="defs">
@@ -115,7 +151,7 @@
 </div></section>
 
 <section id="flow"><div class="wrap">
-  <span class="eyebrow" data-reveal>2 · The flow on a problem</span>
+  <span class="secnum" data-reveal>§ 3 · A worked engagement</span>
   <h2 data-reveal style="margin-top:12px">A worked engagement: <em>reduce B2B SaaS churn.</em></h2>
   <p class="ssub" data-reveal>Watch the data flow through the four powers — each stage's output is the next stage's adversary. Nothing advances until it survives.</p>
 
@@ -135,6 +171,7 @@
       <g><rect class="pbox" x="868" y="50" width="92" height="50" rx="9"/><text class="pstage" x="914" y="72">Registry</text><text class="pstage k" x="914" y="86">hash chain</text></g>
     </svg>
   </div>
+  <p data-reveal style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:8px;line-height:1.55;max-width:80ch"><b style="color:var(--clay-d)">Figure 2.</b> Data-flow for one engagement: the problem enters as a 6-Q intake and a single token traverses the four powers; each stage's output is the next stage's adversary, and only a deliverable that survives certification reaches the public registry.</p>
 
   <div class="stages">
     <div class="stg" data-reveal><div class="idx">S</div><div>
@@ -165,7 +202,7 @@
 </div></section>
 
 <section id="score"><div class="wrap">
-  <span class="eyebrow" data-reveal>3 · The measure</span>
+  <span class="secnum" data-reveal>§ 4 · The measure</span>
   <h2 data-reveal style="margin-top:12px">The FDE Assurance Score — <em>falsifiable by construction.</em></h2>
   <p class="ssub" data-reveal>Four weighted components. Evidence is the largest — and it only counts if the cited artifacts resolve on disk (ground truth, not structure). Watch three real engagements score live: <b style="color:var(--ink)">ship only at ≥ 85, otherwise veto.</b></p>
   <div class="formula">
@@ -184,10 +221,19 @@
       <div class="dots" data-dots><i></i><i></i><i></i></div>
     </div>
   </div>
+  <p data-reveal style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:10px;line-height:1.55;max-width:80ch"><b style="color:var(--clay-d)">Figure 3.</b> The assurance score computed live for three real engagements (use the dots to step). A — evidence verified on disk → 92, certified. B — cited files do not resolve → evidence term 0 → 62, veto. C — one anti-pattern slips through → 84, one point short → veto.</p>
+  <div class="wp" style="margin-top:24px">
+    <h3 data-reveal>The scoring model</h3>
+    <p data-reveal>Certification is not a vote of confidence; it is an arithmetic. The FDE Assurance Score sums four weighted components and ships only at a hard threshold:</p>
+    <div class="math" data-reveal>FDE Assurance = claim(25) + contradiction(25) + <b>evidence(30)</b> + anti-patterns(20) ∈ [0,100],   ship ⇔ score ≥ 85</div>
+    <p data-reveal>Evidence carries the heaviest weight and is the one term that cannot be faked: synthetic structure earns nothing if the cited <code>file·line·test</code> does not exist, so a deliverable whose artefacts fail to resolve loses thirty points outright and is vetoed (Figure 1, case B). The canonical DeepSCR formulation generalises this to a multi-criteria trust score with explicit slashing penalties:</p>
+    <div class="math" data-reveal>Trust = 0.4·<b>S</b><sub>security</sub> + 0.3·<b>R</b><sub>rigour</sub> + 0.3·<b>V</b><sub>validation</sub> − Σ λ<sub>i</sub>   (e.g. λ<sub>secret</sub> = 50, λ<sub>missing-test</sub> = 15)</div>
+    <p data-reveal>Both forms share the decisive property: the threshold is unforgiving. An engagement that is otherwise excellent but a single point short does not ship (Figure 1, case C); the loop re-routes the work to whichever agent owns the weakest component and re-runs. A score, here, is a gate — not a grade.</p>
+  </div>
 </div></section>
 
 <section id="agents"><div class="wrap">
-  <span class="eyebrow" data-reveal>4 · The team</span>
+  <span class="secnum" data-reveal>§ 5 · The eight-agent system</span>
   <h2 data-reveal style="margin-top:12px">8 agents — 4 govern, 4 do the domain.</h2>
   <p class="ssub" data-reveal>The Builder consults the four FDE specialists in parallel; the Certifier verifies their claims. "DeepSCR governs FDE specialists."</p>
   <table class="roster" data-reveal>
@@ -203,10 +249,20 @@
       <tr><td><b>Production</b></td><td>FDE specialist</td><td>Runbook, observability, cost ceiling, compliance</td></tr>
     </tbody>
   </table>
+  <p data-reveal style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:10px;line-height:1.55;max-width:80ch"><b style="color:var(--clay-d)">Table 1.</b> The eight-agent roster. Four DeepSCR powers govern; four FDE specialists supply domain depth. The Builder consults the specialists in parallel and the Certifier verifies their claims — DeepSCR governs FDE specialists, never the reverse.</p>
 </div></section>
 
+<section id="standards"><div class="wrap" style="max-width:900px"><div class="wp">
+  <span class="secnum" data-reveal>§ 6 · Reproducibility, standards &amp; honest limits</span>
+  <h2 data-reveal style="margin-top:10px">Auditable by anyone — and clear about what it does <em>not</em> prove.</h2>
+  <p class="lead-p" data-reveal>Each certification is appended to a public, SHA-256 hash-chained registry: a reader recomputes the hash of a deliverable and follows the previous-hash links to confirm the record was not silently rewritten. The contradiction and verification stages borrow their discipline from established practice — systematic-review rigour (PRISMA), and engineering/security baselines (ISO, NIST, OWASP) for the anti-pattern and slashing terms — so the score is anchored in norms a specialist already trusts, not in a private rubric.</p>
+  <p data-reveal>We are deliberate about the boundary. The hash chain proves <b>integrity and order</b> — that a given certification existed and was not altered after the fact — but it is operator-held, so on its own it does not preclude a parallel rewrite without an external anchor (signed Git tags, or a transparency log such as Rekor). DeepSCR proves <b>authenticity and evidence</b>, not infallibility: a claim that survives is well-supported, not certain. Stating this limit is itself part of the protocol — an examiner that overclaimed would fail its own contradiction stage.</p>
+  <h3 data-reveal>Provenance</h3>
+  <p data-reveal><b>DeepSCR — Deep Sceptical Contextual Research</b> was created by <b>Mehdi Wehbi</b> as a cognitive protocol for moving from intuition to deterministic, evidence-grounded proof. The system described in this paper is its specialisation to forward-deployed software engineering; the four-step loop, the sceptical decision rule (a claim is valid only if it has a source, has supporting evidence, and cannot be contradicted on the same context), and the trust-score formulation are due to that original work.</p>
+</div></div></section>
+
 <section id="stance"><div class="wrap">
-  <span class="eyebrow" data-reveal>Why it holds up</span>
+  <span class="secnum" data-reveal>§ 7 · Why it is science</span>
   <h2 data-reveal style="margin-top:12px">Four properties that make the output <em>scientific.</em></h2>
   <div class="cards4" style="margin-top:32px">
     <div class="card" data-reveal><div class="ic">FALSIFIABILITY</div><h4>Claims can be wrong</h4><p>Every engagement states a claim a held-out test could refute — not a vibe.</p></div>
@@ -268,6 +324,15 @@
     document.querySelectorAll('[data-reveal]').forEach(el=>{el.style.opacity='1';el.style.transform='none';});
     show(0);
   }
+</script>
+<script>
+  /* Figure 1 (iframe) reports its height so it fits with no inner scrollbar. */
+  window.addEventListener("message", function (e) {
+    if (e.data && typeof e.data.deepscrHeight === "number") {
+      var f = document.getElementById("deepscr-frame");
+      if (f) f.style.height = (e.data.deepscrHeight + 6) + "px";
+    }
+  });
 </script>
 </body>
 </html>

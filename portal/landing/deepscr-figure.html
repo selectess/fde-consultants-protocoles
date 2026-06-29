@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeepSCR — interactive figure</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--clay:#D97757;--clay-d:#bd5d3f;--red:#5e2230;--red-deep:#43161f;--green-soft:#7fe0b2;--red-soft:#ffb4a6;--teal-soft:#7fd4d6;--ivory:#FAF7F0;--line-d:rgba(250,247,240,.13);
+    --serif:'Newsreader',Georgia,serif;--sans:'Space Grotesk',-apple-system,sans-serif;--mono:'JetBrains Mono',monospace;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:transparent}
+  body{font-family:var(--sans);color:var(--ivory)}
+  #root{padding:2px}
+  .fallback{font-family:var(--mono);font-size:12px;color:#888;padding:24px}
+</style>
+</head>
+<body>
+<div id="root"><div class="fallback">Loading the interactive figure…</div></div>
+<script type="module">
+import React, { useState, useEffect, useRef } from "https://esm.sh/react@18.3.1";
+import { createRoot } from "https://esm.sh/react-dom@18.3.1/client";
+import { motion, AnimatePresence } from "https://esm.sh/framer-motion@11.11.7?deps=react@18.3.1,react-dom@18.3.1";
+import htm from "https://esm.sh/htm@3.1.1";
+const html = htm.bind(React.createElement); const M = motion;
+
+const PHASES = [
+  { n:"01", key:"Hypothesis",   fr:"Hypothèse",    power:"Lead",            agent:"Architecte", max:25,
+    desc:"State a claim a test could falsify — from intent (Vibe) + context (code, schemas). What does the system claim to solve?" },
+  { n:"02", key:"Contradiction", fr:"Contradiction", power:"Researchers",    agent:"Sceptique", max:25,
+    desc:"Proof-of-Contradiction: actively try to refute it — ≥3 failure modes, edge cases, empty promises. The sceptic attacks before shipping." },
+  { n:"03", key:"Verification",  fr:"Vérification",  power:"Builder",        agent:"Académique · Code Detective", max:30,
+    desc:"Confront with ground truth — tests, logs, file·line, state-of-the-art (arXiv/IEEE). Every claim ties to evidence that resolves on disk." },
+  { n:"04", key:"Certification", fr:"Certification", power:"Certifier ⟂ veto", agent:"Consensus Guard", max:20,
+    desc:"Deterministic synthesis. Survives contradiction → certified. Score with veto → public, hash-chained registry (PoAW · SHA-256)." },
+];
+const CASES = { ship:{comps:[25,25,30,12],note:"evidence verified on disk → certified, ship"},
+                veto:{comps:[25,25,0,12], note:"cited files don't resolve → evidence = 0 → veto"} };
+
+function useTween(target, dur=650){
+  const [v,setV]=useState(target); const ref=useRef(target);
+  useEffect(()=>{ const from=ref.current,t0=performance.now(); let raf;
+    const k=(n)=>{const p=Math.min(1,(n-t0)/dur),e=1-Math.pow(1-p,4);const val=Math.round(from+(target-from)*e);setV(val);ref.current=val;if(p<1)raf=requestAnimationFrame(k);};
+    raf=requestAnimationFrame(k); return ()=>cancelAnimationFrame(raf); },[target]);
+  return v;
+}
+
+function App(){
+  const [step,setStep]=useState(0); const [cas,setCas]=useState("ship");
+  useEffect(()=>{ const id=setInterval(()=>{ setStep(s=>{ if(s>=3){ setCas(c=>c==="ship"?"veto":"ship"); return 0;} return s+1; }); },2500); return ()=>clearInterval(id); },[]);
+  const comps=CASES[cas].comps; const revealed=comps.map((c,i)=>i<=step?c:0);
+  const target=revealed.reduce((a,b)=>a+b,0); const score=useTween(target);
+  const certified=step===3&&target>=85, vetoed=step===3&&target<85;
+  return html`
+  <div style=${{borderRadius:"16px",overflow:"hidden",border:"1px solid rgba(250,247,240,.12)",
+    background:"radial-gradient(420px 280px at 86% 2%,rgba(22,39,63,.5),transparent 62%),linear-gradient(158deg,var(--red),var(--red-deep))",color:"var(--ivory)"}}>
+    <div style=${{display:"flex",justifyContent:"space-between",alignItems:"center",gap:"12px",padding:"14px 18px",borderBottom:"1px solid var(--line-d)",flexWrap:"wrap"}}>
+      <span style=${{fontFamily:"var(--mono)",fontSize:"11px",letterSpacing:".14em",color:"rgba(250,247,240,.5)"}}>DEEPSCR · SCIENTIFIC LOOP — self-running</span>
+      <${M.span} key=${cas} initial=${{opacity:0}} animate=${{opacity:1}}
+        style=${{fontFamily:"var(--mono)",fontSize:"11px",padding:"3px 10px",borderRadius:"999px",background:cas==="ship"?"rgba(47,143,91,.2)":"rgba(190,72,58,.26)",color:cas==="ship"?"var(--green-soft)":"var(--red-soft)"}}>${CASES[cas].note}<//>
+    </div>
+    <div style=${{display:"grid",gridTemplateColumns:"1fr 270px",gap:"20px",padding:"22px 18px"}} class="dscr-grid">
+      <div>
+        <div style=${{display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:"4px"}}>
+          ${PHASES.map((p,i)=> html`
+            <${React.Fragment} key=${p.key}>
+              <${M.div} animate=${{opacity:i<=step?1:0.4,scale:i===step?1.04:1}} transition=${{type:"spring",stiffness:260,damping:20}} style=${{flex:"0 0 auto",width:"92px",textAlign:"center"}}>
+                <${M.div} animate=${ i===step?{boxShadow:["0 0 0 0 rgba(217,119,87,.5)","0 0 0 13px rgba(217,119,87,0)"],borderColor:"var(--clay)"}:{boxShadow:"0 0 0 0 rgba(0,0,0,0)",borderColor:i<step?"rgba(217,119,87,.45)":"rgba(250,247,240,.15)"} } transition=${ i===step?{duration:1.4,repeat:Infinity}:{duration:.3} }
+                  style=${{width:"52px",height:"52px",margin:"0 auto",borderRadius:"50%",border:"2px solid",background:i===step?"#3a1119":"#1b212c",display:"grid",placeItems:"center",fontFamily:"var(--mono)",fontSize:"14px",fontWeight:600,color:i===step?"#fff":(i<step?"var(--clay)":"#cdd5df")}}>${i<step?"✓":p.n}<//>
+                <div style=${{marginTop:"8px",fontFamily:"var(--serif)",fontSize:"13.5px",fontWeight:500,color:i===step?"#fff":"rgba(250,247,240,.7)"}}>${p.key}</div>
+                <div style=${{fontFamily:"var(--mono)",fontSize:"9px",color:"rgba(250,247,240,.4)"}}>${p.fr}</div>
+              <//>
+              ${ i<3 ? html`<div style=${{flex:"1 1 auto",minWidth:"10px",height:"2px",marginTop:"25px",background:"rgba(250,247,240,.12)",borderRadius:"2px",overflow:"hidden"}}><${M.div} animate=${{scaleX:i<step?1:0}} transition=${{duration:.5}} style=${{transformOrigin:"left",height:"100%",width:"100%",background:"linear-gradient(90deg,var(--clay),#fff)"}}/></div>`:null }
+            <//>`)}
+        </div>
+        <div style=${{textAlign:"center",fontFamily:"var(--mono)",fontSize:"10px",color: vetoed?"var(--red-soft)":"rgba(250,247,240,.38)",marginTop:"13px"}}>${vetoed?"↺ veto → re-routed to the weakest owner":"↻ the loop never trusts — it verifies"}</div>
+        <div style=${{marginTop:"18px",minHeight:"92px",background:"rgba(255,255,255,.05)",border:"1px solid var(--line-d)",borderRadius:"12px",padding:"15px 17px"}}>
+          <${AnimatePresence} mode="wait">
+            <${M.div} key=${step} initial=${{opacity:0,y:8}} animate=${{opacity:1,y:0}} exit=${{opacity:0,y:-8}} transition=${{duration:.35}}>
+              <div style=${{display:"flex",gap:"9px",alignItems:"baseline",flexWrap:"wrap"}}>
+                <span style=${{fontFamily:"var(--serif)",fontSize:"17px",color:"#fff"}}>${PHASES[step].key}</span>
+                <span style=${{fontFamily:"var(--mono)",fontSize:"10px",color:"var(--green-soft)"}}>FDE: ${PHASES[step].power}</span>
+                <span style=${{fontFamily:"var(--mono)",fontSize:"10px",color:"rgba(217,119,87,.9)"}}>Deeposit: ${PHASES[step].agent}</span>
+              </div>
+              <p style=${{marginTop:"6px",fontSize:"13px",color:"rgba(250,247,240,.78)",lineHeight:1.5}}>${PHASES[step].desc}</p>
+            <//>
+          <//>
+        </div>
+      </div>
+      <div style=${{display:"grid",gap:"12px"}}>
+        <${M.div} animate=${{background:vetoed?"rgba(67,22,31,.5)":"rgba(0,0,0,.2)"}} style=${{borderRadius:"14px",padding:"16px",textAlign:"center",border:"1px solid var(--line-d)"}}>
+          <div style=${{fontFamily:"var(--mono)",fontSize:"10px",letterSpacing:".12em",color:"rgba(250,247,240,.5)"}}>FDE ASSURANCE SCORE</div>
+          <div style=${{fontFamily:"var(--serif)",fontSize:"50px",lineHeight:1,color:"#fff",marginTop:"4px"}}>${score}<span style=${{fontSize:"22px",color:"rgba(250,247,240,.4)"}}>/100</span></div>
+          <${AnimatePresence} mode="wait">
+            ${ (certified||vetoed)?html`<${M.div} key=${certified?"c":"v"} initial=${{opacity:0,scale:.85}} animate=${{opacity:1,scale:1}} exit=${{opacity:0}} style=${{marginTop:"9px",fontFamily:"var(--mono)",fontSize:"11.5px",display:"inline-block",padding:"4px 11px",borderRadius:"999px",border:"1px solid",borderColor:certified?"rgba(127,224,178,.45)":"rgba(255,140,120,.5)",color:certified?"var(--green-soft)":"var(--red-soft)",background:certified?"rgba(47,158,107,.16)":"rgba(190,72,58,.24)"}}>${certified?"✓ CERTIFIED ≥ 85":"✕ VETO · < 85"}<//>`:html`<div style=${{marginTop:"9px",fontFamily:"var(--mono)",fontSize:"11px",color:"rgba(250,247,240,.4)"}}>scoring…</div>` }
+          <//>
+        <//>
+        <div style=${{border:"1px solid var(--line-d)",borderRadius:"12px",padding:"14px",background:"rgba(255,255,255,.04)"}}>
+          <div style=${{fontFamily:"var(--mono)",fontSize:"9.5px",letterSpacing:".1em",color:"rgba(250,247,240,.5)",marginBottom:"9px"}}>4 WEIGHTED COMPONENTS</div>
+          ${PHASES.map((p,i)=>{const v=revealed[i];return html`<div key=${p.key} style=${{marginBottom:"8px"}}>
+            <div style=${{display:"flex",justifyContent:"space-between",fontSize:"11px",marginBottom:"3px",color:"rgba(250,247,240,.7)"}}><span>${p.label||["claim","contradiction","evidence","anti-patterns"][i]}</span><span style=${{fontFamily:"var(--mono)",fontSize:"10.5px",color:v?"var(--clay)":"rgba(250,247,240,.4)"}}>${v} / ${p.max}</span></div>
+            <div style=${{height:"6px",borderRadius:"99px",background:"rgba(250,247,240,.12)",overflow:"hidden"}}><${M.div} animate=${{width:(v/p.max*100)+"%"}} transition=${{duration:.5}} style=${{height:"100%",background:(i===2&&v===0)?"#ff8c70":"linear-gradient(90deg,var(--clay),var(--clay-d))"}}/></div>
+          </div>`;})}
+          <div style=${{marginTop:"5px",fontFamily:"var(--mono)",fontSize:"9.5px",color:"rgba(250,247,240,.45)"}}>TS = 0.4·Security + 0.3·Rigour + 0.3·Validation − Σλ</div>
+        </div>
+      </div>
+    </div>
+    <div style=${{padding:"13px 18px 18px",borderTop:"1px solid var(--line-d)",display:"flex",flexWrap:"wrap",gap:"7px"}}>
+      <span style=${{width:"100%",fontFamily:"var(--mono)",fontSize:"9.5px",letterSpacing:".1em",color:"rgba(250,247,240,.45)",marginBottom:"2px"}}>SEPARATION OF POWERS · 5 Deeposit agents → 8 FDE agents (4 powers + 4 specialists)</span>
+      ${["Architecte / Lead","Sceptique / Researchers","Académique","Code Detective","Consensus Guard / Certifier","+ Scoping","+ Architecture","+ Agent-eng","+ Production"].map((a,i)=>html`<${M.span} key=${a} initial=${{opacity:0,y:8}} animate=${{opacity:1,y:0}} transition=${{delay:i*0.05}} style=${{fontFamily:"var(--mono)",fontSize:"11px",padding:"5px 10px",borderRadius:"7px",background:i<5?"rgba(0,0,0,.22)":"rgba(255,255,255,.05)",border:"1px solid var(--line-d)",color:"rgba(250,247,240,.82)"}}>${a}<//>`)}
+    </div>
+  </div>`;
+}
+const style=document.createElement("style");style.textContent="@media(max-width:620px){.dscr-grid{grid-template-columns:1fr!important}}";document.head.appendChild(style);
+createRoot(document.getElementById("root")).render(html`<${App}/>`);
+
+// auto-height: tell the parent how tall the figure is so the iframe fits with no scrollbar
+function postH(){ try{ parent.postMessage({ deepscrHeight: document.body.scrollHeight }, "*"); }catch(e){} }
+window.addEventListener("load", postH); window.addEventListener("resize", postH); setInterval(postH, 1000);
+</script>
+</body>
+</html>
