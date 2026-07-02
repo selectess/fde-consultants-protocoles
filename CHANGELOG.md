@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- `$6` buyer journey completed: activation page + accurate license spec
+- Protocols page rewritten as a single academic white paper (DeepSCR figure integrated)
+- Two HEP entity pages on rising 2026 keywords (FDE demand, verifiable AI), cross-linked from 8 related articles
+- WebSite + Organization authority graph, HowTo/Product/WebPage schemas
+- Sitemap enriched with `lastmod`/`changefreq`/`priority`; Google Search Console site verification
+
+### Changed
+- `.gitignore` hardened: internal working files, service-account keys, and generated multi-runtime exports are never publishable
+
 ## [1.0.0] - 2026-06-27
 
 First public release.

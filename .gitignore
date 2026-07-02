@@ -27,5 +27,12 @@ BUNDLE_SHA256.txt
 # Runtime state
 fde-memory/
 *.log
+# Generated multi-runtime exports (modex generate.sh output)
+.fde-modex-out/
 # Fulfillment ledger — issued licenses + customer emails, never commit
 modex/.data/
+
+# Internal working files & tooling — never publish
+work/
+*.service-account.json
+gsc-key*.json
