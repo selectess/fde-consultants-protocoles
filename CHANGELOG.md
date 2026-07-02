@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Frozen Arbiters** (`modex/arbiters.py`): full-autonomy governance for the Collective —
+  sealed tamper-evident Contract (clause-tagged actions, mechanical rejection, measured drift),
+  frozen mutation-tested Oracles that override the Certifier at ship time, citation-mandatory
+  verdicts (uncited = null), trajectory audit (thrashing/plateau), and a distillation gate
+  (only oracle-validated trajectories become lessons; lessons must pass on fresh cases).
+  Opt-in via `run_autonomous(contract=…, oracles=…)`; 18 new tests (suite: 144)
+- Protocols white paper: new § 6 "Full autonomy — the Frozen Arbiters"
 - `$6` buyer journey completed: activation page + accurate license spec
 - Protocols page rewritten as a single academic white paper (DeepSCR figure integrated)
 - Two HEP entity pages on rising 2026 keywords (FDE demand, verifiable AI), cross-linked from 8 related articles

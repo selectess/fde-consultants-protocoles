@@ -136,7 +136,7 @@
       <p>The reliability gap in applied AI is not principally a model-capability gap; it is a <b>governance</b> gap. A capable model still produces deliverables nobody can verify after the demo — claims without falsifiability, architectures without failure analysis, "evidence" that is only the model's own fluency. This paper presents <b>DeepSCR</b> (Deep Sceptical Contextual Research), a domain-agnostic governance protocol that imposes a separation of powers over AI work and a four-step scientific loop — Hypothesis, Contradiction, Verification, Certification — in which the proposer never certifies and every claim must resolve on ground truth. We describe its engineering specialisation, <b>Forward Deployed Engineering (FDE)</b>; the composite eight-agent system in which DeepSCR governs FDE specialists; the assurance score with its weighting, slashing, and veto threshold; and the four properties — falsifiability, separation of powers, ground truth, reproducibility — that make the output scientific rather than persuasive.</p>
     </div>
     <nav class="toc">
-      <a href="#problem">§1 Problem</a><a href="#protocol">§2 Protocol</a><a href="#powers">§3 Powers</a><a href="#engagement">§4 Engagement</a><a href="#measure">§5 Measure</a><a href="#limits">§6 Limits</a><a href="#science">§7 Science</a><a href="#provenance">§8 Provenance</a>
+      <a href="#problem">§1 Problem</a><a href="#protocol">§2 Protocol</a><a href="#powers">§3 Powers</a><a href="#engagement">§4 Engagement</a><a href="#measure">§5 Measure</a><a href="#arbiters">§6 Arbiters</a><a href="#limits">§7 Limits</a><a href="#science">§8 Science</a><a href="#provenance">§9 Provenance</a>
     </nav>
   </header>
 
@@ -291,15 +291,28 @@
     <p data-reveal>Both forms share the decisive property: the threshold is unforgiving. An engagement that is otherwise excellent but a single point short does not ship (Figure 4, case C); the loop re-routes the work to whichever agent owns the weakest component and re-runs. A score, here, is a gate — not a grade.</p>
   </section>
 
+  <section class="s" id="arbiters">
+    <div class="secnum" data-reveal>§ 6 · Full autonomy — the Frozen Arbiters</div>
+    <h2 data-reveal>The agent pleads; it never grades <em>itself.</em></h2>
+    <p class="lead-p" data-reveal>When the loop runs without a human, the human is not replaced by the agent's confidence in itself — that is the recipe for an agent that spins in circles — but by three arbiters, <b>frozen before launch</b>, that the agent can plead to but never modify. A <b>Contract</b>, written once and sealed under SHA-256, fixes the goal, the numbered clauses, the metric thresholds, the budgets and — crucially — the non-goals: every action must carry the clause it serves, and an action serving no clause is mechanically rejected, so drift stops being a feeling and becomes a measured distribution. <b>Oracles</b> — executable graders — are registered, proven by mutation testing (they must catch deliberately injected bugs), then frozen: the agent cannot edit its own correctors. And a <b>measured baseline</b> turns "surpass the state of the art" from a vibe into a number to beat.</p>
+    <div class="props">
+      <div class="prop" data-reveal><div class="pk">Sealed Contract</div><h4>Tamper-evident anchor</h4><p>Sealed at t<sub>0</sub>, append-only amendments; any mutation breaks the machine-checked hash.</p></div>
+      <div class="prop" data-reveal><div class="pk">Frozen Oracles</div><h4>Ungameable graders</h4><p>Trusted only after catching injected bugs; at ship time they override the Certifier's optimism.</p></div>
+      <div class="prop" data-reveal><div class="pk">Cited Verdicts</div><h4>No citation, no verdict</h4><p>"Tests pass" does not exist — only <code>run #0007: 34/34</code> exists. An uncited verdict is null.</p></div>
+      <div class="prop" data-reveal><div class="pk">Trajectory audit</div><h4>Thrashing &amp; plateau</h4><p>A→B→A oscillation and N flat cycles are detected mechanically, forcing a strategy-class change.</p></div>
+    </div>
+    <p data-reveal>The load-bearing wall, stated honestly: this discipline is worth exactly what its oracles are worth. A goal that cannot be compiled into an oracle — taste, subjective experience — must not run without a human in the loop; launching it anyway is Goodhart's law by construction. Self-training obeys the same gate: only oracle-validated trajectories may be distilled into lessons, and a lesson enters the policy only after passing on fresh cases it has never seen — the lessons pass their own CI.</p>
+  </section>
+
   <section class="s" id="limits">
-    <div class="secnum" data-reveal>§ 6 · Reproducibility, standards &amp; honest limits</div>
+    <div class="secnum" data-reveal>§ 7 · Reproducibility, standards &amp; honest limits</div>
     <h2 data-reveal>Auditable by anyone — and clear about what it does <em>not</em> prove.</h2>
     <p class="lead-p" data-reveal>Each certification is appended to a public, SHA-256 hash-chained registry: a reader recomputes the hash of a deliverable and follows the previous-hash links to confirm the record was not silently rewritten. The contradiction and verification stages borrow their discipline from established practice — systematic-review rigour (PRISMA) and engineering/security baselines (NIST, OWASP) for the anti-pattern and slashing terms — so the score is anchored in norms a specialist already trusts, not in a private rubric.</p>
     <p data-reveal>We are deliberate about the boundary. The hash chain proves <b>integrity and order</b> — that a given certification existed and was not altered after the fact — but it is operator-held, so on its own it does not preclude a parallel rewrite without an external anchor (signed Git tags, or a transparency log such as Rekor). DeepSCR proves <b>authenticity and evidence</b>, not infallibility: a claim that survives is well-supported, not certain. Stating this limit is itself part of the protocol — an examiner that overclaimed would fail its own contradiction stage.</p>
   </section>
 
   <section class="s" id="science">
-    <div class="secnum" data-reveal>§ 7 · Why it is science</div>
+    <div class="secnum" data-reveal>§ 8 · Why it is science</div>
     <h2 data-reveal>Four properties separate a result from an <em>assertion.</em></h2>
     <p class="lead-p" data-reveal>The same properties that distinguish a scientific result anywhere else are the ones the protocol enforces by construction.</p>
     <div class="props">
@@ -311,7 +324,7 @@
   </section>
 
   <section class="s" id="provenance">
-    <div class="secnum" data-reveal>§ 8 · Conclusion &amp; provenance</div>
+    <div class="secnum" data-reveal>§ 9 · Conclusion &amp; provenance</div>
     <h2 data-reveal>From principle to practice.</h2>
     <p class="lead-p" data-reveal>DeepSCR turns the difference between a result and an assertion into a mechanism: separate the powers, attack before you ship, resolve the evidence on disk, and let an independent score with a veto decide. FDE supplies the engineering depth; the registry makes the verdict reproducible. The protocol's honesty about its own limits is not a caveat bolted on — it is the same scepticism, turned on itself.</p>
     <p data-reveal><b>DeepSCR — Deep Sceptical Contextual Research</b> was created by <b>Mehdi Wehbi</b> as a cognitive protocol for moving from intuition to deterministic, evidence-grounded proof. The system described in this paper is its specialisation to forward-deployed software engineering; the four-step loop, the sceptical decision rule, and the trust-score formulation are due to that original work.</p>

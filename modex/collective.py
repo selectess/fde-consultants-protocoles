@@ -60,6 +60,8 @@ from scientific_search import FDECoordinator, FDEExecutor, default_golden_cases 
 from modex.orchestrator import ModexRuntime  # noqa: E402
 from modex.specialists import (  # noqa: E402
     run_specialists, specialists_markdown, DEEPSCR_ROLES, FDE_SPECIALIST_ROLES)
+from modex.arbiters import (  # noqa: E402
+    FrozenContract, OracleRegistry, TrajectoryAuditor, make_verdict, ContractError)
 
 
 # ============================================================================
@@ -362,6 +364,7 @@ class AutonomousResult:
     roles: Optional[dict] = None          # the 8-agent roster (4 DeepSCR + 4 FDE specialists)
     executed_at: str = ""
     duration_seconds: float = 0.0
+    contract_report: Optional[dict] = None  # Frozen-Arbiters audit (when a Contract governs the run)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -506,12 +509,29 @@ class ModexCollective:
         max_iterations: int = 10,
         retries_per_agent: int = 2,
         human_in_loop: bool = False,
+        contract: Optional[FrozenContract] = None,
+        oracles: Optional[OracleRegistry] = None,
     ) -> AutonomousResult:
         """Run the engagement as a self-prompting loop. The Lead and sub-agents
         prompt each other based on the five judgments until the Certifier
         certifies, the retry budgets are exhausted, or `max_iterations` is hit.
         The human is informed throughout and only gates irreversible actions when
-        `human_in_loop=True`."""
+        `human_in_loop=True`.
+
+        FROZEN ARBITERS (optional): when a sealed `contract` governs the run,
+        every action must serve a Contract clause (or is mechanically rejected),
+        the frozen `oracles` override the Certifier's optimism at ship time, and
+        the result carries a `contract_report` (clause drift distribution,
+        cited verdicts, oracle ledger, thrashing/plateau audit)."""
+        if contract is not None and not contract.sealed:
+            raise ContractError("the Contract must be sealed (frozen) before launch")
+        if contract is not None and "iterations" in contract.budgets:
+            max_iterations = min(max_iterations, contract.budgets["iterations"])
+        rejected_actions: list[dict] = []
+        clause_tags: list[str] = []
+        cited_verdicts: list[dict] = []
+        trust_history: list[float] = []
+        role_seq: list[str] = []
         start = datetime.now(timezone.utc)
         ctx: dict[str, Any] = {"problem": problem, "golden": golden_cases,
                                "deliverable_markdown": deliverable_markdown, "episodes": []}
@@ -526,8 +546,44 @@ class ModexCollective:
 
         for iteration in range(1, max_iterations + 1):
             role, prompt = current
+            role_seq.append(role)
             notifier.notify("step", f"iter {iteration}: {role} ⟵ {prompt}")
             event = dispatch[role](ctx)
+
+            # ---- Frozen Arbiters: the agent pleads, it never grades itself ----
+            if contract is not None:
+                clause = contract.clause_for(event["stage"])
+                if clause is None:
+                    # An action serving no Contract clause is mechanically rejected.
+                    rejected_actions.append({"iteration": iteration, "role": role, "stage": event["stage"]})
+                    notifier.notify("contract", f"REJECTED: stage '{event['stage']}' serves no Contract clause")
+                    if budgets.get("lead", 0) > 0:
+                        budgets["lead"] -= 1
+                        current = ("lead", "Lead: the last action served no Contract clause — re-frame within the Contract.")
+                        continue
+                    status = "contract_violation"
+                    break
+                clause_tags.append(clause)
+                event["clause"] = clause
+                if event["stage"] == "certification":
+                    # The frozen oracles override the Certifier's optimism at ship time,
+                    # and the verdict must cite a run id — an uncited verdict is null.
+                    runs = oracles.run_all(ctx) if oracles is not None else []
+                    failed = [r for r in runs if not r.passed]
+                    if failed:
+                        ctx["shipped"] = False
+                        ctx["veto"] = (f"frozen oracle '{failed[0].oracle}' failed "
+                                       f"({failed[0].run_id}): {failed[0].detail}")
+                        event["payload"]["shipped"] = False
+                    cited_verdicts.append(make_verdict(
+                        claim=ctx.get("claim", ""),
+                        decision="pass" if (ctx.get("shipped") and not failed) else "fail",
+                        cites_run=(runs[0].run_id if runs else None),
+                        cites_clause=clause,
+                    ).to_dict())
+                    trust_history.append(float((ctx.get("trust") or {}).get("trust_score", 0)))
+                if TrajectoryAuditor.detect_thrashing(role_seq):
+                    notifier.notify("audit", "THRASHING: A→B→A routing oscillation detected")
 
             judgments = judge(event, bb.memory_signals())
             nxt = route_next(role, judgments, ctx, budgets)
@@ -555,6 +611,21 @@ class ModexCollective:
             current = nxt
 
         end = datetime.now(timezone.utc)
+        contract_report = None
+        if contract is not None:
+            distribution = ({c: round(clause_tags.count(c) / len(clause_tags), 3)
+                             for c in sorted(set(clause_tags))} if clause_tags else {})
+            contract_report = {
+                "contract_hash": contract.hash,
+                "integrity": contract.verify_integrity(),      # tamper-evident, machine-checked
+                "clause_distribution": distribution,           # drift is measured, not felt
+                "rejected_actions": rejected_actions,
+                "verdicts": cited_verdicts,                    # every one cites a run id + clause
+                "oracle_ledger": ([r.to_dict() for r in oracles.ledger]
+                                  if oracles is not None else []),
+                "thrashing": TrajectoryAuditor.detect_thrashing(role_seq),
+                "plateau": TrajectoryAuditor.detect_plateau(trust_history),
+            }
         # Persist the single-pass-style memory snapshot + the autonomous transcript.
         self._write_memory(self._result_from_ctx(ctx, start, end), ctx["episodes"])
         self._write_transcript(transcript)
@@ -573,6 +644,7 @@ class ModexCollective:
             roles={"deepscr": list(DEEPSCR_ROLES), "fde_specialists": list(FDE_SPECIALIST_ROLES)},
             executed_at=start.isoformat(),
             duration_seconds=(end - start).total_seconds(),
+            contract_report=contract_report,
         )
 
     def _result_from_ctx(self, ctx: dict, start: datetime, end: datetime) -> CollectiveResult:
