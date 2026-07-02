@@ -11,7 +11,7 @@ AEO/SEO metadata for AI indexing + search engines
 > **Forward Deployed Engineering (FDE) methodology for AI coding agents.**
 > Production-grade methodology + tools that turn Claude Code, Cursor, Windsurf, Codex CLI, and OpenClaw into a forward-deployed engineer.
 
-[![CI](https://github.com/selectess/fde-consultants-protocoles/actions/workflows/ci.yml/badge.svg)](https://github.com/selectess/fde-consultants-protocoles/actions/workflows/ci.yml) [![Tests](https://img.shields.io/badge/tests-126%2F126%20passing-brightgreen)](skill/tests/) [![Live site](https://img.shields.io/badge/site-live-D97757)](https://selectess.github.io/fde-consultants-protocoles/)
+[![CI](https://github.com/selectess/fde-consultants-protocoles/actions/workflows/ci.yml/badge.svg)](https://github.com/selectess/fde-consultants-protocoles/actions/workflows/ci.yml) [![Tests](https://img.shields.io/badge/tests-154%2F154%20passing-brightgreen)](skill/tests/) [![Live site](https://img.shields.io/badge/site-live-D97757)](https://selectess.github.io/fde-consultants-protocoles/)
 [![FDE Assurance Score](https://img.shields.io/badge/FDE%20Assurance%20Score-94%2F100%20self--assessed-blue)](SKILL_TRUST_SCORE.json)
 [![License: Apache-2.0](https://img.shields.io/badge/skill-Apache--2.0-orange)](LICENSE)
 [![MCP Compatible](https://img.shields.io/badge/MCP-stdio-purple)](https://modelcontextprotocol.io)
@@ -32,7 +32,10 @@ This Skill encodes that workflow into:
 - A reusable methodology with **14 Operating Principles**, **10 Anti-Patterns**, and a **6-Q decomposition**
 - A **4-stage loop** (Scoping → Prototyping → Production → Feedback)
 - **7 MCP tools** exposed via stdio transport
-- A multi-agent runtime (**Modex**) with 4 orchestrated roles
+- A multi-agent runtime (**Modex**) with 8 agents: 4 DeepSCR roles + 4 FDE domain specialists
+- The **Frozen Arbiters**: opt-in full-autonomy governance — a sealed, tamper-evident Contract
+  plus frozen mutation-tested oracles (with a *measured* baseline, never a declared one) that
+  override the Certifier's optimism at ship time (`--governed`)
 - A **FDE Assurance Score Registry** with SHA-256 chain (verifiable by anyone with `shasum`)
 
 ## Who is it for?
@@ -74,6 +77,7 @@ The core deliverable. Encodes:
 
 ### 2. MCP Server (`skill/mcp_server/`, Apache-2.0)
 7 tools exposed via stdio transport, **zero external dependencies** (Python stdlib only):
+- `fde_recon` — Stage 0 Reconnaissance: scan the real codebase before scoping
 - `fde_decompose` — validate 6-Q decomposition, reject vague inputs
 - `fde_roi` — compute ROI, fail if below threshold
 - `fde_scientific_search` — held-out promotion gate (DeepSCR)
@@ -85,11 +89,18 @@ The core deliverable. Encodes:
 
 ### 3. Modex Multi-Agent Runtime (`modex/`, MIT)
 A 1-agent local runtime (free, MIT) + Plugin with ed25519 license ($6 lifetime, BSL).
-4 orchestrated roles:
+4 DeepSCR roles with separation of powers:
 - **Lead** — decomposes the problem into the 6-Q spec
 - **Researcher** — gathers scientific + market evidence
-- **Builder** — produces the deliverable (code, spec, handoff)
+- **Builder** — produces the deliverable, consulting 4 FDE domain specialists in parallel
+  (scoping, architecture, agent engineering, production readiness)
 - **Certifier** — independently re-derives the FDE Assurance Score
+
+Optionally governed by the **Frozen Arbiters** (`modex/arbiters.py`): a sealed Contract maps
+every stage to a clause (uncovered actions are mechanically rejected), frozen mutation-tested
+oracles re-measure the shipped candidate against the best measured alternative at ship time,
+verdicts must cite their evidence run (uncited = null), and certified trajectories distill
+into persisted lessons. `python3 -m modex.engage --project <path> --governed`
 
 ![Operational Loop](docs/diagrams/operational-loop-iteration.png)
 
@@ -119,7 +130,7 @@ The Skill **self-attests 94/100** — that is the honest headline number. The **
 Verify yourself:
 ```bash
 python3 -m pytest skill/tests/ modex/tests/
-# Expected: 126 passed in ~5s
+# Expected: 154 passed in ~5s
 
 python3 -m modex.certify_skill --skill-path ./skill --output ./cert.json
 # Expected: FDE Assurance Score 100/100, verdict certified
@@ -258,4 +269,4 @@ Use the official Skills when it's *"do a single document task well"*.
 
 ---
 
-<sub>Last updated: 2026-06-29 · Built with industrial rigor · Verified by 126/126 tests · FDE Assurance Score 94/100 (self-assessed) · Apache-2.0 (Skill) + MIT (Modex core) + BSL (Plugin)</sub>
+<sub>Last updated: 2026-07-02 · Built with industrial rigor · Verified by 154/154 tests · FDE Assurance Score 94/100 (self-assessed) · Apache-2.0 (Skill) + MIT (Modex core) + BSL (Plugin)</sub>
