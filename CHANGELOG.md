@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   verdicts (uncited = null), trajectory audit (thrashing/plateau), and a distillation gate
   (only oracle-validated trajectories become lessons; lessons must pass on fresh cases).
   Opt-in via `run_autonomous(contract=…, oracles=…)`; 18 new tests (suite: 144)
+- Frozen Arbiters exposed end-to-end: `engage(governed=True)` and `python3 -m modex.engage --governed`
+  ship a default governance (sealed Contract over the four DeepSCR stages + frozen oracles proven by
+  mutation testing: evals gate, on-disk evidence) and surface the contract report — hash, integrity,
+  clause drift, cited verdicts (suite: 147)
 - Protocols white paper: new § 6 "Full autonomy — the Frozen Arbiters"
 - `$6` buyer journey completed: activation page + accurate license spec
 - Protocols page rewritten as a single academic white paper (DeepSCR figure integrated)
