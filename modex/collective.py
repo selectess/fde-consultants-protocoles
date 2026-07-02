@@ -61,7 +61,8 @@ from modex.orchestrator import ModexRuntime  # noqa: E402
 from modex.specialists import (  # noqa: E402
     run_specialists, specialists_markdown, DEEPSCR_ROLES, FDE_SPECIALIST_ROLES)
 from modex.arbiters import (  # noqa: E402
-    FrozenContract, OracleRegistry, TrajectoryAuditor, make_verdict, ContractError)
+    FrozenContract, OracleRegistry, TrajectoryAuditor, DistillationGate,
+    make_verdict, ContractError)
 
 
 # ============================================================================
@@ -365,6 +366,7 @@ class AutonomousResult:
     executed_at: str = ""
     duration_seconds: float = 0.0
     contract_report: Optional[dict] = None  # Frozen-Arbiters audit (when a Contract governs the run)
+    specialist_report: Optional[list] = None  # full analyses of the 4 FDE specialists (audit trail)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -527,6 +529,10 @@ class ModexCollective:
             raise ContractError("the Contract must be sealed (frozen) before launch")
         if contract is not None and "iterations" in contract.budgets:
             max_iterations = min(max_iterations, contract.budgets["iterations"])
+        # Token budget: deterministic proxy (~4 chars/token over prompts + summaries).
+        # An approximation, honestly labeled — it bounds spend, it does not bill.
+        token_budget = contract.budgets.get("tokens") if contract is not None else None
+        est_tokens = 0
         rejected_actions: list[dict] = []
         clause_tags: list[str] = []
         cited_verdicts: list[dict] = []
@@ -608,6 +614,14 @@ class ModexCollective:
             if nxt is None:
                 status = "certified" if ctx.get("shipped") else "stopped_unresolved"
                 break
+            est_tokens += (len(prompt) + len(event["summary"]) + len(self_prompt or "")) // 4
+            if token_budget is not None and est_tokens >= token_budget:
+                # The Contract bounds spend mechanically — the loop stops, it does
+                # not quietly keep optimizing past its budget.
+                notifier.notify("contract", f"BUDGET EXHAUSTED: ~{est_tokens} tokens "
+                                            f">= budget {token_budget}")
+                status = "budget_exhausted"
+                break
             current = nxt
 
         end = datetime.now(timezone.utc)
@@ -625,7 +639,22 @@ class ModexCollective:
                                   if oracles is not None else []),
                 "thrashing": TrajectoryAuditor.detect_thrashing(role_seq),
                 "plateau": TrajectoryAuditor.detect_plateau(trust_history),
+                "est_tokens": est_tokens,                       # ~4 chars/token proxy
+                "token_budget": token_budget,
             }
+            # Distillation: only an oracle-validated trajectory becomes a lesson
+            # (echo-chamber input is refused by the gate itself), persisted so
+            # future engagements can admit it against fresh cases.
+            distilled = None
+            if oracles is not None and status == "certified" and ctx.get("shipped"):
+                trajectory = [{"cites_run": v["cites_run"]} for v in cited_verdicts
+                              if v["decision"] == "pass" and v.get("cites_run")]
+                distilled = DistillationGate(oracles).distill(trajectory)
+                if distilled is not None:
+                    with (self.memory_dir / "distilled_lessons.jsonl").open("a") as fh:
+                        fh.write(json.dumps({**distilled,
+                                             "contract_hash": contract.hash}) + "\n")
+            contract_report["distilled_lesson"] = distilled
         # Persist the single-pass-style memory snapshot + the autonomous transcript.
         self._write_memory(self._result_from_ctx(ctx, start, end), ctx["episodes"])
         self._write_transcript(transcript)
@@ -645,6 +674,8 @@ class ModexCollective:
             executed_at=start.isoformat(),
             duration_seconds=(end - start).total_seconds(),
             contract_report=contract_report,
+            specialist_report=([s.to_dict() for s in ctx["specialists"]]
+                               if ctx.get("specialists") else None),
         )
 
     def _result_from_ctx(self, ctx: dict, start: datetime, end: datetime) -> CollectiveResult:

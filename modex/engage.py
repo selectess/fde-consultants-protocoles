@@ -31,6 +31,7 @@ for _p in (str(REPO_ROOT), str(SCRIPTS_DIR)):
         sys.path.insert(0, _p)
 
 from fde_recon import scan_codebase  # noqa: E402
+from scientific_search import FDECoordinator, FDEExecutor, default_golden_cases  # noqa: E402
 from modex.arbiters import FrozenContract, OracleRegistry  # noqa: E402
 from modex.collective import ModexCollective  # noqa: E402
 
@@ -76,7 +77,64 @@ def build_six_q(recon: dict[str, Any], project_path: str) -> dict[str, Any]:
     }
 
 
-def default_governance(goal: str, max_iterations: int = 10
+def _measure_candidates(problem: dict[str, Any],
+                        golden_cases: Optional[list] = None) -> list[dict[str, Any]]:
+    """Independent, deterministic measurement of every candidate architecture
+    (same hypothesis tree + held-out gate the Researcher uses, re-run from scratch)."""
+    golden = golden_cases if golden_cases is not None else default_golden_cases(problem)
+    if isinstance(golden, dict):
+        golden = golden.get("cases", [])
+    coordinator = FDECoordinator(problem, golden, Path("/dev/null"))
+    return [FDEExecutor(h).evaluate(problem, golden)
+            for h in coordinator.generate_hypothesis_tree()]
+
+
+def measured_baseline_oracle(problem: dict[str, Any],
+                             golden_cases: Optional[list] = None):
+    """`sota_baseline_gate` with a MEASURED baseline, never a declared one.
+
+    A naive baseline would be trivially satisfied: the Researcher already picks
+    the top of the same search. So at ship time this oracle re-runs the search
+    independently and requires the shipped candidate to:
+      (a) REPRODUCE — its promotion must hold on the independent rerun;
+      (b) NOT INFLATE — the claimed held-out score must equal the measured one;
+      (c) BEAT THE COUNTERFACTUAL — measured held-out >= the best alternative
+          the search found (the runner-up is the measured baseline).
+    """
+    def gate(ctx: dict) -> tuple[bool, float, str]:
+        best = ctx.get("best") or {}
+        shipped_id = best.get("hypothesis_id")
+        claimed = best.get("held_out_score")
+        measured = _measure_candidates(problem, golden_cases)
+        if not shipped_id:
+            # Shipping WITHOUT claiming a winning architecture (e.g. a scoping
+            # recommendation) is legitimate — the gate bites on claims, not
+            # on their absence. evals/evidence gates still apply.
+            promoted_n = sum(1 for r in measured if r["promoted"])
+            return True, 1.0, (f"no candidate claimed — baseline gate not applicable "
+                               f"(measured {len(measured)} candidates, {promoted_n} promoted)")
+        mine = next((r for r in measured if r["hypothesis_id"] == shipped_id), None)
+        if mine is None or not mine["promoted"]:
+            return False, 0.0, (f"shipped candidate {shipped_id} does not reproduce "
+                                f"on the independent rerun ({len(measured)} candidates)")
+        if claimed != mine["held_out_score"]:
+            return False, 0.0, (f"claimed held-out {claimed}/100 != measured "
+                                f"{mine['held_out_score']}/100 for {shipped_id}")
+        rivals = [r for r in measured if r["hypothesis_id"] != shipped_id]
+        runner = max(rivals, key=lambda r: (r["held_out_score"], r["development_score"]),
+                     default=None)
+        baseline = runner["held_out_score"] if runner else 0
+        ok = mine["held_out_score"] >= baseline
+        detail = (f"measured baseline={runner['hypothesis_id'] if runner else 'none'}:"
+                  f"{baseline}/100 over {len(measured)} candidates; shipped "
+                  f"{shipped_id}={mine['held_out_score']}/100 (reproduced)")
+        return ok, mine["held_out_score"] / 100.0, detail
+    return gate
+
+
+def default_governance(goal: str, max_iterations: int = 10,
+                       problem: Optional[dict[str, Any]] = None,
+                       golden_cases: Optional[list] = None
                        ) -> tuple[FrozenContract, OracleRegistry]:
     """The Frozen Arbiters an engage() run ships with by default when governed.
 
@@ -114,6 +172,21 @@ def default_governance(goal: str, max_iterations: int = 10
             {"problem": {"evidence_trail": ["/nonexistent/ghost.py"]}},
             {"problem": {"evidence_trail": []}}]):
         raise RuntimeError("evidence_on_disk oracle missed an injected failure")
+    if problem is not None:
+        oracles.register("sota_baseline_gate",
+                         measured_baseline_oracle(problem, golden_cases))
+        # Mutation testing against the two lies the gate must catch:
+        # a fabricated candidate and an inflated score. (A candidate-less
+        # deliverable is NOT a lie — the gate is not applicable there.)
+        measured = _measure_candidates(problem, golden_cases)
+        top = max(measured, key=lambda r: (r["held_out_score"], r["development_score"]))
+        known_bad = [
+            {"best": {"hypothesis_id": "H999-fabricated", "held_out_score": 100}},
+            {"best": {"hypothesis_id": top["hypothesis_id"],
+                      "held_out_score": top["held_out_score"] + 7}},   # inflated claim
+        ]
+        if not oracles.prove("sota_baseline_gate", known_bad=known_bad):
+            raise RuntimeError("sota_baseline_gate oracle missed an injected failure")
     oracles.freeze()
     return contract, oracles
 
@@ -133,7 +206,8 @@ def engage(project_path: str, max_iterations: int = 10,
     if governed:
         goal = (f"Certified FDE engagement on {Path(project_path).resolve().name}, "
                 f"grounded in on-disk evidence")
-        contract, oracles = default_governance(goal, max_iterations=max_iterations)
+        contract, oracles = default_governance(goal, max_iterations=max_iterations,
+                                               problem=six_q)
     mc = ModexCollective(memory_dir=Path(memory_dir) if memory_dir else Path("./fde-memory"))
     auto = mc.run_autonomous(six_q, max_iterations=max_iterations,
                              contract=contract, oracles=oracles)

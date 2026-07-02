@@ -203,3 +203,53 @@ def test_action_without_clause_is_mechanically_rejected(memdir):
 def test_ungoverned_run_unchanged(memdir):
     res = ModexCollective(memory_dir=memdir).run_autonomous(PROBLEM)
     assert res.contract_report is None                       # backward compatible
+
+
+def test_token_budget_halts_the_run(memdir):
+    """budgets={'tokens': N} bounds spend mechanically: the loop stops, honestly."""
+    contract = _contract(budgets={"iterations": 10, "tokens": 40})
+    contract.seal()
+    res = ModexCollective(memory_dir=memdir).run_autonomous(PROBLEM, contract=contract)
+    assert res.status == "budget_exhausted" and not res.shipped
+    rep = res.contract_report
+    assert rep["token_budget"] == 40 and rep["est_tokens"] >= 40
+
+
+def test_certified_governed_run_distills_a_lesson(memdir):
+    """A certified, oracle-validated trajectory becomes a persisted lesson."""
+    contract = _contract()
+    contract.seal()
+    oracles = OracleRegistry()
+    oracles.register("evals_gate", lambda ctx: (
+        ctx.get("evals", {}).get("verdict") == "PASS", 1.0, "builder evals must PASS"))
+    oracles.freeze()
+    grounded = {**PROBLEM, "evidence_trail": ["modex/collective.py"]}
+    res = ModexCollective(memory_dir=memdir).run_autonomous(
+        grounded, contract=contract, oracles=oracles)
+    assert res.status == "certified"
+    lesson = res.contract_report["distilled_lesson"]
+    assert lesson is not None and lesson["steps"]            # cites its oracle runs
+    persisted = (memdir / "distilled_lessons.jsonl").read_text().strip().splitlines()
+    assert persisted and contract.hash in persisted[-1]
+
+
+def test_uncertified_run_distills_nothing(memdir):
+    """No echo chamber: a vetoed run leaves no lesson behind."""
+    contract = _contract()
+    contract.seal()
+    oracles = OracleRegistry()
+    oracles.register("hard_gate", lambda ctx: (False, 0.0, "deliberately failing"))
+    oracles.freeze()
+    res = ModexCollective(memory_dir=memdir).run_autonomous(
+        PROBLEM, contract=contract, oracles=oracles)
+    assert res.contract_report["distilled_lesson"] is None
+    assert not (memdir / "distilled_lessons.jsonl").exists()
+
+
+def test_specialist_report_carries_full_audit_trail(memdir):
+    """The 4 specialists' full analyses ride in the result, not just their names."""
+    res = ModexCollective(memory_dir=memdir).run_autonomous(PROBLEM)
+    assert res.specialist_report is not None
+    roles = {s["role"] for s in res.specialist_report}
+    assert roles == {"scoping", "architecture", "agent", "production"}
+    assert all(s["findings"] and s["recommendation"] for s in res.specialist_report)

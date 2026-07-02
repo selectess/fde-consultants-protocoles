@@ -18,6 +18,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   ship a default governance (sealed Contract over the four DeepSCR stages + frozen oracles proven by
   mutation testing: evals gate, on-disk evidence) and surface the contract report — hash, integrity,
   clause drift, cited verdicts (suite: 147)
+- **Measured baseline oracle** (`sota_baseline_gate`): at ship time the frozen oracle re-runs the
+  hypothesis search independently and requires a claimed candidate to reproduce, to match its
+  measured held-out score, and to beat the best measured alternative — the baseline is measured,
+  never declared; a candidate-less deliverable is not-applicable, not vetoed
+- Token budget in the Contract (`budgets={"tokens": N}`): deterministic ~4 chars/token proxy,
+  honest `budget_exhausted` stop, spend reported in the contract report
+- Distillation wired into the loop: a certified, oracle-validated trajectory is distilled into a
+  lesson and persisted (`distilled_lessons.jsonl`); vetoed runs leave no lesson (no echo chamber)
+- `specialist_report`: the 4 FDE specialists' full analyses ride in the autonomous result as an
+  audit trail, not just their names (suite: 154)
 - Protocols white paper: new § 6 "Full autonomy — the Frozen Arbiters"
 - `$6` buyer journey completed: activation page + accurate license spec
 - Protocols page rewritten as a single academic white paper (DeepSCR figure integrated)
