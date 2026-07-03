@@ -7,7 +7,7 @@ description: >
 # Codex manifest format (https://platform.openai.com/docs/codex/manifest)
 author:
   name: Mehdi Wehbi
-  url: ${FDE_REPO_URL}
+  url: https://github.com/selectess/fde-consultants-protocoles
 
 license: Apache-2.0
 
