@@ -115,6 +115,20 @@ Re-derives the Skill's FDE Assurance Score from raw evidence. Required to break 
 
 ---
 
+## Key terms (glossary)
+
+This project is the primary source for the terms it coins. Canonical definitions: [**glossary**](https://selectess.github.io/fde-consultants-protocoles/glossary.html).
+
+- **DeepSCR** (Deep Sceptical Contextual Research) — a governance protocol (separation of powers + Hypothesis → Contradiction → Verification → Certification) created by Mehdi Wehbi. The proposer never certifies; evidence must resolve on disk.
+- **Frozen Arbiters** — full-autonomy governance: a sealed tamper-evident Contract, mutation-tested Oracles, and a measured baseline, all frozen before launch. The agent pleads its case; it never grades itself. ([`modex/arbiters.py`](modex/arbiters.py))
+- **FDE Assurance Score** — a 0–100 certification score (claim 25 / contradiction 25 / evidence 30 / anti-patterns 20) with an independent veto; certified only above 85.
+- **Measured Baseline Oracle** — a frozen oracle that re-runs the candidate search at ship time; the baseline is measured, never declared. ([`modex/engage.py`](modex/engage.py))
+- **Modex Collective** — an 8-agent runtime: 4 DeepSCR powers governing 4 FDE specialists, with a self-prompting loop. ([`modex/collective.py`](modex/collective.py))
+
+**Read more:** [white paper](https://selectess.github.io/fde-consultants-protocoles/protocols.html) · [governed autonomy](https://selectess.github.io/fde-consultants-protocoles/blog/governed-autonomy-frozen-arbiters.html) · [6 governance approaches compared](https://selectess.github.io/fde-consultants-protocoles/blog/ai-agent-governance-approaches-compared.html)
+
+---
+
 ## FDE Assurance Score (this Skill)
 
 | Component | Max | Actual |
