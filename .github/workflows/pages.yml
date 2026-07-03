@@ -5,6 +5,7 @@ on:
     branches: ["master", "main"]
     paths:
       - 'portal/landing/**'
+      - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:
@@ -31,6 +32,13 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: './portal/landing'
+      # The deploy API fails intermittently (observed on 05706ac ×3 and cebe5d0
+      # while the artifact upload succeeded) — one retry absorbs the transient.
       - name: Deploy to GitHub Pages
         id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Retry deploy (transient Pages API failure)
+        id: deployment-retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v4

@@ -4,14 +4,11 @@
   "description": "Forward Deployed Engineering methodology for AI coding agents. The 5-stage loop (Stage 0 Reconnaissance -> Scoping -> Prototyping -> Production -> Feedback) with verifiable Trust Score.",
   "author": {
     "name": "Mehdi Wehbi",
-    "url": "${FDE_REPO_URL}"
+    "url": "https://github.com/selectess/fde-consultants-protocoles"
   },
   "license": "Apache-2.0",
-  "homepage": "${FDE_REPO_URL}#readme",
-  "repository": {
-    "type": "git",
-    "url": "${FDE_REPO_URL}.git"
-  },
+  "homepage": "https://github.com/selectess/fde-consultants-protocoles#readme",
+  "repository": "https://github.com/selectess/fde-consultants-protocoles",
   "keywords": [
     "fde",
     "forward-deployed-engineering",
@@ -21,13 +18,7 @@
     "production-ready",
     "deepscr"
   ],
-  "skills": [
-    {
-      "name": "fde-consultant",
-      "path": "./SKILL.md",
-      "description": "The core FDE Consultant Skill. Activates on any non-trivial product/engineering task."
-    }
-  ],
+  "skills": ["./"],
   "tools": [
     {
       "name": "fde_recon",
@@ -65,16 +56,13 @@
       "description": "Stage 4: DeepSCR Trust Score (25+25+30+20) with SHA-256 audit trail"
     }
   ],
-  "mcp_servers": [
-    {
-      "name": "fde-consultant",
+  "mcpServers": {
+    "fde-consultant": {
       "command": "python3",
-      "args": ["-m", "skill.mcp_server"],
-      "cwd": "./",
-      "transport": "stdio",
-      "description": "FDE Consultant MCP server exposing the 7 tools above"
+      "args": ["-m", "mcp_server"],
+      "cwd": "${CLAUDE_PLUGIN_ROOT}"
     }
-  ],
+  },
   "entry_points": {
     "human_install": "INSTALL.md",
     "agent_install": "AGENT-INSTALL.md",

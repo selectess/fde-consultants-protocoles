@@ -4,7 +4,7 @@
   "manifest_version": "1.0",
   "description": "Forward Deployed Engineering methodology for AI coding agents",
   "license": "Apache-2.0",
-  "homepage": "${FDE_REPO_URL}",
+  "homepage": "https://github.com/selectess/fde-consultants-protocoles",
   "mcp_servers": [
     {
       "name": "fde-consultant",

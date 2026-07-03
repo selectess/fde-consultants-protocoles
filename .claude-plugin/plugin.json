@@ -9,10 +9,7 @@
   },
   "license": "Apache-2.0",
   "homepage": "https://github.com/selectess/fde-consultants-protocoles#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/selectess/fde-consultants-protocoles.git"
-  },
+  "repository": "https://github.com/selectess/fde-consultants-protocoles",
   "keywords": [
     "fde",
     "forward-deployed-engineering",
@@ -31,51 +28,17 @@
     "production-ready"
   ],
   "skills": [
-    {
-      "name": "fde-consultant",
-      "path": "skill/",
-      "description": "Core FDE methodology with 14 Operating Principles, 10 Anti-Patterns, 6-Q decomposition, and 5-stage loop (Stage 0 Reconnaissance -> Scoping -> Prototyping -> Production -> Feedback)"
-    },
-    {
-      "name": "modex-runtime",
-      "path": "modex/",
-      "description": "Multi-agent runtime with 4 roles (Lead, Researcher, Builder, Certifier) and Trust Score gate"
-    }
+    "./skill"
   ],
-  "mcpServers": [
-    {
-      "name": "fde-consultant",
+  "mcpServers": {
+    "fde-consultant": {
       "command": "python3",
-      "args": ["-m", "skill.mcp_server"],
-      "transport": "stdio",
-      "description": "FDE Consultant MCP server exposing 7 tools: fde_recon, fde_decompose, fde_roi, fde_scientific_search, fde_evals, fde_ontology, fde_trust_score"
+      "args": [
+        "-m",
+        "skill.mcp_server"
+      ],
+      "cwd": "${CLAUDE_PLUGIN_ROOT}"
     }
-  ],
-  "commands": [
-    {
-      "name": "fde-scope",
-      "description": "Start a 6-Q decomposition interview",
-      "prompt": "Read skill/SKILL.md and act as an FDE Consultant. Apply the 6-Q decomposition (process/decision/data/cost/current-state/success-metric) to the user's problem. Output a falsifiable claim + 6 answered questions."
-    },
-    {
-      "name": "fde-evals",
-      "description": "Generate eval rubric + golden set",
-      "prompt": "Read skill/references/eval-rubric.md. Generate a 6-trait eval rubric for the user's deliverable, plus a golden set of 5 test cases."
-    },
-    {
-      "name": "fde-certify",
-      "description": "Run the independent Certifier on the Skill",
-      "prompt": "Run `python3 -m modex.certify_skill --skill-path ./skill --output ./cert.json` and explain the result."
-    }
-  ],
-  "hooks": {
-    "pre-commit": [
-      {
-        "name": "verify-tests",
-        "command": "python3 -m pytest skill/tests/ modex/tests/ -q",
-        "timeout": 60
-      }
-    ]
   },
   "compatibility": {
     "claude-code": ">=1.0.0",
