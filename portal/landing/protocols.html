@@ -302,6 +302,45 @@
       <div class="prop" data-reveal><div class="pk">Trajectory audit</div><h4>Thrashing &amp; plateau</h4><p>A→B→A oscillation and N flat cycles are detected mechanically, forcing a strategy-class change.</p></div>
     </div>
     <p data-reveal>The load-bearing wall, stated honestly: this discipline is worth exactly what its oracles are worth. A goal that cannot be compiled into an oracle — taste, subjective experience — must not run without a human in the loop; launching it anyway is Goodhart's law by construction. Self-training obeys the same gate: only oracle-validated trajectories may be distilled into lessons, and a lesson enters the policy only after passing on fresh cases it has never seen — the lessons pass their own CI.</p>
+    <figure data-reveal>
+      <div class="diagram">
+        <div class="dlabel">full autonomy · the agent pleads, the frozen arbiters decide · seals set at launch</div>
+        <svg viewBox="0 0 840 372" role="img" aria-label="The governed run: sealed contract, frozen oracles and measured baseline over the agent loop">
+          <defs>
+            <marker id="ah5" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="rgba(127,212,214,.7)"/></marker>
+            <marker id="av5" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="rgba(217,119,87,.85)"/></marker>
+          </defs>
+          <text class="nl" x="20" y="20" style="text-anchor:start;fill:rgba(127,212,214,.75)">FROZEN AT t₀ — the agent can plead to these, never edit them</text>
+          <g><rect class="nbox spec" x="20" y="30" width="250" height="56" rx="10"/><text class="ntext" x="145" y="53">SEALED CONTRACT</text><text class="ntext k" x="145" y="69">SHA-256 · clauses C1–C4 · budgets · non-goals</text></g>
+          <g><rect class="nbox spec" x="295" y="30" width="250" height="56" rx="10"/><text class="ntext" x="420" y="53">FROZEN ORACLES</text><text class="ntext k" x="420" y="69">trusted only after catching injected bugs</text></g>
+          <g><rect class="nbox spec" x="570" y="30" width="250" height="56" rx="10"/><text class="ntext" x="695" y="53">MEASURED BASELINE</text><text class="ntext k" x="695" y="69">independent rerun · never declared</text></g>
+          <path class="nflow gov" d="M570,58 L549,58" marker-end="url(#ah5)"/>
+          <!-- pleads: every action cites its clause -->
+          <path class="nflow gov" d="M104,168 L104,120 L134,96" marker-end="url(#ah5)"/>
+          <path class="nflow gov" d="M310,168 L310,120 L280,96" marker-end="url(#ah5)"/>
+          <path class="nflow gov" d="M516,168 L516,132 L226,96" marker-end="url(#ah5)"/>
+          <text class="nl" x="320" y="148" style="fill:rgba(127,212,214,.7)">every action cites the clause it serves — no clause → mechanically rejected</text>
+          <!-- override: oracles > certifier optimism at ship time -->
+          <path class="nflow veto" d="M470,86 C560,110 660,136 716,166" marker-end="url(#av5)"/>
+          <text class="nl" x="672" y="106" style="fill:rgba(217,119,87,.8)">at ship: oracles override optimism</text>
+          <!-- the agent loop -->
+          <g><rect class="nbox gov" x="20" y="168" width="168" height="54" rx="10"/><text class="ntext" x="104" y="192">Lead</text><text class="ntext k" x="104" y="207">6-Q · falsifiable claim</text></g>
+          <g><rect class="nbox gov" x="226" y="168" width="168" height="54" rx="10"/><text class="ntext" x="310" y="192">Researcher ×N</text><text class="ntext k" x="310" y="207">held-out gate</text></g>
+          <g><rect class="nbox gov" x="432" y="168" width="168" height="54" rx="10"/><text class="ntext" x="516" y="192">Builder</text><text class="ntext k" x="516" y="207">+ 4 FDE specialists</text></g>
+          <g><rect class="nbox gov" x="638" y="168" width="168" height="54" rx="10"/><text class="ntext" x="722" y="192">Certifier</text><text class="ntext k" x="722" y="207">independent score · veto</text></g>
+          <path class="nflow" d="M188,195 L222,195" marker-end="url(#ah5)"/>
+          <path class="nflow" d="M394,195 L428,195" marker-end="url(#ah5)"/>
+          <path class="nflow" d="M600,195 L634,195" marker-end="url(#ah5)"/>
+          <!-- cited verdict + distilled lesson -->
+          <path class="nflow" d="M722,222 L722,258 L560,286" marker-end="url(#ah5)"/>
+          <g><rect class="nbox" x="290" y="286" width="270" height="56" rx="10"/><text class="ntext" x="425" y="309">VERDICT · pass</text><text class="ntext k" x="425" y="325">cites run#0001 + C4 — uncited = null</text></g>
+          <path class="nflow gov" d="M560,314 L594,314" marker-end="url(#ah5)"/>
+          <g><rect class="nbox spec" x="598" y="286" width="222" height="56" rx="10"/><text class="ntext" x="709" y="309">DISTILLED LESSON</text><text class="ntext k" x="709" y="325">oracle-validated only · passes its own CI</text></g>
+          <text class="nl" x="150" y="318" style="fill:rgba(250,247,240,.45)">drift = measured clause distribution</text>
+        </svg>
+      </div>
+      <figcaption><b>Figure 5.</b> The governed run. Three arbiters are frozen at launch: a sealed Contract (every action must cite the clause it serves, or is mechanically rejected), frozen oracles proven by mutation testing, and a baseline that is <em>measured</em> by an independent rerun of the candidate search — never declared. At ship time the oracles override the Certifier's optimism; the verdict is null unless it cites its run and clause; and only oracle-validated trajectories distill into lessons.</figcaption>
+    </figure>
   </section>
 
   <section class="s" id="limits">
