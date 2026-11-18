@@ -716,7 +716,7 @@ class ModexCollective:
 ## Executive Summary
 {claim}. This SaaS / B2B engagement targets the process **{g('q1_process', 'n/a')}**
 (volume {g('q1_volume', 'n/a')}, owner {g('q1_owner', 'the process owner')}). Compliance
-context: {g('q3_compliance', 'none stated')}. Target: >200% ROI within 90 days, go-live by week 7.
+context: {g('q3_compliance', 'none stated')}. Delivery targets require confirmation by the project owner.
 
 ## 6-Q Decomposition (evidence-grounded)
 - **Q1 process**: {g('q1_process', 'n/a')} — volume {g('q1_volume', 'n/a')}
@@ -724,7 +724,7 @@ context: {g('q3_compliance', 'none stated')}. Target: >200% ROI within 90 days, 
 - **Q3 data**: {g('q3_volume', 'n/a')} — quality {g('q3_quality', 'n/a')}, compliance {g('q3_compliance', 'n/a')}
 - **Q4 cost of error**: {g('q4_direct_cost', 'n/a')} — regulatory {g('q4_regulatory', 'n/a')}
 - **Q5 current baseline**: {g('q5_current_type', 'manual')} at {g('q5_current_performance', 'n/a')}
-- **Q6 success metric / ROI**: {g('q6_primary_metric', 'n/a')} — threshold {g('q6_threshold', '>200% ROI')}
+- **Q6 success metric / ROI**: {g('q6_primary_metric', 'n/a')} — threshold {g('q6_threshold', 'pending owner input')}
 
 ## Recommended Architecture (promoted hypothesis)
 {promoted}
@@ -740,12 +740,11 @@ def serve(request):
 {lessons}
 
 ## Stakeholders & Change Management
-Stakeholder {g('q1_owner', 'the owner')} sponsors adoption; team training plus a
-2-week ramp (week 1 shadow, week 2 cutover) drives adoption. Production go-live by week 7.
+Stakeholder {g('q1_owner', 'the owner')} sponsors adoption; the owner confirms training, rollout dates and acceptance criteria before deployment.
 
 ## FDE Assurance Score & Assurance
 Submitted to the independent Certifier; every claim above is backed by held-out
-validation scores from the Researcher stage. ROI threshold {g('q6_threshold', '>200% ROI')}
+validation scores from the Researcher stage. ROI threshold {g('q6_threshold', 'pending owner input')}
 measured by {g('q6_measurement', 'monthly cohort analysis')}.
 """
         if specialists:
