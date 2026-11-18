@@ -91,15 +91,16 @@ class StripeWebhookHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers.get("Content-Length", 0))
         body = self.rfile.read(content_length)
-        try:
-            event = json.loads(body)
-        except json.JSONDecodeError:
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write(b'{"error": "Invalid JSON"}')
+        if not STRIPE_WEBHOOK_SECRET or not STRIPE_AVAILABLE:
+            self.send_error(503, "Stripe verification is not configured")
             return
-        # Verify webhook signature (in production)
-        # stripe.Webhook.construct_event(body, sig_header, STRIPE_WEBHOOK_SECRET)
+        try:
+            stripe.Webhook.construct_event(body, self.headers.get("Stripe-Signature", ""),
+                                           STRIPE_WEBHOOK_SECRET)
+            event = json.loads(body)
+        except (ValueError, stripe.SignatureVerificationError):
+            self.send_error(400, "Invalid Stripe event")
+            return
         event_type = event.get("type")
         try:
             if event_type == "payment_intent.succeeded":
