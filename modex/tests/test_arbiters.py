@@ -253,3 +253,10 @@ def test_specialist_report_carries_full_audit_trail(memdir):
     roles = {s["role"] for s in res.specialist_report}
     assert roles == {"scoping", "architecture", "agent", "production"}
     assert all(s["findings"] and s["recommendation"] for s in res.specialist_report)
+
+
+def test_proof_requires_at_least_one_counterexample():
+    registry = OracleRegistry()
+    registry.register("check", lambda value: (False, 0.0, "rejected"))
+    assert not registry.prove("check", [])
+    assert registry.prove("check", ["known failure"])

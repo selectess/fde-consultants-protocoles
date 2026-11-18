@@ -1,0 +1,16 @@
+[
+  {
+    "variant": "correct",
+    "dossier_score": 100,
+    "check_exit": 0,
+    "accepted": true,
+    "observation": "Paid revenue: expected 120, observed 120"
+  },
+  {
+    "variant": "regression",
+    "dossier_score": 100,
+    "check_exit": 1,
+    "accepted": false,
+    "observation": "Paid revenue: expected 120, observed 200"
+  }
+]

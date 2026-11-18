@@ -169,7 +169,7 @@ class OracleRegistry:
     def prove(self, name: str, known_bad: list[Any]) -> bool:
         """Mutation testing: the oracle earns trust only by CATCHING injected bugs."""
         fn = self._oracles[name]
-        caught_all = all(not fn(mutant)[0] for mutant in known_bad)
+        caught_all = bool(known_bad) and all(not fn(mutant)[0] for mutant in known_bad)
         self.proven[name] = caught_all
         return caught_all
 

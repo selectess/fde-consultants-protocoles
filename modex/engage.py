@@ -20,6 +20,7 @@ Usage:
 """
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any, Optional
@@ -192,7 +193,8 @@ def default_governance(goal: str, max_iterations: int = 10,
 
 
 def engage(project_path: str, max_iterations: int = 10,
-           memory_dir: Optional[str] = None, governed: bool = False) -> dict[str, Any]:
+           memory_dir: Optional[str] = None, governed: bool = False,
+           acceptance_command: Optional[list[str]] = None) -> dict[str, Any]:
     """Run a full, certified FDE+DeepSCR engagement on a real project.
 
     With `governed=True` the run is placed under the Frozen Arbiters: a sealed
@@ -230,6 +232,18 @@ def engage(project_path: str, max_iterations: int = 10,
         result["contract_integrity"] = rep.get("integrity")
         result["clause_distribution"] = rep.get("clause_distribution")
         result["rejected_actions"] = len(rep.get("rejected_actions", []))
+    if acceptance_command is not None:
+        if not acceptance_command:
+            raise ValueError("Provide an acceptance command")
+        receipt = {"command": acceptance_command, "exit_code": None, "passed": False}
+        try:
+            run = subprocess.run(acceptance_command, cwd=project_path, timeout=60,
+                                 stdin=subprocess.DEVNULL, stdout=sys.stderr, check=False)
+            receipt.update(exit_code=run.returncode, passed=run.returncode == 0)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            receipt["error"] = str(exc)
+        result["acceptance_check"] = receipt
+        result["delivery_accepted"] = result["certified"] and receipt["passed"]
     return result
 
 
@@ -241,13 +255,19 @@ def main() -> int:
     ap.add_argument("--memory-dir", default="./fde-memory")
     ap.add_argument("--governed", action="store_true",
                     help="Place the run under the Frozen Arbiters (sealed Contract + frozen oracles)")
+    ap.add_argument("--acceptance-command", nargs=argparse.REMAINDER, metavar="ARG",
+                    help="Final option: run a trusted command inside the reviewed project "
+                         "and require exit 0 for delivery acceptance (60 s timeout).")
     args = ap.parse_args()
+    if args.acceptance_command == []:
+        ap.error("--acceptance-command requires an executable")
     result = engage(args.project, max_iterations=args.max_iterations,
-                    memory_dir=args.memory_dir, governed=args.governed)
+                    memory_dir=args.memory_dir, governed=args.governed,
+                    acceptance_command=args.acceptance_command)
     # Keep stdout readable: drop the verbose transcript from the CLI print.
     summary = {k: v for k, v in result.items() if k != "engagement"}
     print(json.dumps(summary, indent=2, default=str))
-    return 0 if result.get("certified") else 2
+    return 0 if result.get("delivery_accepted", result.get("certified")) else 2
 
 
 if __name__ == "__main__":

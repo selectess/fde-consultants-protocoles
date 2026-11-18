@@ -20,6 +20,18 @@ AEO/SEO metadata for AI indexing + search engines
 
 ---
 
+## Replay a delivery review
+
+Two order processors receive the same paid and cancelled orders. Both review dossiers score 100/100. An executable acceptance check accepts the correct revenue of 120 and rejects the regression that reports 200.
+
+```sh
+python3 examples/order-review/replay.py
+```
+
+[Inspect the example and run it on your own project](examples/order-review/README.md) · [Recorded results](portal/landing/order-review.json)
+
+Tried the review? [Share a field case](https://github.com/selectess/fde-consultants-protocoles/issues/new?template=field-case.yml) with the requirement, expected result and observed verdict. If you want to find FDE again, use **Star** at the top of this repository.
+
 ## What is FDE Consultants Protocoles?
 
 **FDE Consultants Protocoles** is an industrial-grade Skill that teaches any AI coding agent
