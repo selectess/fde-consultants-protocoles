@@ -44,3 +44,19 @@ jobs:
             echo "FAIL: a .env file is present"; exit 1
           fi
           echo "OK: no secrets, no .env"
+
+  delivery-example:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Reproduce the published delivery example
+        run: |
+          python examples/order-review/replay.py > order-review.json
+          diff -u portal/landing/order-review.json order-review.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: order-review
+          path: order-review.json
