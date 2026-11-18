@@ -119,3 +119,11 @@ def test_governed_engage_runs_the_measured_baseline_gate(tmp_path):
 
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-v"]))
+
+
+def test_missing_acceptance_executable_blocks_delivery(tmp_path):
+    result = engage(str(REPO_ROOT / "modex"), memory_dir=str(tmp_path),
+                    acceptance_command=[str(tmp_path / "missing-check")])
+    assert result["delivery_accepted"] is False
+    assert result["acceptance_check"]["exit_code"] is None
+    assert result["acceptance_check"]["error"]
