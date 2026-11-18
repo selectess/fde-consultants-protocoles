@@ -212,3 +212,21 @@ a.entity-pill:hover{border-color:var(--clay)}
 .btn.secondary:hover{border-color:var(--clay);transform:translateY(-2px)}
 
 @media(prefers-reduced-motion:reduce){.js [data-reveal]{opacity:1;transform:none}.edge,.node .glow{animation:none!important;stroke-dashoffset:0!important}}
+
+/* Recorded delivery review */
+.receipt{background:var(--night);color:var(--ivory);border-radius:18px;padding:clamp(22px,4vw,44px);box-shadow:0 16px 40px #16273f22}
+.receipt-meta,.receipt strong{font:600 .76rem var(--mono)}
+.receipt-meta{color:#edb99e}
+.receipt h2{font:500 clamp(30px,4vw,48px)/1.08 var(--serif);margin:20px 0 12px;color:inherit}
+.receipt p{color:#e2e4ea}
+.receipt dl{margin:20px 0}
+.receipt dl div{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #ffffff38;padding:12px 0}
+.receipt dd{display:flex;align-items:center;gap:12px;font-family:var(--mono)}
+.accept{color:#a1e8bd}.reject{color:#ffbaaa}
+.receipt a,.replay a{text-decoration:underline;text-underline-offset:4px}
+.receipt a{display:inline-block;margin-top:17px}
+.replay{scroll-margin-top:90px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.replay pre{background:var(--night);color:var(--ivory);padding:16px;white-space:pre-wrap;overflow-wrap:anywhere;border-radius:8px;margin-bottom:12px}
+.role-map{margin:24px 0}.role-map summary{cursor:pointer;font-weight:600}
+.role-map .graphwrap{background:var(--red-deep);max-width:560px;border-radius:14px;margin:12px 0}
+@media(max-width:760px){.replay{grid-template-columns:1fr;gap:16px}.receipt{min-width:0}.receipt dt{font-size:.9rem}}
