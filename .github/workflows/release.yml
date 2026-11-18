@@ -23,13 +23,20 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install pytest pytest-asyncio
+        run: pip install pytest pytest-asyncio mcp cryptography
 
       - name: Run tests
         run: pytest skill/tests/ modex/tests/
 
       - name: Run Certifier
         run: python -m modex.certify_skill --skill-path ./skill --output ./cert.json
+
+      - name: Verify the public demo and package the tagged source
+        run: |
+          python examples/order-review/replay.py > order-review.json
+          diff -u portal/landing/order-review.json order-review.json
+          git archive --format=zip --prefix=fde-modex/ --output=fde-modex.zip HEAD
+          sha256sum fde-modex.zip > ZIP_SHA256.txt
 
       - name: Create git bundle
         run: |
@@ -43,11 +50,11 @@ jobs:
           body: |
             ## What's new in ${{ github.ref_name }}
 
-            See [CHANGELOG](../blob/main/CHANGELOG.md) for details.
+            Download **fde-modex.zip**, extract it and run `python3 examples/order-review/replay.py` from the extracted folder. Compare the output with the attached `order-review.json`.
 
             ## Trust Score
 
-            Re-derived by the independent Certifier. The full score artifact is attached.
+            Recalculated by the certifier included in this release. The full score artifact is attached.
 
             ## Verification
 
@@ -60,6 +67,9 @@ jobs:
           files: |
             fde-consultants-protocoles.bundle
             BUNDLE_SHA256.txt
+            fde-modex.zip
+            ZIP_SHA256.txt
+            order-review.json
             cert.json
           draft: false
           prerelease: false
