@@ -140,7 +140,7 @@ def heuristic_score(deliverable: str, context: str = "") -> dict:
         scores["customer_curiosity"] = 2
 
     # Ownership — look for specific dates, numbers, percentages
-    has_numbers = bool(re.search(r'\d+%|\$\d+|\€\d+|\d+ days|\d+ weeks|\d+ months', deliverable))
+    has_numbers = bool(re.search(r'\d+\s*(?:%|percent\b)|(?:score|ratio)\s*(?:>=|<=|≥|≤)\s*\d+|\$\d+|\€\d+|\d+ days|\d+ weeks|\d+ months', text_lower))
     has_dates = bool(re.search(r'by \d{4}|day \d+|week \d+|q[1-4] \d{4}', text_lower))
     if has_numbers and has_dates:
         scores["ownership"] = 5
